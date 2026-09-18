@@ -1,0 +1,316 @@
+{
+  "project": {
+    "project_id": "PRJ-001",
+    "is_mock": true,
+    "canonical_name": "虚构北岸独立储能示范项目",
+    "aliases": [
+      "北岸储能一期",
+      "澄岳北岸调峰站"
+    ],
+    "owner_organization_id": "ORG-003",
+    "region": "虚构省北岸片区",
+    "project_type": "independent_storage"
+  },
+  "sources": [
+    {
+      "source_id": "SRC-001",
+      "is_mock": true,
+      "source_type": "company_news",
+      "title": "虚构北岸项目动态（演示）",
+      "provider": "澄岳虚构新能源平台",
+      "publish_date": "2025-03-10",
+      "locator": "mock://company/north-001",
+      "availability": "online",
+      "data_origin": "mock"
+    },
+    {
+      "source_id": "SRC-002",
+      "is_mock": true,
+      "source_type": "government_news",
+      "title": "虚构北岸项目备案信息（演示）",
+      "provider": "虚构省能源信息办公室",
+      "publish_date": "2025-03-15",
+      "locator": "mock://government/north-002",
+      "availability": "online",
+      "data_origin": "mock"
+    },
+    {
+      "source_id": "SRC-003",
+      "is_mock": true,
+      "source_type": "research_report",
+      "title": "虚构储能项目跟踪研究（演示）",
+      "provider": "虚构产业研究室",
+      "publish_date": "2025-04-01",
+      "locator": "mock://research/storage-003",
+      "availability": "offline",
+      "data_origin": "mock"
+    },
+    {
+      "source_id": "SRC-005",
+      "is_mock": true,
+      "source_type": "internal_report",
+      "title": "澄岳虚构历史战略研判摘录（演示）",
+      "provider": "澄岳虚构能源集团研究室",
+      "publish_date": "2025-02-01",
+      "locator": "mock://internal/report-005",
+      "availability": "offline",
+      "data_origin": "mock"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "EVD-001",
+      "is_mock": true,
+      "source_id": "SRC-001",
+      "evidence_text": "演示文本：北岸储能一期规划功率为100 MW。",
+      "evidence_grade": "B",
+      "relation": "supports",
+      "target_type": "metric",
+      "target_id": "MET-001",
+      "extraction_status": "extracted",
+      "human_review_status": "confirmed"
+    },
+    {
+      "evidence_id": "EVD-002",
+      "is_mock": true,
+      "source_id": "SRC-002",
+      "evidence_text": "演示文本：虚构北岸项目已完成备案，储能容量为200 MWh。",
+      "evidence_grade": "B",
+      "relation": "supports",
+      "target_type": "project_event",
+      "target_id": "EVT-001",
+      "extraction_status": "extracted",
+      "human_review_status": "confirmed"
+    },
+    {
+      "evidence_id": "EVD-003",
+      "is_mock": true,
+      "source_id": "SRC-002",
+      "evidence_text": "演示文本：虚构北岸项目储能容量为200 MWh。",
+      "evidence_grade": "B",
+      "relation": "supports",
+      "target_type": "metric",
+      "target_id": "MET-002",
+      "extraction_status": "extracted",
+      "human_review_status": "confirmed"
+    },
+    {
+      "evidence_id": "EVD-004",
+      "is_mock": true,
+      "source_id": "SRC-003",
+      "evidence_text": "演示文本：北岸项目计划投资约8亿元，待交叉核对。",
+      "evidence_grade": "C",
+      "relation": "supports",
+      "target_type": "metric",
+      "target_id": "MET-005",
+      "extraction_status": "extracted",
+      "human_review_status": "review_required"
+    },
+    {
+      "evidence_id": "EVD-009",
+      "is_mock": true,
+      "source_id": "SRC-003",
+      "evidence_text": "演示文本：北岸项目已启动建设。",
+      "evidence_grade": "C",
+      "relation": "supports",
+      "target_type": "project_event",
+      "target_id": "EVT-002",
+      "extraction_status": "extracted",
+      "human_review_status": "review_required"
+    }
+  ],
+  "metrics": [
+    {
+      "metric_id": "MET-001",
+      "is_mock": true,
+      "subject_type": "project",
+      "subject_id": "PRJ-001",
+      "metric_name": "power_capacity",
+      "value": 100,
+      "unit": "MW",
+      "period": "2025-03",
+      "scope_definition": "虚构北岸项目规划功率规模",
+      "knowledge_status": "known",
+      "evidence_ids": [
+        "EVD-001"
+      ],
+      "human_review_status": "confirmed",
+      "lifecycle_stage": "planned"
+    },
+    {
+      "metric_id": "MET-002",
+      "is_mock": true,
+      "subject_type": "project",
+      "subject_id": "PRJ-001",
+      "metric_name": "energy_capacity",
+      "value": 200,
+      "unit": "MWh",
+      "period": "2025-03",
+      "scope_definition": "虚构北岸项目规划储能容量",
+      "knowledge_status": "known",
+      "evidence_ids": [
+        "EVD-003"
+      ],
+      "human_review_status": "confirmed",
+      "lifecycle_stage": "approved_or_filed"
+    },
+    {
+      "metric_id": "MET-005",
+      "is_mock": true,
+      "subject_type": "project",
+      "subject_id": "PRJ-001",
+      "metric_name": "planned_investment",
+      "unit": "亿元",
+      "period": "2025-04",
+      "scope_definition": "北岸项目一期计划投资总额（同口径已由研究员预核对）",
+      "knowledge_status": "pending_confirmation",
+      "evidence_ids": [
+        "EVD-004"
+      ],
+      "human_review_status": "review_required",
+      "value": 8
+    }
+  ],
+  "events": [
+    {
+      "event_id": "EVT-001",
+      "is_mock": true,
+      "project_id": "PRJ-001",
+      "event_type": "approved_or_filed",
+      "event_date": "2025-03-15",
+      "knowledge_status": "known",
+      "evidence_ids": [
+        "EVD-002"
+      ],
+      "human_review_status": "confirmed"
+    },
+    {
+      "event_id": "EVT-002",
+      "is_mock": true,
+      "project_id": "PRJ-001",
+      "event_type": "construction_started",
+      "event_date": "2025-04-01",
+      "knowledge_status": "pending_confirmation",
+      "evidence_ids": [
+        "EVD-009"
+      ],
+      "human_review_status": "review_required"
+    }
+  ],
+  "judgments": [
+    {
+      "judgment_id": "JDG-001",
+      "is_mock": true,
+      "judgment_text": "北岸项目已完成备案，规划规模为 100 MW / 200 MWh；当前仅见研究报告提出约 8 亿元计划投资，仍需核对。",
+      "version": 1,
+      "judgment_status": "active",
+      "dependency_refs": [
+        {
+          "target_type": "metric",
+          "target_id": "MET-005"
+        },
+        {
+          "target_type": "project_event",
+          "target_id": "EVT-001"
+        }
+      ],
+      "human_review_status": "confirmed",
+      "last_reviewed_at": "2025-04-05",
+      "report_source_id": "SRC-005",
+      "premises": [
+        "仅在本资料包所列演示来源范围内成立"
+      ],
+      "evidence_version": "mock-pack-v1"
+    }
+  ],
+  "inbox": {
+    "source": {
+      "source_id": "SRC-004",
+      "is_mock": true,
+      "source_type": "internal_ledger",
+      "title": "澄岳虚构项目内部台账（演示）",
+      "provider": "澄岳虚构新能源平台",
+      "publish_date": "2025-04-05",
+      "locator": "mock://internal/ledger-004",
+      "availability": "offline",
+      "data_origin": "mock"
+    },
+    "evidence": {
+      "evidence_id": "EVD-005",
+      "is_mock": true,
+      "source_id": "SRC-004",
+      "evidence_text": "演示文本：北岸项目计划投资为9亿元。",
+      "evidence_grade": "A",
+      "relation": "supports",
+      "target_type": "metric",
+      "target_id": "MET-006",
+      "extraction_status": "extracted",
+      "human_review_status": "confirmed"
+    },
+    "metric": {
+      "metric_id": "MET-006",
+      "is_mock": true,
+      "subject_type": "project",
+      "subject_id": "PRJ-001",
+      "metric_name": "planned_investment",
+      "value": 9,
+      "unit": "亿元",
+      "period": "2025-04",
+      "scope_definition": "北岸项目一期计划投资总额（同口径已由研究员预核对）",
+      "knowledge_status": "pending_confirmation",
+      "evidence_ids": [
+        "EVD-005"
+      ],
+      "human_review_status": "unreviewed"
+    },
+    "scope_equivalence_confirmed": true,
+    "scope_review_note": "研究员已预核对：同为北岸项目一期、2025-04、计划投资总额、亿元。"
+  },
+  "draft_template": {
+    "judgment_id": "JDG-006",
+    "is_mock": true,
+    "judgment_text": "北岸项目已完成备案，规划规模为 100 MW / 200 MWh。计划投资出现 8 亿元与 9 亿元两种声称口径，需核对统计范围及版本后再形成确定结论。",
+    "version": 2,
+    "judgment_status": "draft",
+    "dependency_refs": [
+      {
+        "target_type": "metric",
+        "target_id": "MET-005"
+      },
+      {
+        "target_type": "project_event",
+        "target_id": "EVT-001"
+      }
+    ],
+    "human_review_status": "unreviewed",
+    "last_reviewed_at": null,
+    "report_source_id": "SRC-005",
+    "premises": [
+      "仅在本资料包所列演示来源范围内成立"
+    ],
+    "evidence_version": "mock-pack-v1"
+  },
+  "premises": [
+    {
+      "text": "具备项目备案与规划规模证据",
+      "status": "满足",
+      "evidence_ids": [
+        "EVD-002",
+        "EVD-003"
+      ]
+    },
+    {
+      "text": "具备可核对的统一投资口径",
+      "status": "不满足",
+      "evidence_ids": [
+        "EVD-004",
+        "EVD-005"
+      ]
+    },
+    {
+      "text": "当地调峰收益可覆盖项目成本",
+      "status": "未知 / 需补情报",
+      "researcher_hypothesis": true
+    }
+  ]
+}

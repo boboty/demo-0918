@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>衡策 · 课堂演示</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="brand"><span class="brand-mark">衡</span><div><strong>衡策</strong><small>新能源战略研究台</small></div></div>
+      <div class="side-label">课堂 DEMO</div>
+      <nav aria-label="页面区域">
+        <a href="#inbox"><span>01</span>情报收件箱</a>
+        <a href="#ledger"><span>02</span>项目事实台账</a>
+        <a href="#review"><span>03</span>研判复核</a>
+        <a href="#decision"><span>04</span>人工确认</a>
+      </nav>
+      <div class="side-bottom"><span class="mock-dot"></span> 固定 Mock 数据<br><small>本地交互 · 无外部接口</small></div>
+    </aside>
+    <main class="content">
+      <header class="topbar"><div><div class="eyebrow">战略研究 / 项目追踪</div><h1>新情报驱动的研判复核</h1><p>从一条情报，追踪项目事实、历史判断与人工决策的完整变化。</p></div><button id="reset" class="text-button" type="button">重置演示</button></header>
+      <div class="demo-banner"><strong>演示数据</strong><span>项目、机构、来源与金额均为虚构示例；以下状态仅用于课堂交互演示。</span></div>
+      <div class="progress" aria-label="演示进度"><span id="step-1" class="current">1 · 待处理</span><i></i><span id="step-2">2 · 待复核</span><i></i><span id="step-3">3 · 已决策</span></div>
+      <div class="main-grid">
+        <section id="inbox" class="card inbox-card"><div class="section-head"><div><div class="kicker">01 / INTELLIGENCE</div><h2>情报收件箱</h2></div><span id="inbox-status" class="pill blue">1 条新情报</span></div><div id="inbox-body"></div></section>
+        <section id="ledger" class="card ledger-card"><div class="section-head"><div><div class="kicker">02 / PROJECT LEDGER</div><h2>项目事实台账</h2></div><span class="pill neutral">PRJ-001</span></div><div id="ledger-body"></div></section>
+        <section id="review" class="card review-card"><div class="section-head"><div><div class="kicker">03 / JUDGMENT REVIEW</div><h2>研判复核</h2></div><span id="judgment-status" class="pill green">有效判断</span></div><div id="review-body"></div></section>
+        <section id="decision" class="card decision-card"><div class="section-head"><div><div class="kicker">04 / HUMAN DECISION</div><h2>人工确认</h2></div><span class="human-tag">研究员操作</span></div><div id="decision-body"></div></section>
+      </div>
+      <section class="card premises-card"><div class="section-head"><div><div class="kicker">PATH PREMISES</div><h2>路径前提</h2></div><span class="subtle">仅展示当前判断，不自动计算</span></div><div id="premises-body"></div></section>
+      <footer>衡策 · 课堂演示版 <span>单项目 · 固定 JSON · 本地状态</span></footer>
+    </main>
+  </div>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
