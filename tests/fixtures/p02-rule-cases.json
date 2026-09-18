@@ -640,20 +640,53 @@
       "PS-008"
     ],
     "category": "project_status",
-    "description": "更高阶段冲突未决时回退到此前最高无争议确认阶段",
+    "description": "已确认 full_operation 后出现反驳证据，正式展示回退",
     "input": {
       "project_id": "PRJ-001",
-      "events": [
+      "before_events": [
         {
+          "event_id": "EVT-100",
+          "project_id": "PRJ-001",
           "event_type": "construction_started",
           "human_review_status": "confirmed",
-          "knowledge_status": "known"
+          "knowledge_status": "known",
+          "evidence_ids": []
         },
         {
+          "event_id": "EVT-101",
+          "project_id": "PRJ-001",
           "event_type": "full_operation",
           "human_review_status": "confirmed",
           "knowledge_status": "known",
-          "unresolved_conflict": true
+          "evidence_ids": []
+        }
+      ],
+      "after_events": [
+        {
+          "event_id": "EVT-100",
+          "project_id": "PRJ-001",
+          "event_type": "construction_started",
+          "human_review_status": "confirmed",
+          "knowledge_status": "known",
+          "evidence_ids": []
+        },
+        {
+          "event_id": "EVT-101",
+          "project_id": "PRJ-001",
+          "event_type": "full_operation",
+          "human_review_status": "review_required",
+          "knowledge_status": "conflicting",
+          "evidence_ids": [
+            "EVD-101"
+          ]
+        }
+      ],
+      "new_evidence": [
+        {
+          "evidence_id": "EVD-101",
+          "target_type": "project_event",
+          "target_id": "EVT-101",
+          "relation": "contradicts"
         }
       ]
     },
@@ -695,5 +728,59 @@
       "reasonable_matches_remaining": []
     },
     "expected_output": "candidate_new_project; no formal Project before human confirmation"
+  },
+  {
+    "case_id": "P02-040",
+    "rule_ids": [
+      "SC-004"
+    ],
+    "category": "source_conflict",
+    "description": "自由文本范围相近但未确认等价，不自动判值冲突",
+    "input": {
+      "left": {
+        "subject_id": "PRJ-001",
+        "metric_name": "planned_investment",
+        "period": "2025-04",
+        "scope_definition": "虚构北岸项目一期计划投资",
+        "unit": "亿元",
+        "value": 8
+      },
+      "right": {
+        "subject_id": "PRJ-001",
+        "metric_name": "planned_investment",
+        "period": "2025-04",
+        "scope_definition": "虚构北岸一期工程投资计划",
+        "unit": "亿元",
+        "value": 9
+      }
+    },
+    "expected_output": "comparison_blocked / review_required; no automatic conflicting classification until scope equivalence confirmed"
+  },
+  {
+    "case_id": "P02-041",
+    "rule_ids": [
+      "MN-004"
+    ],
+    "category": "metric_normalization",
+    "description": "自由文本统计范围相近但未确认等价，不自动同口径比较",
+    "input": {
+      "left": {
+        "subject_id": "PRJ-001",
+        "metric_name": "power_capacity",
+        "lifecycle_stage": "planned",
+        "scope_definition": "虚构北岸项目一期规划功率",
+        "unit": "MW",
+        "value": 100
+      },
+      "right": {
+        "subject_id": "PRJ-001",
+        "metric_name": "power_capacity",
+        "lifecycle_stage": "planned",
+        "scope_definition": "虚构北岸一期工程规划规模",
+        "unit": "MW",
+        "value": 90
+      }
+    },
+    "expected_output": "comparison_blocked / review_required; no automatic comparable_by_scope until scope equivalence confirmed"
   }
 ]

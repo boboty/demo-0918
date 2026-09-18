@@ -2,7 +2,7 @@
 
 本文件只定义 P02 的业务判断边界；输入不足时按对应规则阻断确认。
 
-值冲突比较先核对六个维度：subject、metric_name/fact_type、period/effective_period、lifecycle_stage、scope_definition 所表达的统计范围、unit。`scope_definition` 的来源措辞可以不同；要比较其所指统计范围，不按整段字符串是否相等判定。任一维度缺失且无法从原始证据核对时，输出 `comparison_blocked` 并补充口径，不直接判定冲突。
+值冲突比较先核对六个维度：subject、metric_name/fact_type、period/effective_period、lifecycle_stage、统计范围、unit。`scope_definition` 是自由文本，字面相似不能证明统计范围一致。只有统计范围已明确一致，或研究员已确认两种表述等价，才继续自动执行值冲突判断；需要语义解释、存在歧义或无法确认时输出 `comparison_blocked` / `review_required`，不自动判同口径。
 
 ## SC-001 不同阶段不构成值冲突
 
@@ -36,13 +36,13 @@
 
 ## SC-004 同口径不同值
 
-- 输入条件：subject、指标/事实类型、期间、阶段、scope_definition 所指统计范围和单位均一致，数值不同
-- 判断逻辑：保留每条原始记录及 Evidence，各自标记 conflicting，不生成无值汇总记录
-- 输出结果：`conflicting`
+- 输入条件：subject、指标/事实类型、期间、阶段、单位均一致，且统计范围已明确一致或经人工确认等价，数值不同
+- 判断逻辑：仅在统计范围一致性已有明确依据时自动比较值；不同值保留每条原始记录及 Evidence，各自标记 conflicting，不生成无值汇总记录。若仅凭 `scope_definition` 自由文本需要解释范围，先停止值冲突判断
+- 输出结果：`conflicting`；范围未确认时为 `comparison_blocked` / `review_required`
 - 是否允许 AI 自动执行：是，仅按规则输出或执行允许的状态变化
 - 是否要求人工确认：是；采用何值须人工确认
 - 示例：虚构北岸同期间同口径计划投资 8/9 亿元 → 两条 conflicting Metric
-- 例外或边界：先做确定性单位换算；不同投资口径走 SC-002
+- 例外或边界：先做确定性单位换算；不同投资口径走 SC-002。AI 不得自行宣布两个相似的 `scope_definition` 等价
 
 ## SC-005 高等级不抹除低等级
 
