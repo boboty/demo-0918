@@ -1,0 +1,451 @@
+{
+  "pack_id": "hengce-b1-candidate-projects-v1",
+  "title": "真实新型储能资料池 — 候选项目清单",
+  "generated_for": "衡策·新能源战略研究台 B线（研究与独立验收）",
+  "as_of": "2026-09-18",
+  "adjudication_policy": "只做资料采集，不做最终裁决。不判定项目最终当前状态、不判定数字真伪、不判定两名称是否同一项目、不判定哪条来源应覆盖另一条。",
+  "recording_rules": [
+    "MW 与 MWh 分列，不得合并为「项目规模」；不得相除得出储能时长当作披露事实。",
+    "投资金额必须保留原始口径表述。EPC 中标价、股权收购对价、框架采购额均不是项目投资额。",
+    "不推测、不补全、不倒推；不把「拟/计划/预计」写成已发生。"
+  ],
+  "unknown_marker": "暂无公开可确认证据",
+  "field_notes": {
+    "mw_by_source": "逐来源列出，保留原文单位（含 0.1GW 与 100MW 等不同写法）",
+    "investment_by_source": "保留原文措辞，不换算、不推导",
+    "storage_type": "按原文表述记录；原文未写「独立储能」也未写「配建」时记为待核实，不推测归并",
+    "stage_by_source": "原文措辞，不做同义归并"
+  },
+  "core_pool_ids": ["PRJ-C01", "PRJ-C03", "PRJ-C05", "PRJ-C06", "PRJ-C07", "PRJ-C12", "PRJ-C13", "PRJ-C15", "PRJ-C18", "PRJ-C19"],
+  "core_pool_count": 10,
+  "extended_pool_count": 16,
+  "projects": [
+    {
+      "candidate_project_id": "PRJ-C01",
+      "tier": "core",
+      "canonical_name_in_source": "龙源江苏射阳200MW/400MWh独立共享储能电站",
+      "names_in_other_sources": [
+        "龙源江苏射阳200MW400MWh共享储能电站（射阳县自然资源和规划局批后公告，数字间无斜杠）",
+        "江苏射阳200MW/400MWh储能电站（招标公告）",
+        "龙源江苏射阳200兆瓦/400兆瓦时独立共享储能电站（国家能源集团报）"
+      ],
+      "company_platform": "龙源电力集团；专业化平台「龙源电力集团共享储能技术（北京）有限公司」",
+      "project_entity_spv": "三处不一致，未判定：EPC招标人=共享储能技术（北京）公司；送出线路核准项目法人=江苏射阳新能源公司（仅摘要）；集团报称共享储能技术公司「投资建设」",
+      "region": "江苏省盐城市射阳县",
+      "storage_type": "独立共享储能",
+      "mw_by_source": ["200MW（官网项目页）", "200兆瓦（国家能源集团报）"],
+      "mwh_by_source": ["400MWh（官网项目页）", "400兆瓦时（国家能源集团报）"],
+      "investment_by_source": ["所有已打开来源均未披露全项目投资额", "送出线路工程静态总投资2870万元（仅摘要，未打开原文；属送出线路工程口径，非项目总投资）"],
+      "stage_by_source": ["官网（2026-04-29）：「项目按期并网并通过调峰认定」", "集团报（2025-08-27）：「于去年7月15日前已按期并网」", "第三方：2024年7月并网"],
+      "source_ids": ["SRC-C01", "SRC-C02", "SRC-C03", "SRC-C04", "SRC-C05", "SRC-C06"],
+      "open_questions": [
+        "项目主体三说不一，未判定",
+        "并网日期三种表述",
+        "官网页面体裁未标注（新闻/项目简介）",
+        "EPC 中标公告未披露中标金额",
+        "是否计入官网「电网侧独立储能电站8座」口径未确认"
+      ],
+      "complexity_tags": ["entity_alignment", "multiple_sources", "name_variants", "spv_conflict"]
+    },
+    {
+      "candidate_project_id": "PRJ-C03",
+      "tier": "core",
+      "canonical_name_in_source": "龙源电力舟山定海工业园区100MW/200MWh共享储能电站（一期50MW/100MWh工程）",
+      "names_in_other_sources": ["舟山定海共享储能电站一期项目（舟山市政府网）", "浙江舟山首个电网侧储能电站（中国储能网标题）"],
+      "company_platform": "龙源电力",
+      "project_entity_spv": "舟山龙源新能源有限公司（安评公示载：2021-09-03成立，统一社会信用代码 91330902MA2DNDMJ9E）",
+      "region": "浙江省舟山市定海区定海工业园区（安评载地块 DH-03-05-24）",
+      "storage_type": "共享储能；政府口径「电网侧储能电站」",
+      "mw_by_source": ["100MW（总，安评标题）", "一期50MW（政府网）", "二期50MW（安评）"],
+      "mwh_by_source": ["200MWh（总）", "一期100MWh", "二期100MWh"],
+      "investment_by_source": ["项目总投资6143.0100万美元（安评公示原文，本线复核）", "总投资3.2亿元（舟山市政府网原文，本线复核）"],
+      "investment_conflict_flag": "币种与口径均冲突；两者覆盖范围（一期 vs 全项目）原文均未说明。本线不判定何者正确。",
+      "stage_by_source": ["政府网：「10月15日…顺利并网」（2024-10-15，标题称「正式投运」）", "安评：属安全验收评价阶段；备案时间「2022年03月24日在定海区发展和改革局备案」"],
+      "source_ids": ["SRC-C09", "SRC-C10", "SRC-C11"],
+      "open_questions": [
+        "投资额币种与口径根本冲突，未判定",
+        "安评原文另有「100kW/200kh」，与全文 100MW/200MWh 明显不符（仅记录，不判定为笔误）",
+        "用地 26亩 vs 政府/媒体约1.7万平方米",
+        "安评发布于 2026-01-23，晚于 2024-10 并网，二者阶段关系未说明",
+        "标题「投运」与正文「并网」是否同义未说明"
+      ],
+      "complexity_tags": ["metric_normalization", "investment_scope_conflict", "multi_phase", "unit_anomaly"]
+    },
+    {
+      "candidate_project_id": "PRJ-C05",
+      "tier": "core",
+      "canonical_name_in_source": "龙源电力山东公司320MW/640MWh禄山储能电站",
+      "names_in_other_sources": ["山东龙源招远322MW储能项目（同一官网页面正文）", "招远储能项目二期", "龙源电力山东招远储能二期项目"],
+      "company_platform": "龙源电力山东公司",
+      "project_entity_spv": "未披露",
+      "region": "山东招远市阜山镇 / 山东省烟台市招远市阜山镇",
+      "storage_type": "「超级电容储能与锂离子电化学储能协同的混合储能系统」（官网原文）",
+      "mw_by_source": ["320MW（官网标题）", "322MW（官网正文）", "120兆瓦（2024备案稿，二期）", "1000兆瓦（2024备案稿，规划总容量）"],
+      "mwh_by_source": ["640MWh（官网标题）", "640.2MWh（官网正文）", "240兆瓦时（二期）", "2000兆瓦时（规划总容量）"],
+      "investment_by_source": ["三处来源均未披露投资额 → 暂无公开可确认证据"],
+      "stage_by_source": [
+        "官网：「成功入选2023年山东省重大项目及储能示范项目」",
+        "官网：「2025年9月，项目顺利完成国内首次220kV电压等级「储光火」黑启动试验」",
+        "2024备案稿：「成功取得招远市行政审批服务局备案」（2024-05-20）"
+      ],
+      "source_ids": ["SRC-C03", "SRC-C15", "SRC-C16"],
+      "open_questions": [
+        "同一官网页面内标题与正文容量自相矛盾",
+        "「禄山」「招远」「招远二期」名称关系未判定",
+        "「规划总容量1000兆瓦/2000兆瓦时」与 322/640.2 的关系（是否分期、是否含一期）来源未说明",
+        "ceic.com 域名隶属关系未独立核实"
+      ],
+      "complexity_tags": ["internal_contradiction", "name_variants", "aggregate_vs_phase_scope"]
+    },
+    {
+      "candidate_project_id": "PRJ-C06",
+      "tier": "core",
+      "canonical_name_in_source": "海南东方 CZ8 场址 50 万千瓦海上风电项目（储能为其投资构成科目「储能工程」）",
+      "names_in_other_sources": [],
+      "company_platform": "龙源电力集团股份有限公司",
+      "project_entity_spv": "海南国能龙源新能源有限公司（募集说明书原文：公司全资子公司）",
+      "region": "海南省东方市西部海域",
+      "storage_type": "新能源配建储能（原文以「储能工程」列为风电项目投资构成科目，未使用「独立储能」表述）",
+      "mw_by_source": ["未披露 MW"],
+      "mwh_by_source": ["储能工程（200MWh）"],
+      "investment_by_source": [
+        "储能工程投资按 12,000.00 万元（静态）估列（考虑建设期利息后，动态投资金额为 12,136.41 万元）",
+        "投资构成表中列示为「九 储能工程（200MWh） 12,136.41 2.35%」；项目总投资 516,665.19 万元"
+      ],
+      "stage_by_source": ["文件性质为发行申报稿，非投运状态"],
+      "source_ids": ["SRC-C17"],
+      "open_questions": [
+        "储能科目只有 MWh，无 MW —— 不得用 MWh 反推 MW，不得用金额反推规模",
+        "静态/动态两种口径并存，原文明确区分，勿混用",
+        "同表另有「调相机 17,000.00 3.98%」独立科目，调相机不是储能",
+        "第三方报道称「约1.21亿元」，原文实为 12,136.41 万元，注意「约」字引入的措辞变化"
+      ],
+      "complexity_tags": ["mwh_without_mw", "investment_scope_conflict", "static_vs_dynamic", "exchange_filing"]
+    },
+    {
+      "candidate_project_id": "PRJ-C07",
+      "tier": "core",
+      "canonical_name_in_source": "「宁湘直流」配套新能源基地沙坡头 100 万千瓦风电项目（储能为其投资构成科目「储能工程」）",
+      "names_in_other_sources": [],
+      "company_platform": "龙源电力集团股份有限公司",
+      "project_entity_spv": "中卫龙源新能源有限公司（募集说明书原文：公司全资子公司）",
+      "region": "宁夏回族自治区中卫市沙坡头区",
+      "storage_type": "新能源配建储能（原文列为「储能工程」科目）",
+      "mw_by_source": ["未披露 MW"],
+      "mwh_by_source": ["未披露 MWh"],
+      "investment_by_source": ["储能工程投资按 12,800.00 万元估列", "投资构成表中列示为「八 储能工程 12,800.00 3.00%」；项目总投资 427,200.11 万元"],
+      "stage_by_source": ["发行申报稿，非投运状态", "「截至…2025年10月29日，本次募投项目已投资金额为179,188.52万元」（未按项目拆分，两项目合计口径）"],
+      "source_ids": ["SRC-C17"],
+      "open_questions": [
+        "只有金额，MW 与 MWh 均无 —— 绝不可用金额反推规模",
+        "同表另有「调相机 17,000.00 3.98%」「升压站及外送线路工程 28,753.41 6.73%」等科目，与储能工程分列",
+        "「已投资金额」是两项目合计口径，不能拆到单个项目"
+      ],
+      "complexity_tags": ["amount_without_scale", "investment_scope_conflict", "exchange_filing", "aggregate_scope"]
+    },
+    {
+      "candidate_project_id": "PRJ-C12",
+      "tier": "core",
+      "canonical_name_in_source": "三峡能源昔阳县110MW/110MWh独立储能电站项目",
+      "names_in_other_sources": ["三峡能源山西昔阳县110MW/110MWh独立储能电站项目(第一批65MW/65MWh)（招标公告）", "环评资料中曾出现「110MW/110MW」写法（疑似笔误，未改动原文）"],
+      "company_platform": "中国三峡新能源（集团）股份有限公司（山西分公司口径）",
+      "project_entity_spv": "昔阳县斯能光伏发电有限公司（统一社会信用代码 911407243469499859）",
+      "region": "山西省晋中市昔阳县赵壁乡凤居村东北1.3km处",
+      "storage_type": "独立储能（来源明确写「独立储能电站」）",
+      "mw_by_source": ["110MW（备案/环评）", "65MW（EPC第一批）", "30MW（山西分公司容量租赁口径）"],
+      "mwh_by_source": ["110MWh（备案/环评）", "65MWh（EPC第一批）", "30MWh（容量租赁口径）"],
+      "investment_by_source": ["环评公示原文：项目总投资20000万元，其中环保投资56.5万元", "搜索摘要另称备案总投资20000.0万元=自有资金5000万元+银行贷款15000万元（未打开原文）"],
+      "stage_by_source": ["环评受理公示 2024-04-19", "环评拟审批公示 2024-06-18", "EPC总承包招标 2024-05-16（「已获批准建设」）", "娘子关泉域水资源影响评价准予许可 2025-08-29"],
+      "source_ids": ["SRC-C30", "SRC-C31", "SRC-C32", "SRC-C33", "SRC-C34"],
+      "open_questions": [
+        "三个容量口径并存（110/65/30），项目是否已建成、建成多少，公开来源未给出一致说明",
+        "环评原文「一期55+二期45+三期10」与「第一批65MW/65MWh」的对应关系未说明",
+        "EPC 招标公告发布日 2024-05-16，工期却称「2023年12月31日前具备全容量并网条件」，年份矛盾（疑为原文笔误）"
+      ],
+      "complexity_tags": ["phase_vs_total_scope", "metric_normalization", "construction_vs_plan"]
+    },
+    {
+      "candidate_project_id": "PRJ-C13",
+      "tier": "core",
+      "canonical_name_in_source": "三峡能源青海格尔木100MW/200MWh储能电站",
+      "names_in_other_sources": ["格尔木市100MW/200MWh电网侧电化学储能项目（土地供应公示）"],
+      "company_platform": "中国三峡新能源（集团）股份有限公司",
+      "project_entity_spv": "三峡新能源格尔木发电有限公司",
+      "region": "青海省海西州格尔木市乌图美仁乡（平均海拔3000米）",
+      "storage_type": "来源写「电网侧电化学储能项目」；未见「独立储能」字样，亦未见「配建」字样",
+      "mw_by_source": ["100MW（EPC公告）", "原文另有「每小时可以稳定放电10万千瓦时」"],
+      "mwh_by_source": ["200MWh"],
+      "investment_by_source": ["已打开的一手来源中暂无公开可确认证据", "EPC中标价165,014,723.33元是承包合同价，不是项目投资额"],
+      "stage_by_source": ["全容量并网投运（SRC-C36，EPC承包方官网）", "国家能源局西北监管局转载页（SRC-C37）已404"],
+      "source_ids": ["SRC-C35", "SRC-C36", "SRC-C37", "SRC-C38"],
+      "open_questions": [
+        "土地公示「约定开工2027-03-20、约定竣工2030-03-20」与已全容量并网存在明显时间矛盾，原文未说明该地块是否为同一电站用地或后续扩建用地",
+        "并网证据来自EPC承包方官网（企业官网），非政府或交易所来源",
+        "成交价格0元、供地方式划拨"
+      ],
+      "complexity_tags": ["status_vs_evidence", "source_degradation", "stage_conflict"]
+    },
+    {
+      "candidate_project_id": "PRJ-C15",
+      "tier": "core",
+      "canonical_name_in_source": "三峡能源云南弥勒100MW/200MWh电化学共享储能电站EPC总承包项目",
+      "names_in_other_sources": ["中标结果公示标题写作「三峡能源云南弥勒100MW200MWh电化学共享储能电站…」（缺斜杠）"],
+      "company_platform": "中国三峡新能源（集团）股份有限公司",
+      "project_entity_spv": "三峡新能源发电（弥勒）有限责任公司",
+      "region": "云南省红河州弥勒市新哨镇北部",
+      "storage_type": "共享储能（电化学）",
+      "mw_by_source": ["100MW（标题）", "110MW（正文「本期建设可以容纳110MW/220MWh」）", "45MW（35kV侧「本期按照45MW/90MWh建设安装」）"],
+      "mwh_by_source": ["200MWh（标题）", "220MWh（正文）", "90MWh（35kV侧）", "130MWh（设计规划预留）"],
+      "investment_by_source": ["暂无公开可确认证据（招标公告仅写自有资金及自筹资金）", "EPC中标价81,296,845.71元是承包合同价，不是项目投资额"],
+      "stage_by_source": ["EPC招标 2025-08-25", "中标候选人公示 2025-10-17", "中标结果公示 2025-10-21", "未发现备案、开工、并网来源"],
+      "source_ids": ["SRC-C43", "SRC-C44", "SRC-C45"],
+      "open_questions": [
+        "四个容量口径并存，哪一个代表本期实际建设规模，招标公告未明确",
+        "未发现备案信息",
+        "中标候选人公示原文自身矛盾：第2名报价低于第1名却排名在后"
+      ],
+      "complexity_tags": ["four_capacity_scopes", "metric_normalization", "internal_contradiction"]
+    },
+    {
+      "candidate_project_id": "PRJ-C18",
+      "tier": "core",
+      "canonical_name_in_source": "中电灌西盐场 30MW/60MWh 储能调峰项目（220kV 输变电工程）",
+      "names_in_other_sources": ["环评文件名写作「中电灌西盐场30MW60MWh储能调峰项目」（无斜杠）"],
+      "company_platform": "建设单位：中电（连云港）新能源科技有限公司（股权60%/30%/10%仅见二手来源，未打开原文）",
+      "project_entity_spv": "中电（连云港）新能源科技有限公司",
+      "region": "江苏省连云港市灌云县灌西盐场燕徐线与柴东线交界处",
+      "storage_type": "原文表述为「为…300MW渔光互补发电项目进行配套调峰」；未使用「独立储能」字样 → 类型按原文记录为待核实",
+      "mw_by_source": ["30MW", "由6套5MW/10MWh储能单元组成"],
+      "mwh_by_source": ["60MWh"],
+      "investment_by_source": ["环评报告表原文：总投资（万元）8000万元", "环保投资（万元）120万元；环保投资占比（%）1.5%"],
+      "stage_by_source": [
+        "「该项目已取得灌云县数据局备案（灌数据投资备〔2024〕101号）」",
+        "项目代码 2403-320723-89-01-325479",
+        "「是否开工建设 ☑否」",
+        "「施工工期 12 个月」",
+        "环评处于「拟作出审批意见」公示阶段"
+      ],
+      "source_ids": ["SRC-C55", "SRC-C56", "SRC-C57"],
+      "open_questions": [
+        "该环评只覆盖220kV输变电工程：报告表「行业类别」栏填「五十五、核与辐射 161 输变电工程」，原文明确「储能项目不在名录范围内」——因此「总投资8000万元」是储能本体口径还是输变电工程口径，原文未明确",
+        "表格标题把「储能调峰项目」与「（220kV输变电工程）」写在一起，两个口径耦合在一个标题里",
+        "建设单位股权结构为二手信息，需以工商登记或年报附属公司清单核验"
+      ],
+      "complexity_tags": ["investment_scope_conflict", "not_started_explicit", "type_unstated", "eia_scope_trap"]
+    },
+    {
+      "candidate_project_id": "PRJ-C19",
+      "tier": "core",
+      "canonical_name_in_source": "祁东县白地市储能项目（环评公示）/ 祁东县白地市储能电站项目（承建方新闻）",
+      "names_in_other_sources": [
+        "祁东储能项目", "祁东白地市储能项目", "五凌彭家湾100MW/200MWh储能项目", "祁东彭家湾储能电站", "彭家湾蓄能电站", "祁东县白地市100MW／200MWh储能电站项目"
+      ],
+      "company_platform": "环评载建设单位「五凌电力有限公司新能源分公司」；投建方表述「国家电投五凌电力有限公司」",
+      "project_entity_spv": "五凌电力有限公司新能源分公司（归属链条见 open_questions）",
+      "region": "湖南省衡阳市祁东县白地市镇白地市村",
+      "storage_type": "集团官网原文：「湖南省第二批储能试点项目」；某招标公告称「电网侧独立储能电站」（二手，未打开原文）",
+      "mw_by_source": ["100MW", "储能电站设计总规模 100MW/200MWh", "交流侧容量为100MW/200MWh"],
+      "mwh_by_source": ["200MWh"],
+      "investment_by_source": [
+        "拟投资42780万元（环评拟审批公示，仅摘要，未打开原文）",
+        "总投资4.3亿元（海得官网，已打开原文）",
+        "该项目总投资2.5亿元（中国网，已打开原文）",
+        "总投资4.1亿元（政协视察报道，仅摘要，未打开原文）"
+      ],
+      "investment_conflict_flag": "四说并存。措辞不同：环评用「拟投资」，海得用「总投资」并重复两次，中国网用「该项目总投资」——口径可能不同但来源未说明。本线不判定何者正确。",
+      "stage_by_source": [
+        "环评：2022-11-25 受理公示、2022-12-08 拟审批公示",
+        "海得：「于今年3月8日开工，6月28日全容量并网」",
+        "中能建湖南院：「仅用时108天…最终于6月28日…实现全容量并网」",
+        "中国网：「项目于2023年6月30日竣工」"
+      ],
+      "source_ids": ["SRC-C58", "SRC-C59", "SRC-C60", "SRC-C61", "SRC-C62", "SRC-C63"],
+      "open_questions": [
+        "「彭家湾」实为接入的220kV变电站名（环评原文：「储能电力升压后接入220kV彭家湾变110kV母线」），不是项目名",
+        "投资额四说，措辞不同，口径可能不同但来源均未说明",
+        "并网日期6月28日（三源一致）vs 竣工日期6月30日（中国网），「并网」与「竣工」是否同一节点未说明",
+        "五凌电力 2025-12 资产重组后归属链条已变化（仅摘要），现行报表归属需重新核实"
+      ],
+      "complexity_tags": ["substation_name_as_project_name", "seven_name_variants", "investment_scope_conflict", "grid_vs_completion"]
+    },
+
+    {
+      "candidate_project_id": "PRJ-C02", "tier": "extended", "canonical_name_in_source": "龙源电力广西公司北流500兆瓦/1000兆瓦时共享储能电站",
+      "company_platform": "国家能源集团 / 龙源电力广西公司", "project_entity_spv": "未披露", "region": "广西玉林北流市",
+      "storage_type": "共享储能（集团口径称「电化学储能电站」）",
+      "mw_by_source": ["500兆瓦（规划装机容量）"], "mwh_by_source": ["1000兆瓦时"],
+      "investment_by_source": ["全文未披露任何投资额或资金来源表述 → 暂无公开可确认证据"],
+      "stage_by_source": ["取得北流市发展和改革局备案批复（2025年7月消息）"],
+      "source_ids": ["SRC-C07", "SRC-C08"],
+      "open_questions": ["两来源备案机关表述为「北流市发展和改革局」vs「北流市发改委」，未判定", "无投资额、无开工/投运信息"],
+      "complexity_tags": ["no_investment_disclosure", "no_spv"]
+    },
+    {
+      "candidate_project_id": "PRJ-C04", "tier": "extended", "canonical_name_in_source": "洛阳200兆瓦/400兆瓦时共享储能电站",
+      "names_in_other_sources": ["河南龙源洛阳经开区独立储能项目（仅摘要，未打开原文）"],
+      "company_platform": "龙源电力河南公司", "project_entity_spv": "未披露；摘要称业主为「河南龙源新能源发展有限公司」（未打开原文）",
+      "region": "已打开来源：「位于河南洛阳市偃师区」；摘要另称「洛阳市经济技术开发区」",
+      "storage_type": "共享储能（已打开来源）；摘要称「电化学独立共享储能电站」",
+      "mw_by_source": ["200兆瓦（规划装机容量）"], "mwh_by_source": ["400兆瓦时"],
+      "investment_by_source": ["已打开来源完全未披露投资额", "摘要称总投资40000万元（仅搜索结果摘要，未打开原文 → 目前不可用）"],
+      "stage_by_source": ["取得洛阳市偃师区发展和改革局备案批复（2025-08-12）", "摘要另称2025年10月29日完成企业投资项目备案（洛阳经开区管委会）、2025年10月启动施工准备（均未打开原文）"],
+      "source_ids": ["SRC-C12", "SRC-C13", "SRC-C14"],
+      "open_questions": ["选址冲突：偃师区 vs 洛阳经济技术开发区（两个不同行政主体，备案部门也不同）", "用地约50亩 vs 约60亩", "是否与摘要所称项目为同一项目未判定"],
+      "complexity_tags": ["location_conflict", "same_name_same_scale_different_project"]
+    },
+    {
+      "candidate_project_id": "PRJ-C08", "tier": "extended", "canonical_name_in_source": "许昌200兆瓦/400兆瓦时独立共享储能项目",
+      "company_platform": "国家能源集团龙源电力河南公司", "project_entity_spv": "未披露",
+      "region": "河南省许昌市长葛市（备案机关：长葛市经济开发区发展改革委）",
+      "storage_type": "独立共享储能",
+      "mw_by_source": ["200兆瓦（规划装机容量）", "共设置40套5兆瓦/10兆瓦时电池储能设备"], "mwh_by_source": ["400兆瓦时"],
+      "investment_by_source": ["全文未出现任何投资额或造价表述 → 暂无公开可确认证据"],
+      "stage_by_source": ["顺利取得长葛市经济开发区发展改革委备案批复（批复日期5月7日）"],
+      "source_ids": ["SRC-C18"],
+      "open_questions": ["与洛阳项目同为「河南公司 200兆瓦/400兆瓦时」，是否同一项目未判定"],
+      "complexity_tags": ["same_company_same_scale", "similar_project_names"]
+    },
+    {
+      "candidate_project_id": "PRJ-C09", "tier": "extended", "canonical_name_in_source": "赣州市安远县250兆瓦/500兆瓦时集中式独立储能电站项目",
+      "company_platform": "国家能源集团龙源电力江西公司", "project_entity_spv": "未披露",
+      "region": "江西省赣州市安远县", "storage_type": "集中式独立储能",
+      "mw_by_source": ["250兆瓦", "共设置100套2.5兆瓦/5兆瓦时电池储能设备"], "mwh_by_source": ["500兆瓦时"],
+      "investment_by_source": ["未披露 → 暂无公开可确认证据"],
+      "stage_by_source": ["顺利取得安远县行政审批局备案批复（2024-05-23）"],
+      "source_ids": ["SRC-C19"],
+      "open_questions": ["标题称「赣州」正文为「安远县」，层级表述不一致"],
+      "complexity_tags": ["admin_level_inconsistency"]
+    },
+    {
+      "candidate_project_id": "PRJ-C10", "tier": "extended", "canonical_name_in_source": "龙源电力中衡龙图第二储能电站",
+      "company_platform": "龙源电力", "project_entity_spv": "未披露", "region": "宁夏中卫（「宁湘直流」新能源基地中卫二期200万千瓦光伏复合项目配套）",
+      "storage_type": "配套储能（构网型）",
+      "mw_by_source": ["正文未给出任何储能规模数字"], "mwh_by_source": ["正文未给出"],
+      "investment_by_source": ["未披露 → 暂无公开可确认证据"],
+      "stage_by_source": ["成功入选国家发改委《绿色低碳先进技术示范项目清单（第二批）》", "并网后年均放电量1.3亿千瓦时"],
+      "source_ids": ["SRC-C03", "SRC-C20"],
+      "open_questions": ["与官网所列「龙源宁夏中卫孟家湾295MW/590MWh构网型储能电站」是否同一项目未判定"],
+      "complexity_tags": ["no_scale_disclosed", "possible_name_alias"]
+    },
+    {
+      "candidate_project_id": "PRJ-C11", "tier": "extended", "canonical_name_in_source": "龙源电力江西南昌西湖区「源网荷储+虚拟电厂」项目",
+      "company_platform": "龙源电力江西公司", "project_entity_spv": "未披露", "region": "江西省南昌市西湖区",
+      "storage_type": "配套储能（源网荷储一体化）",
+      "mw_by_source": ["规划装机容量300兆瓦（项目整体装机，非储能）", "配套建设60兆瓦的储能系统"],
+      "mwh_by_source": ["120兆瓦时（配套储能）"],
+      "investment_by_source": ["未披露 → 暂无公开可确认证据"],
+      "stage_by_source": ["取得南昌市西湖区发展和改革委员会备案批复（2025-10-15）"],
+      "source_ids": ["SRC-C23"],
+      "open_questions": ["300MW 是项目整体装机而非储能，极易被误读为同一口径"],
+      "complexity_tags": ["project_scale_vs_storage_scale"]
+    },
+    {
+      "candidate_project_id": "PRJ-C14", "tier": "extended", "canonical_name_in_source": "三峡能源黑龙江肇东市独立共享储能示范项目",
+      "names_in_other_sources": ["三峡能源黑龙江省肇东市100MW/200MWh独立共享储能示范项目"],
+      "company_platform": "中国三峡新能源（集团）股份有限公司", "project_entity_spv": "三峡新能源肇东发电有限公司",
+      "region": "黑龙江省肇东市明久乡（送出线路公告写作明久乡、安民乡）", "storage_type": "独立共享储能示范项目",
+      "mw_by_source": ["100MW"], "mwh_by_source": ["200MWh"],
+      "investment_by_source": ["暂无公开可确认证据（招标与中标公告均只写自有资金和自筹资金）", "EPC中标价59,202,571.09元是承包合同价，不是项目投资额"],
+      "stage_by_source": ["EPC招标 2025-03-21", "EPC中标 2025-05-07", "220kV送出线路工程招标 2026-05-06", "未见任何并网或投运的公开来源"],
+      "source_ids": ["SRC-C39", "SRC-C40", "SRC-C41", "SRC-C42"],
+      "open_questions": ["EPC工期称2025-12-31前具备全容量并网条件，但2026-05-06才招标送出线路，两公告的「并网条件」指向不同工程范围", "未发现项目备案证/核准文件的公开来源"],
+      "complexity_tags": ["construction_vs_plan", "tender_scope_split"]
+    },
+    {
+      "candidate_project_id": "PRJ-C16", "tier": "extended", "canonical_name_in_source": "三峡能源庆云储能电站示范项目",
+      "company_platform": "中国三峡新能源（集团）股份有限公司", "project_entity_spv": "三峡新能源（庆云）有限公司",
+      "region": "山东省德州市庆云县常家镇守义变电站北侧", "storage_type": "独立储能电站（山东省发改委称「电网侧储能电站」）",
+      "mw_by_source": ["一期100兆瓦", "二期201MW", "全站301兆瓦", "第二批101MW"],
+      "mwh_by_source": ["一期200兆瓦时", "二期402MWh", "全站602兆瓦时", "第二批202MWh"],
+      "investment_by_source": ["已打开一手来源均未披露投资额", "摘要出现「一期投资4.4亿元」「二期总投资约7.5亿元」，均未打开原文 → 不予采信为事实"],
+      "stage_by_source": ["一期「已于2021年年底并网」", "二期/全站 2023-10-31 全容量接入电网运行"],
+      "source_ids": ["SRC-C46", "SRC-C47", "SRC-C48", "SRC-C49"],
+      "open_questions": ["三层容量口径并存（全站301/602、二期201/402、第二批101/202）", "公开信息称采用宁德时代电池，公司否认「未应用宁德时代电池组及电池管理系统」，原始出处未打开", "山东省发改委页面末尾标注信息来源为国际能源网，即政府网站转载行业媒体稿件"],
+      "complexity_tags": ["three_capacity_scopes", "source_conflict", "gov_reposting_media"]
+    },
+    {
+      "candidate_project_id": "PRJ-C17", "tier": "extended", "canonical_name_in_source": "三峡能源山东牟平BDB6#一期海上风电项目30MW/60MWh配建储能",
+      "company_platform": "中国三峡新能源（集团）股份有限公司", "project_entity_spv": "三峡新能源（烟台牟平区）有限公司",
+      "region": "山东省烟台市牟平区", "storage_type": "新能源配建储能（明确写「配建储能」，非独立储能）",
+      "mw_by_source": ["30MW"], "mwh_by_source": ["60MWh"],
+      "investment_by_source": ["暂无公开可确认证据（招标公告仅写招标人自有资金及自筹资金）"],
+      "stage_by_source": ["EPC招标→流标（投标人不足三家）→重新招标→设备采购", "二手报道称2025年8月并网成功（未打开原文）"],
+      "source_ids": ["SRC-C50", "SRC-C51", "SRC-C52", "SRC-C53"],
+      "open_questions": ["并网确认仅来自行业媒体（二手），无政府或企业官网一手确认", "同一项目在不同版本公告中的工期不一致"],
+      "complexity_tags": ["tender_failure_and_rebid", "secondhand_only"]
+    },
+    {
+      "candidate_project_id": "PRJ-C20", "tier": "extended", "canonical_name_in_source": "永州双牌县100MW/200MWh储能电站项目",
+      "names_in_other_sources": ["湖南双牌舒家塘储能项目", "双牌储能电站", "五凌电力永州市双牌县100MW/200MWh储能电站项目"],
+      "company_platform": "环评载建设单位「五凌（双牌）电力有限公司」", "project_entity_spv": "五凌（双牌）电力有限公司",
+      "region": "湖南省永州市双牌县泷泊镇（招标写大路口村、佑里村；环评报告表PDF写大路口村、佑上村）",
+      "storage_type": "湖南省第二批储能试点项目；「独立储能」字样未见于政府环评原文",
+      "mw_by_source": ["100MW"], "mwh_by_source": ["200MWh"],
+      "investment_by_source": ["拟建项目总投资46082万元，其中环保投资100万元，占工程总投资的0.22%（储能电站本体）", "送出线路环评：总投资785万元"],
+      "stage_by_source": ["政府：「我局拟近期批准《…环境影响报告表》」，发文日期 2023-01-10", "集团官网：「6月30日双牌储能项目并网发电」（2023-07-26 发文）"],
+      "source_ids": ["SRC-C58", "SRC-C64", "SRC-C65"],
+      "open_questions": [
+        "环评写「80个1.25MW/2.5MWh集装箱式电池舱，40个PCS交直流转换一体舱」，招标写「32个3.45MW/6.7MWh」、中标另作「6.88MWh」——同一项目的电池舱配置方案在公开信息中完全不同",
+        "村名不一致：泷泊镇 / 大路口村、佑里村 / 大路口村、佑上村",
+        "「舒家塘」同样是接入变电站名（环评原文：「止于220kV舒家塘变110kV侧备用（4Y）间隔」），非项目名"
+      ],
+      "complexity_tags": ["substation_name_as_project_name", "config_conflict", "investment_scope_split"]
+    },
+    {
+      "candidate_project_id": "PRJ-C21", "tier": "extended", "canonical_name_in_source": "新疆吐鲁番托克逊的50兆瓦╱100兆瓦时储能项目",
+      "company_platform": "新源智储（年报载为「本公司附属公司」；港交所公告载中国电力持股55.32%）", "project_entity_spv": "新源智储",
+      "region": "新疆吐鲁番托克逊",
+      "storage_type": "来源未表述「独立储能」或「新能源配建」→ 未知",
+      "mw_by_source": ["50兆瓦"], "mwh_by_source": ["100兆瓦时"],
+      "investment_by_source": ["暂无公开可确认证据"],
+      "stage_by_source": ["年报：「成功完成设备安装」", "行业媒体：「12月13日…顺利完成23台电池舱和12台升压变流一体机的全部吊装」「后续将着力推进项目调试和并网工作」", "未检索到该项目已并网/投运的表述"],
+      "source_ids": ["SRC-C66", "SRC-C67"],
+      "open_questions": ["无正式备案名称，无法与政府备案库对表", "是否属独立储能无来源表述", "年报原件（港交所PDF）未取得，仅有转载版"],
+      "complexity_tags": ["no_formal_name", "type_unstated", "stage_incomplete"]
+    },
+    {
+      "candidate_project_id": "PRJ-C22", "tier": "extended", "canonical_name_in_source": "普安发电「风光火储」一体化项目100兆瓦/200兆瓦时储能工程",
+      "company_platform": "中电（普安）发电有限责任公司（股权95%，来自二手来源）", "project_entity_spv": "中电（普安）发电有限责任公司",
+      "region": "贵州省黔西南州普安县青山镇", "storage_type": "「风、光、火、储」一体化项目的配套储能；未使用「独立储能」字样",
+      "mw_by_source": ["100兆瓦（2026年稿）", "10万千瓦（2025年稿）"], "mwh_by_source": ["200兆瓦时（2026年稿）", "20万千瓦时（2025年稿）"],
+      "investment_by_source": ["暂无公开可确认证据"],
+      "stage_by_source": ["2025-03-20 稿：「配套一期10万千瓦/20万千瓦时储能项目已动工」", "2026-01-19 稿：「1月11日…100兆瓦/200兆瓦时储能工程完成并网」"],
+      "source_ids": ["SRC-C68", "SRC-C69"],
+      "open_questions": ["2025年稿称「配套一期」，2026年稿未再提「一期」", "单位写法从「万千瓦/万千瓦时」变为「兆瓦/兆瓦时」", "股权结构来源为二手，两来源少数股东比例不一致"],
+      "complexity_tags": ["unit_variants", "phase_naming_drift"]
+    },
+    {
+      "candidate_project_id": "PRJ-C23", "tier": "extended", "canonical_name_in_source": "新源智储内蒙古通辽150兆瓦/600兆瓦时新能源配储项目",
+      "company_platform": "中国电力（中电国际）新源智储【承建】", "project_entity_spv": "未披露（承建，非持有）",
+      "region": "通辽市奈曼旗金沙500千伏变电站周边", "storage_type": "新能源配储项目",
+      "mw_by_source": ["150兆瓦"], "mwh_by_source": ["600兆瓦时"],
+      "investment_by_source": ["暂无公开可确认证据"], "stage_by_source": ["「项目投产后，可为蒙东电网提供…」（未单独给出并网日期）"],
+      "source_ids": ["SRC-C70", "SRC-C74"],
+      "open_questions": ["承建 ≠ 持有；该稿未披露任何业主或SPV，不能据此认定计入中国电力资产", "通辽奈曼旗另有4个电网侧独立储能项目（海螺、万马、赣蒙等，总投资42.4亿元），与本项目不是同一批"],
+      "complexity_tags": ["builder_vs_owner", "citation_trap"]
+    },
+    {
+      "candidate_project_id": "PRJ-C24", "tier": "extended", "canonical_name_in_source": "新源智储甘肃靖远10兆瓦/20兆瓦时储能项目",
+      "company_platform": "中国电力（中电国际）新源智储【承建】", "project_entity_spv": "未披露", "region": "甘肃白银市靖远县",
+      "storage_type": "来源未表述", "mw_by_source": ["10兆瓦"], "mwh_by_source": ["20兆瓦时"],
+      "investment_by_source": ["暂无公开可确认证据"], "stage_by_source": ["「顺利完成系统集成与调试」"],
+      "source_ids": ["SRC-C70"], "open_questions": ["承建 ≠ 持有；无业主/SPV、无投资额"], "complexity_tags": ["builder_vs_owner"]
+    },
+    {
+      "candidate_project_id": "PRJ-C25", "tier": "extended", "canonical_name_in_source": "新源智储新疆哈密市伊州区10兆瓦/20兆瓦时储能项目",
+      "company_platform": "中国电力（中电国际）新源智储【承建】", "project_entity_spv": "未披露", "region": "新疆哈密市伊州区",
+      "storage_type": "分布式光伏配套储能工程", "mw_by_source": ["10兆瓦"], "mwh_by_source": ["20兆瓦时"],
+      "investment_by_source": ["暂无公开可确认证据"], "stage_by_source": ["「项目投运后…」"],
+      "source_ids": ["SRC-C70"], "open_questions": ["承建 ≠ 持有；无业主/SPV、无投资额"], "complexity_tags": ["builder_vs_owner"]
+    },
+    {
+      "candidate_project_id": "PRJ-C26", "tier": "extended", "canonical_name_in_source": "新源智储承建的青海共和200兆瓦/800兆瓦时配储项目一期",
+      "company_platform": "中国电力（中电国际）新源智储【承建】", "project_entity_spv": "未披露", "region": "青海海南州共和县塔拉滩",
+      "storage_type": "配储项目", "mw_by_source": ["200兆瓦（一期）"], "mwh_by_source": ["800兆瓦时（一期）"],
+      "investment_by_source": ["暂无公开可确认证据"], "stage_by_source": ["「投运后将有效提升…」"],
+      "source_ids": ["SRC-C70"],
+      "open_questions": ["承建 ≠ 持有；无业主/SPV、无投资额", "4小时时长配置，与2小时项目不可直接比较"],
+      "complexity_tags": ["builder_vs_owner", "duration_comparability"]
+    }
+  ]
+}

@@ -1,0 +1,949 @@
+{
+  "pack_id": "hengce-b2-acceptance-draft-v1",
+  "title": "衡策·新能源战略研究台 — 独立验收案例草案（B2）",
+  "basis": [
+    "docs/01-product-definition.md",
+    "docs/02-data-model.md"
+  ],
+  "explicitly_not_based_on": [
+    "docs/03-business-rules.md",
+    "rules/*",
+    "tests/fixtures/p02-rule-cases.json"
+  ],
+  "note": "本套案例为基于产品定义的黑盒业务验收草案，不引用任何 P02 规则 ID，不假设实现方式。所有输入资料均为虚构测试数据。",
+  "traceability_anchor_scheme": {
+    "PD-2.1": "产品定义第2节 核心业务问题1 真实投入难还原",
+    "PD-2.2": "产品定义第2节 核心业务问题2 同业数据难比较",
+    "PD-2.3": "产品定义第2节 核心业务问题3 历史判断快速过时",
+    "PD-2.4": "产品定义第2节 核心业务问题4 同行经验难直接迁移",
+    "PD-5": "MVP业务主链",
+    "PD-6-WOW1": "关键演示点1 真实投入还原",
+    "PD-6-WOW2": "关键演示点2 同行路径成立前提",
+    "PD-6-WOW3": "关键演示点3 新证据触发历史研判复核",
+    "PD-7": "证据规则",
+    "PD-8": "历史研判最小结构",
+    "PD-9": "产品工作区",
+    "PD-11": "MVP明确不做",
+    "PD-12.1": "MVP成功标准1 新情报能够被识别并对齐到正确项目",
+    "PD-12.2": "MVP成功标准2 项目事实、规模状态和投资口径可追溯",
+    "PD-12.3": "MVP成功标准3 同行和集团内部项目可以在统一口径下比较",
+    "PD-12.4": "MVP成功标准4 路径、形成原因和成立前提均有证据或明确标记为研究假设",
+    "PD-12.5": "MVP成功标准5 新事实影响历史判断时，系统能基于依赖关系触发复核",
+    "PD-12.6": "MVP成功标准6 AI只提出研判草案，研究员保留最终确认权"
+  },
+  "case_kinds": ["positive", "counter_example", "boundary"],
+  "cases": [
+    {
+      "case_id": "AC-01",
+      "group": "A",
+      "group_name": "实体识别",
+      "title": "同一项目在政府公示、企业新闻、年报中名称不同",
+      "product_goal_refs": ["PD-12.1", "PD-2.1", "PD-5"],
+      "scenario": "三个来源分别指向同一个储能项目，但名称写法不同。",
+      "input_materials": [
+        "B级 政府新闻《某县独立储能电站项目备案公示》，名称「云岭平湖独立储能电站项目」",
+        "B级 企业官网新闻《云岭平湖储能一期顺利开工》，名称「云岭平湖储能一期」",
+        "A级 上市公司年报 在建工程附注中出现「平湖共享储能项目」"
+      ],
+      "expected_user_sees": [
+        "三条来源被放在一起并提示疑似同一项目",
+        "并列展示各来源原始名称与出处",
+        "由研究员确认后才建立单一项目身份"
+      ],
+      "must_not_happen": [
+        "未经人工确认即自动合并为一个项目",
+        "因名称不同就静默建成三个互不相关的项目并丢弃关联线索"
+      ],
+      "acceptance_definition": "存在可人工确认的候选对齐提示，且确认前不改变任何项目身份；确认后三个名称同时作为该项目别名可查。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-02",
+      "group": "A",
+      "group_name": "实体识别",
+      "title": "两个项目名称极其相似但位于不同地区",
+      "product_goal_refs": ["PD-12.1", "PD-2.1"],
+      "scenario": "两家不同平台各有「沙洲储能电站」，一个在甲省甲县，一个在乙省乙区，装机同为 100MW/200MWh。",
+      "input_materials": [
+        "B级 政府新闻（甲省）《甲县沙洲储能电站并网》",
+        "B级 政府新闻（乙省）《乙区沙洲储能电站开工》",
+        "两者分属不同 SPV，无共同主体"
+      ],
+      "expected_user_sees": [
+        "两条来源分别落到两个不同项目",
+        "系统说明区分依据是地区与项目主体"
+      ],
+      "must_not_happen": [
+        "仅因名称相似、装机相同就合并为一个项目",
+        "把甲县项目的并网事件挂到乙区项目上"
+      ],
+      "acceptance_definition": "两个项目 ID 各自独立，事件归属正确，且不产生合并建议。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-03",
+      "group": "A",
+      "group_name": "实体识别",
+      "title": "同一 SPV 同时拥有两个类似规模项目",
+      "product_goal_refs": ["PD-12.1", "PD-12.2"],
+      "scenario": "同一项目公司名下有两个独立储能项目，规模相同、同期推进。",
+      "input_materials": [
+        "A级 年报：该 SPV 在建两个储能项目，均表述为「100MW/200MWh」",
+        "B级 招投标公告：其中一个项目的 EPC 中标公告",
+        "B级 企业新闻：另一个项目的开工新闻"
+      ],
+      "expected_user_sees": [
+        "两条指标、两个事件分别归属各自的 project_id",
+        "共用同一 owner_organization_id 不构成合并理由"
+      ],
+      "must_not_happen": [
+        "把两个项目的规模合并成 200MW/400MWh",
+        "把 A 项目的开工日期记录到 B 项目",
+        "因主体相同就把两个项目折叠成一个"
+      ],
+      "acceptance_definition": "每个指标与事件的主体引用唯一且正确，不存在跨项目串号。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-04",
+      "group": "A",
+      "group_name": "实体识别",
+      "title": "新闻只出现简称，无法确定对应哪个项目",
+      "product_goal_refs": ["PD-12.1", "PD-2.1"],
+      "scenario": "一条新闻只写「临江储能项目首批并网」，而「临江」在该企业下有 0 个或 2 个以上候选项目。",
+      "input_materials": [
+        "B级 企业新闻：全文仅出现简称，无地区、无主体、无规模",
+        "库内存在两个名称含「临江」的项目，分属不同 SPV"
+      ],
+      "expected_user_sees": [
+        "系统输出无法确定对应项目",
+        "列出候选并请求人工指派",
+        "情报可停留在收件箱而不生成归属明确的事件"
+      ],
+      "must_not_happen": [
+        "猜一个最可能的项目并直接写入事实或事件",
+        "因无法归属就静默丢弃该情报"
+      ],
+      "acceptance_definition": "该情报存在且可检索，状态为待指派/待确认，未产生任何已归属的生命周期事件。",
+      "classroom_demo": true,
+      "case_kind": "boundary",
+      "wow": null
+    },
+    {
+      "case_id": "AC-38",
+      "group": "A",
+      "group_name": "实体识别",
+      "title": "情报被正确对齐到正确项目（正例）",
+      "product_goal_refs": ["PD-12.1", "PD-5"],
+      "scenario": "一条新情报信息完整，应当能够被正确对齐，用来证明系统做得到而不只是不会做错。",
+      "input_materials": [
+        "B级 政府新闻《甲县云岭平湖独立储能电站首批并网》，正文含县名、项目公司名、装机规模",
+        "库内已存在对应项目记录及其项目主体"
+      ],
+      "expected_user_sees": [
+        "情报被对齐到既有项目",
+        "抽取的事件与指标挂在正确的 project_id 下",
+        "用户可查看对齐依据"
+      ],
+      "must_not_happen": [
+        "因信息齐全就跳过一个可核查的对齐说明",
+        "新建一个重复项目记录",
+        "把抽取结果同时挂到多个项目上以防万一"
+      ],
+      "acceptance_definition": "情报对齐到正确项目，未产生重复项目，且对齐依据可查看、可回溯到原文。",
+      "classroom_demo": true,
+      "case_kind": "positive",
+      "wow": null
+    },
+    {
+      "case_id": "AC-05",
+      "group": "B",
+      "group_name": "项目事实与状态",
+      "title": "新闻写「计划明年开工」",
+      "product_goal_refs": ["PD-12.2", "PD-2.1", "PD-7"],
+      "scenario": "来源使用「拟」「计划」「预计」等未来时表述。",
+      "input_materials": ["B级 企业新闻：「该项目计划于明年一季度开工建设」"],
+      "expected_user_sees": [
+        "该表述被识别为计划/预期，与已发生事件分开展示",
+        "项目时间线上不出现已开工节点"
+      ],
+      "must_not_happen": [
+        "生成 construction_started 事件并把日期填为明年",
+        "把「计划开工」改写为「已开工」",
+        "让读者从界面误认为该项目已经开工"
+      ],
+      "acceptance_definition": "生命周期时间线上无已确认开工事件；该表述以计划性质单独呈现且可回溯原文。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-06",
+      "group": "B",
+      "group_name": "项目事实与状态",
+      "title": "新闻写「正式开工」",
+      "product_goal_refs": ["PD-12.2", "PD-7"],
+      "scenario": "来源使用明确的既成事实表述。",
+      "input_materials": ["B级 政府新闻：「该项目已于 2025 年 6 月 12 日正式开工」"],
+      "expected_user_sees": ["形成一条开工事件，带日期与来源", "事件可以关联多条证据"],
+      "must_not_happen": [
+        "因为只有一条来源就拒绝记录",
+        "把日期写成新闻发布日期而非事件日期"
+      ],
+      "acceptance_definition": "存在开工事件，事件日期等于来源所述日期（非发布日期），可回溯原文。",
+      "classroom_demo": true,
+      "case_kind": "positive",
+      "wow": null
+    },
+    {
+      "case_id": "AC-07",
+      "group": "B",
+      "group_name": "项目事实与状态",
+      "title": "新闻写「首批并网」",
+      "product_goal_refs": ["PD-12.2", "PD-6-WOW1", "PD-7"],
+      "scenario": "来源明确写「首批」。",
+      "input_materials": ["B级 企业新闻：「项目首批单元已于 2025 年 9 月并网」"],
+      "expected_user_sees": [
+        "记为首批并网，与全容量投运是两个不同节点",
+        "规模轴上停在首批并网"
+      ],
+      "must_not_happen": [
+        "因出现「并网」二字就判为全容量投运",
+        "把首批并网的规模直接当作项目建成规模"
+      ],
+      "acceptance_definition": "生命周期时间线上首批并网节点存在，全容量投运节点不存在。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-08",
+      "group": "B",
+      "group_name": "项目事实与状态",
+      "title": "新闻写「项目投运」",
+      "product_goal_refs": ["PD-12.2", "PD-6-WOW1", "PD-7"],
+      "scenario": "来源用词含糊，不足以区分首批并网与全容量投运。",
+      "input_materials": ["B级 企业新闻：「项目已投运」；无容量、无「全容量」字样"],
+      "expected_user_sees": [
+        "提示该表述不足以确认全容量投运，标为待确认",
+        "提示可补充哪些资料"
+      ],
+      "must_not_happen": [
+        "直接把「投运」判定为全容量投运",
+        "直接判定为未知后不再提示可补充的核查方向"
+      ],
+      "acceptance_definition": "全容量投运节点状态为待确认（非已确认、非未知），且界面给出待核实点。",
+      "classroom_demo": true,
+      "case_kind": "boundary",
+      "wow": null
+    },
+    {
+      "case_id": "AC-09",
+      "group": "B",
+      "group_name": "项目事实与状态",
+      "title": "新闻明确「全容量并网投运」",
+      "product_goal_refs": ["PD-12.2", "PD-6-WOW1", "PD-7"],
+      "scenario": "来源表述明确且完整，分 A 级与 C 级两个子场景。",
+      "input_materials": [
+        "A级 交易所公告：「项目实现全容量并网投运」",
+        "对照子场景：同一表述改为 C 级研究报告来源"
+      ],
+      "expected_user_sees": [
+        "A级来源下全容量投运可被确认",
+        "C级来源下最多标记为待确认"
+      ],
+      "must_not_happen": [
+        "C级来源单独把项目状态推定为已全容量投运",
+        "把「全容量投运」与「投运」视为同一状态"
+      ],
+      "acceptance_definition": "两种来源级别下状态不同且均可解释，符合证据级别约束。",
+      "classroom_demo": true,
+      "case_kind": "boundary",
+      "wow": null
+    },
+    {
+      "case_id": "AC-10",
+      "group": "B",
+      "group_name": "项目事实与状态",
+      "title": "只有后期状态，没有早期状态资料",
+      "product_goal_refs": ["PD-12.2", "PD-2.1"],
+      "scenario": "公开资料只能找到「已投运」表述，找不到备案、开工记录。",
+      "input_materials": ["C级 研究报告：一句「该电站已投运」，无历史节点"],
+      "expected_user_sees": [
+        "时间线只呈现有证据的节点",
+        "缺失阶段显式显示「暂无公开可确认证据」"
+      ],
+      "must_not_happen": [
+        "为让时间线完整而反推补齐备案/开工年份",
+        "用「通常建设周期约 X 个月」倒推开开工日期"
+      ],
+      "acceptance_definition": "缺失阶段以「暂无公开可确认证据」呈现，系统中不存在任何无证据来源的早期事件。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-11",
+      "group": "C",
+      "group_name": "指标与口径",
+      "title": "100MW / 200MWh 双指标",
+      "product_goal_refs": ["PD-12.2", "PD-12.3", "PD-2.2", "PD-6-WOW1"],
+      "scenario": "来源同时披露功率与容量。",
+      "input_materials": ["B级 企业新闻：「项目规模 100MW/200MWh」"],
+      "expected_user_sees": ["功率与容量作为两条独立指标呈现", "各自单位与口径清晰"],
+      "must_not_happen": [
+        "合并为单一「项目规模 200MWh」或「项目规模 100MW」",
+        "把 100 与 200 相加或相除得到一个规模",
+        "只保留其中一个而丢弃另一个"
+      ],
+      "acceptance_definition": "两条指标同时存在，单位分别为 MW 与 MWh，且都可回溯原文。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-12",
+      "group": "C",
+      "group_name": "指标与口径",
+      "title": "0.1GW / 100MW 单位表述不同",
+      "product_goal_refs": ["PD-12.3", "PD-2.2", "PD-6-WOW1"],
+      "scenario": "同一事实，两个来源用了不同单位。",
+      "input_materials": [
+        "B级 企业新闻：「项目规模 0.1GW」",
+        "A级 年报：「该项目装机 100MW」"
+      ],
+      "expected_user_sees": [
+        "进入同一比较视图时单位被统一",
+        "保留各来源原始表述",
+        "用户能看出两者是同一量级"
+      ],
+      "must_not_happen": [
+        "直接把 0.1 与 100 并排展示而不统一单位造成误读",
+        "把单位差异当作数值冲突处理",
+        "静默改写来源原文数字"
+      ],
+      "acceptance_definition": "比较视图中数值可比且单位一致；来源原文仍可查看且未被修改。",
+      "classroom_demo": true,
+      "case_kind": "boundary",
+      "wow": null
+    },
+    {
+      "case_id": "AC-13",
+      "group": "C",
+      "group_name": "指标与口径",
+      "title": "planned 1000MW / operating 500MW",
+      "product_goal_refs": ["PD-12.3", "PD-2.2", "PD-6-WOW1"],
+      "scenario": "同一主体的规划规模与已投运规模被不同来源分别披露。",
+      "input_materials": [
+        "A级 年报：「在建及规划储能 1000MW」",
+        "A级 年报：「已投运储能 500MW」"
+      ],
+      "expected_user_sees": [
+        "两条指标各自带有明确的生命周期阶段",
+        "比较时阶段差异被显式标注"
+      ],
+      "must_not_happen": [
+        "输出「该企业储能规模 1500MW」",
+        "做 1000-500 之类的推算",
+        "把规划口径的 1000MW 与另一家公司的已投运数字直接同列而不加阶段说明"
+      ],
+      "acceptance_definition": "两条指标阶段字段不同且可见；不存在任何合并或推导出的总规模。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-14",
+      "group": "C",
+      "group_name": "指标与口径",
+      "title": "集团装机 / 上市平台装机",
+      "product_goal_refs": ["PD-12.3", "PD-2.2"],
+      "scenario": "集团层口径与上市平台口径是两个不同主体的数字。",
+      "input_materials": [
+        "A级 集团年报：「集团储能装机 3000MW」",
+        "A级 上市平台年报：「本平台储能装机 1200MW」"
+      ],
+      "expected_user_sees": [
+        "两条指标分别挂在各自组织主体上",
+        "跨层比较时明确标注层级差异"
+      ],
+      "must_not_happen": [
+        "把两者相加或相减",
+        "在同一列静默混用让用户以为可比",
+        "因名称相近而把两个组织主体合并"
+      ],
+      "acceptance_definition": "指标主体引用分别为集团与平台两个不同组织；比较界面显式提示层级差异。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-15",
+      "group": "C",
+      "group_name": "指标与口径",
+      "title": "独立储能 / 配建储能",
+      "product_goal_refs": ["PD-12.3", "PD-2.2"],
+      "scenario": "两类储能的规模被放在同一行业比较里。",
+      "input_materials": [
+        "B级 企业新闻：某独立储能项目 200MW/400MWh",
+        "B级 企业新闻：某风电项目配建储能 50MW/100MWh"
+      ],
+      "expected_user_sees": [
+        "项目类型作为比较口径的一部分明确呈现",
+        "两类分别统计"
+      ],
+      "must_not_happen": [
+        "把配建储能容量计入独立储能规模做同业比较",
+        "在未标注类型的情况下把两者并排成储能规模排名",
+        "因两者都是储能就归为同一可比口径"
+      ],
+      "acceptance_definition": "比较视图可按项目类型区分，且任一聚合数字都能说明其包含范围。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-16",
+      "group": "C",
+      "group_name": "指标与口径",
+      "title": "计划投资 / 实际资本开支",
+      "product_goal_refs": ["PD-12.3", "PD-2.2", "PD-6-WOW1"],
+      "scenario": "同一项目既披露计划投资，也披露实际资本开支。",
+      "input_materials": [
+        "B级 企业新闻：「项目计划总投资约 5 亿元」",
+        "A级 年报：「本期该项目资本开支 1.2 亿元」"
+      ],
+      "expected_user_sees": [
+        "两条投资指标并列",
+        "各自标注原始口径表述并保留原文措辞"
+      ],
+      "must_not_happen": [
+        "合并成一个「投资金额：5 亿元」",
+        "用计划投资冒充已完成投入",
+        "把协议金额、预算、已转固资产与计划投资混为同一口径"
+      ],
+      "acceptance_definition": "投资口径在界面上可区分且可回溯原文措辞；不存在单一未标注口径的投资额被展示为事实。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-17",
+      "group": "D",
+      "group_name": "未知与冲突",
+      "title": "项目没有公开经营数据",
+      "product_goal_refs": ["PD-12.2", "PD-2.1", "PD-7"],
+      "scenario": "多方检索后确认经营结果无公开披露。",
+      "input_materials": ["若干 B 级来源，均未提及发电量、收入、利用小时"],
+      "expected_user_sees": [
+        "经营结果显式呈现为未知 / 暂无可确认证据",
+        "可说明已检索的范围"
+      ],
+      "must_not_happen": [
+        "用行业平均利用小时或同类项目数据推算填入",
+        "因字段为空就显示为 0 或「—」却不说明是未知",
+        "把「没有找到」呈现为「结果不佳」"
+      ],
+      "acceptance_definition": "该指标状态为未知，界面不出现任何数值，且明确区分未知与 0。",
+      "classroom_demo": true,
+      "case_kind": "boundary",
+      "wow": null
+    },
+    {
+      "case_id": "AC-18",
+      "group": "D",
+      "group_name": "未知与冲突",
+      "title": "两个公开来源披露不同计划投资",
+      "product_goal_refs": ["PD-12.2", "PD-2.2", "PD-7"],
+      "scenario": "两个来源对同一项目的计划投资给出不同数字。",
+      "input_materials": [
+        "C级 研究报告：「计划投资约 8 亿元」",
+        "A级 内部台账：「计划投资 9 亿元」"
+      ],
+      "expected_user_sees": [
+        "两条记录同时保留并各自关联原始证据",
+        "并列展示且标记为冲突",
+        "进入人工复核"
+      ],
+      "must_not_happen": [
+        "静默选择其中一条作为真值",
+        "取平均或给出「约 8.5 亿元」",
+        "创建一条无来源的汇总记录覆盖原来两条"
+      ],
+      "acceptance_definition": "两条指标均存在且各自可回溯；存在待人工复核标记；不存在任何自动合成值。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-19",
+      "group": "D",
+      "group_name": "未知与冲突",
+      "title": "一手来源与研究报告数字不同",
+      "product_goal_refs": ["PD-12.2", "PD-7"],
+      "scenario": "A 级来源与 C 级来源数字不一致。",
+      "input_materials": [
+        "A级 年报：「装机 120MW」",
+        "C级 研究报告：「装机 100MW」"
+      ],
+      "expected_user_sees": [
+        "两条都保留，证据级别可见，供研究员判断",
+        "系统可以提示级别差异"
+      ],
+      "must_not_happen": [
+        "因级别高就自动删除或静默覆盖另一条",
+        "因级别低就丢弃 C 级来源",
+        "自动输出「正确答案是 120MW」"
+      ],
+      "acceptance_definition": "两条记录均存活且级别可查；未发生任何自动覆盖。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-20",
+      "group": "D",
+      "group_name": "未知与冲突",
+      "title": "同一数字其实对应不同阶段或不同统计范围",
+      "product_goal_refs": ["PD-12.3", "PD-2.2", "PD-6-WOW1"],
+      "scenario": "两个来源都写 100MW，但一个指规划规模，一个指已投运规模。",
+      "input_materials": [
+        "B级 政府新闻：「规划建设 100MW 储能电站」（规划阶段）",
+        "A级 年报：「已投运 100MW」（投运阶段）"
+      ],
+      "expected_user_sees": [
+        "系统保留两条记录并显式区分其阶段与期间",
+        "说明这是口径差异而非数值分歧"
+      ],
+      "must_not_happen": [
+        "仅因数值相同就合并为一条",
+        "在未说明阶段差异的情况下把两者呈现为数值冲突",
+        "把阶段差异明显的两条当作同一事实而丢弃其一"
+      ],
+      "acceptance_definition": "两条记录的阶段/期间字段不同且可见；界面措辞不误导用户认为是数值矛盾。",
+      "classroom_demo": true,
+      "case_kind": "boundary",
+      "wow": null
+    },
+    {
+      "case_id": "AC-21",
+      "group": "E",
+      "group_name": "历史研判",
+      "title": "新证据只是进一步支持旧判断",
+      "product_goal_refs": ["PD-12.5", "PD-6-WOW3", "PD-8"],
+      "scenario": "一条新来源再次印证了某历史判断所依赖的事实。",
+      "input_materials": [
+        "历史判断 J1 依赖事实 F1",
+        "新来源 S2 对 F1 给出同向支持性证据，证据级别不低于原证据"
+      ],
+      "expected_user_sees": [
+        "J1 的依赖事实证据得到加强",
+        "可记录证据版本变化与最近复核时间",
+        "判断文本保持不变"
+      ],
+      "must_not_happen": [
+        "因「有新证据」就把所有相关判断标记为需要复核",
+        "自动改写判断文本或提升判断版本",
+        "生成一个与原文案实质相同的新草案让研究员确认"
+      ],
+      "acceptance_definition": "J1 状态不因支持性证据变为需要复核；判断文本逐字未变。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": "WOW3"
+    },
+    {
+      "case_id": "AC-22",
+      "group": "E",
+      "group_name": "历史研判",
+      "title": "新证据与旧判断依赖事实冲突",
+      "product_goal_refs": ["PD-12.5", "PD-12.6", "PD-6-WOW3", "PD-8"],
+      "scenario": "新事实直接动摇了某历史判断所依赖的事实。",
+      "input_materials": [
+        "历史判断 J2 依赖事实 F2（原证据为 B 级）",
+        "新来源 S3（A 级）对 F2 给出相反陈述"
+      ],
+      "expected_user_sees": [
+        "J2 被标记为需要复核并给出触发原因",
+        "系统列出受影响的依赖项",
+        "AI 可提出一份草案供研究员参考"
+      ],
+      "must_not_happen": [
+        "自动用新事实覆盖旧事实而不留痕迹",
+        "自动把 J2 改写为新结论并置为生效",
+        "在研究员确认前让 J2 的正式文本发生变化"
+      ],
+      "acceptance_definition": "J2 处于需要复核状态，原正式文本仍在，草案单独存在且标注为草案。",
+      "classroom_demo": true,
+      "case_kind": "positive",
+      "wow": "WOW3"
+    },
+    {
+      "case_id": "AC-23",
+      "group": "E",
+      "group_name": "历史研判",
+      "title": "新事实与旧研判主题相似，但没有明确依赖关系",
+      "product_goal_refs": ["PD-12.5", "PD-6-WOW3", "PD-8"],
+      "scenario": "新事实与某判断语义上高度相关，但不在其依赖列表中。",
+      "input_materials": [
+        "历史判断 J3 讨论某区域独立储能布局",
+        "新事实 F9 是关于另一区域独立储能布局，主题相似但无依赖引用"
+      ],
+      "expected_user_sees": [
+        "J3 不被自动标记需要复核",
+        "系统最多给出「可能相关，供人工判断」的提示"
+      ],
+      "must_not_happen": [
+        "因语义相似就自动触发复核",
+        "把 F9 自动加入 J3 的依赖",
+        "用「AI 觉得有关」作为触发依据而不说明依赖关系"
+      ],
+      "acceptance_definition": "J3 状态不变；若给出提示，该提示明确区分于依赖触发。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": "WOW3"
+    },
+    {
+      "case_id": "AC-24",
+      "group": "E",
+      "group_name": "历史研判",
+      "title": "AI 给出了新的合理解释，但没有充分证据",
+      "product_goal_refs": ["PD-12.6", "PD-6-WOW3", "PD-8"],
+      "scenario": "AI 基于已有事实提出一个讲得通的新解释。",
+      "input_materials": ["已有事实若干，但缺少能支撑该解释的关键证据"],
+      "expected_user_sees": [
+        "该解释以草案形式出现",
+        "明确标注证据不足与缺失的证据项"
+      ],
+      "must_not_happen": [
+        "因「合理」就升为正式判断",
+        "用推测措辞包装成既有事实",
+        "在草案中补造不存在的证据引用"
+      ],
+      "acceptance_definition": "草案状态为草案，未进入正式判断集合；草案中每条依据都可回溯到真实存在的记录。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": "WOW3"
+    },
+    {
+      "case_id": "AC-25",
+      "group": "F",
+      "group_name": "人工责任边界",
+      "title": "AI 高置信认为两个项目相同，但研究员认为不是",
+      "product_goal_refs": ["PD-12.6", "PD-12.1", "PD-2.1"],
+      "scenario": "系统给出高置信度的实体合并建议，研究员判断为两个不同项目。",
+      "input_materials": [
+        "两条项目记录：名称相似、主体名称相似、规模相同",
+        "研究员提供否定理由：分属不同省份、投运时间不同"
+      ],
+      "expected_user_sees": [
+        "研究员可否决该合并",
+        "两个项目保持独立",
+        "否决理由被记录，AI 建议留档可追溯但不生效"
+      ],
+      "must_not_happen": [
+        "系统在后续运行中再次自动合并",
+        "把研究员的否决当作待办反复自动重提并最终覆盖",
+        "因 AI 置信度高就降低人工确认的必要性"
+      ],
+      "acceptance_definition": "两条项目记录持续独立；存在否决记录与理由；后续新证据不能绕过人工确认改变该决定。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-26",
+      "group": "F",
+      "group_name": "人工责任边界",
+      "title": "AI 给出战略结论，但其中一个关键前提证据不足",
+      "product_goal_refs": ["PD-12.4", "PD-12.6", "PD-6-WOW2"],
+      "scenario": "一条同行路径结论依赖若干前提，其中一个前提没有公开来源。",
+      "input_materials": [
+        "前提 P1：有政策文件来源（满足）",
+        "前提 P2：有同行披露来源（满足）",
+        "前提 P3：无来源，只是研究员的初步猜测（未知）"
+      ],
+      "expected_user_sees": [
+        "结论输出时逐条列出前提状态",
+        "P3 明确标为未知/需补充情报",
+        "说明该结论在此前提未确认前不成立"
+      ],
+      "must_not_happen": [
+        "用默认满足填充无来源的前提",
+        "隐藏证据不足的前提，只展示满足项",
+        "输出一个未标注不确定性的完整结论"
+      ],
+      "acceptance_definition": "P3 状态为未知且可见；结论旁边存在依赖未确认前提的显式提示。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": "WOW2"
+    },
+    {
+      "case_id": "AC-27",
+      "group": "F",
+      "group_name": "人工责任边界",
+      "title": "多来源冲突，AI 选择看起来最可信的一条",
+      "product_goal_refs": ["PD-12.6", "PD-12.2", "PD-7"],
+      "scenario": "存在冲突，AI 给出了倾向性选择。",
+      "input_materials": [
+        "A级来源：投运时间 2025-06",
+        "D级来源：投运时间 2025-03",
+        "AI 倾向于采信 A 级来源"
+      ],
+      "expected_user_sees": [
+        "AI 的选择以建议形式呈现，附理由与证据级别对比",
+        "冲突本身进入人工复核"
+      ],
+      "must_not_happen": [
+        "静默采用 AI 选择作为正式值",
+        "覆盖或删除被判定为不可信的那条记录",
+        "让 D 级来源单独推动项目状态变化"
+      ],
+      "acceptance_definition": "两条原始记录均保留；正式值在人工确认前未改变；AI 建议可追溯且标注为建议。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": null
+    },
+    {
+      "case_id": "AC-28",
+      "group": "G",
+      "group_name": "WOW端到端验收",
+      "title": "WOW1：功率与容量双轴同时成立",
+      "product_goal_refs": ["PD-6-WOW1", "PD-12.2"],
+      "scenario": "打开一个项目事实台账详情页。",
+      "input_materials": ["一个同时披露 100MW 与 200MWh 的项目，两条指标各带独立证据"],
+      "expected_user_sees": [
+        "页面同时呈现功率轴与容量轴",
+        "各自显示数值、单位、阶段、来源与更新时间",
+        "两轴互不替代"
+      ],
+      "must_not_happen": [
+        "页面上出现单一「项目规模」数字",
+        "一轴缺失时用另一轴顶替",
+        "把两轴合并成一个不可拆分字段而丢失各自阶段"
+      ],
+      "acceptance_definition": "两轴数值、单位、阶段、来源四要素齐全且各自可回溯。",
+      "classroom_demo": true,
+      "case_kind": "positive",
+      "wow": "WOW1"
+    },
+    {
+      "case_id": "AC-29",
+      "group": "G",
+      "group_name": "WOW端到端验收",
+      "title": "WOW1：生命周期阶段轴逐段可见、缺口显式",
+      "product_goal_refs": ["PD-6-WOW1", "PD-12.2"],
+      "scenario": "查看同一项目的状态轴。",
+      "input_materials": [
+        "规划（有证据）、备案（有证据）、开工（有证据）、首批并网（有证据）、全容量投运（无证据）"
+      ],
+      "expected_user_sees": [
+        "五个阶段按序呈现",
+        "已确认阶段附证据与日期",
+        "未确认阶段显式标注「暂无公开可确认证据」"
+      ],
+      "must_not_happen": [
+        "把多阶段压缩成一个「当前状态」字段",
+        "因缺全容量投运证据就把项目显示为「未投运」",
+        "用同一状态轴把不同来源口径混在一起而不标注"
+      ],
+      "acceptance_definition": "任一阶段的状态都能回答「依据是哪条证据」，无证据阶段不会被推断填充。",
+      "classroom_demo": true,
+      "case_kind": "boundary",
+      "wow": "WOW1"
+    },
+    {
+      "case_id": "AC-30",
+      "group": "G",
+      "group_name": "WOW端到端验收",
+      "title": "WOW1：投资口径线并列，而不是金额漏斗",
+      "product_goal_refs": ["PD-6-WOW1", "PD-12.3", "PD-2.2"],
+      "scenario": "查看同一项目的投资信息区。",
+      "input_materials": [
+        "计划投资、协议金额、项目预算、已披露资本开支、已转固资产中的至少三类，各有来源"
+      ],
+      "expected_user_sees": [
+        "各类口径并列展示",
+        "每类保留原始表述与来源",
+        "用户可看出它们是不同口径而非同一件事的不同阶段"
+      ],
+      "must_not_happen": [
+        "生成一个自上而下递减的金额漏斗暗示转化关系",
+        "合并为单一「投资金额」",
+        "用其中一类替代另一类做同比"
+      ],
+      "acceptance_definition": "口径数量与来源数量一致，无未标注口径的聚合金额。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": "WOW1"
+    },
+    {
+      "case_id": "AC-31",
+      "group": "G",
+      "group_name": "WOW端到端验收",
+      "title": "WOW1：unknown 是一个正式结果",
+      "product_goal_refs": ["PD-6-WOW1", "PD-7"],
+      "scenario": "在一个真实演示数据集中查看若干项目。",
+      "input_materials": ["数据集中必须包含至少一个投资未知、一个经营结果未知的项目"],
+      "expected_user_sees": [
+        "未知被正式、清晰地呈现",
+        "说明已核查的范围",
+        "不是空白、不是 0、不是待办状态"
+      ],
+      "must_not_happen": [
+        "演示数据集全部为已知以显得完整",
+        "未知被渲染成 0 或不可见",
+        "未知旁边出现任何推算值"
+      ],
+      "acceptance_definition": "演示数据集中存在至少一条 unknown 记录且界面表达清晰、可解释。",
+      "classroom_demo": true,
+      "case_kind": "boundary",
+      "wow": "WOW1"
+    },
+    {
+      "case_id": "AC-32",
+      "group": "G",
+      "group_name": "WOW端到端验收",
+      "title": "WOW2：每条前提都标明来源类型",
+      "product_goal_refs": ["PD-6-WOW2", "PD-12.4"],
+      "scenario": "打开一条同行路径的成立前提列表。",
+      "input_materials": [
+        "一条路径拆成 4 条前提，来源分别标注为：政策文件 / 同行披露 / 项目事实 / 研究员假设"
+      ],
+      "expected_user_sees": [
+        "每条前提都有来源类型标注",
+        "研究员假设与前三类视觉上明确可区分"
+      ],
+      "must_not_happen": [
+        "前提没有来源标注就展示",
+        "把研究员假设呈现得像已证实的前提",
+        "用「据分析」之类模糊措辞替代来源标注"
+      ],
+      "acceptance_definition": "4 条前提来源类型齐全且假设类可识别。",
+      "classroom_demo": true,
+      "case_kind": "positive",
+      "wow": "WOW2"
+    },
+    {
+      "case_id": "AC-33",
+      "group": "G",
+      "group_name": "WOW端到端验收",
+      "title": "WOW2：假设不能被当作事实使用",
+      "product_goal_refs": ["PD-6-WOW2", "PD-12.4"],
+      "scenario": "某条前提为研究员假设，参与集团对照。",
+      "input_materials": ["前提 P（假设）+ 集团侧一项事实 F"],
+      "expected_user_sees": [
+        "对照结果明确标注该比较建立在未证实前提之上",
+        "结论强度相应下降或被提示需补充情报"
+      ],
+      "must_not_happen": [
+        "假设前提被计入成立数量而抬高结论可信度",
+        "假设与有来源前提在统计上不加区分",
+        "把假设转为事实而不经人工确认"
+      ],
+      "acceptance_definition": "含假设前提的结论与全部有来源前提的结论在呈现上可区分。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": "WOW2"
+    },
+    {
+      "case_id": "AC-34",
+      "group": "G",
+      "group_name": "WOW端到端验收",
+      "title": "WOW2：集团条件满足/不满足/未知三态齐全，且无虚假精确评分",
+      "product_goal_refs": ["PD-6-WOW2", "PD-12.4", "PD-11"],
+      "scenario": "完成一次同行路径与集团条件的逐项比对。",
+      "input_materials": [
+        "集团侧条件覆盖三种结果：有事实支撑的满足、有事实支撑的不满足、无资料无法判断的未知"
+      ],
+      "expected_user_sees": [
+        "逐项输出满足/不满足/未知三态",
+        "每态可回溯依据",
+        "未知项给出需补充的情报方向"
+      ],
+      "must_not_happen": [
+        "输出「适配度 87 分」或任何合成的综合评分",
+        "把未知默认计为满足或按比例折算成分数",
+        "用颜色深浅暗示一个未披露的分值"
+      ],
+      "acceptance_definition": "三态均出现且依据可查；界面上不存在任何综合评分或可被读作评分的合成数值。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": "WOW2"
+    },
+    {
+      "case_id": "AC-35",
+      "group": "G",
+      "group_name": "WOW端到端验收",
+      "title": "WOW3：支持性证据与非依赖事实均不误触发",
+      "product_goal_refs": ["PD-12.5", "PD-6-WOW3", "PD-8"],
+      "scenario": "依次投入两类新情报，观察判断状态。",
+      "input_materials": [
+        "新情报甲：对某判断依赖事实的支持性证据",
+        "新情报乙：主题与某判断相似、但不在其依赖列表中的事实"
+      ],
+      "expected_user_sees": [
+        "两次投入后相关判断状态均保持原样",
+        "系统最多给出「可能相关」的提示"
+      ],
+      "must_not_happen": [
+        "任一情形触发需要复核",
+        "自动扩充判断的依赖列表",
+        "以「AI 认为相关」为由触发"
+      ],
+      "acceptance_definition": "两个判断状态逐字未变；无新增依赖项。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": "WOW3"
+    },
+    {
+      "case_id": "AC-36",
+      "group": "G",
+      "group_name": "WOW端到端验收",
+      "title": "WOW3：冲突性新事实正确触发复核链路",
+      "product_goal_refs": ["PD-12.5", "PD-6-WOW3", "PD-8", "PD-5"],
+      "scenario": "投入一条与某判断依赖事实冲突的 A 级新证据，走完整链路。",
+      "input_materials": ["新证据与依赖事实 F 相反，证据级别高于原证据"],
+      "expected_user_sees": [
+        "完整链路依次可见：实体对齐 → 状态更新 → 同业比较变化 → 新事实与判断依赖冲突 → 该判断标记需要复核 → AI 提出新研判草案"
+      ],
+      "must_not_happen": [
+        "跳过任一环节直接给出新结论",
+        "触发与该依赖无关的其他判断",
+        "在链路中静默替换正式判断文本"
+      ],
+      "acceptance_definition": "链路各环节均可观察，受影响判断集合与依赖关系一致（不多不少）；草案已生成但未生效。",
+      "classroom_demo": true,
+      "case_kind": "positive",
+      "wow": "WOW3"
+    },
+    {
+      "case_id": "AC-37",
+      "group": "G",
+      "group_name": "WOW端到端验收",
+      "title": "WOW3：人工确认前，正式判断不得被替换",
+      "product_goal_refs": ["PD-12.6", "PD-6-WOW3", "PD-8"],
+      "scenario": "在上一案例的复核状态下，暂不进行人工确认。",
+      "input_materials": ["一份已生成的 AI 研判草案 + 一份仍处于生效状态的正式判断"],
+      "expected_user_sees": [
+        "正式判断保持原文与生效状态",
+        "草案并列展示并明确标注为草案",
+        "研究员可选择确认、修改或维持原判断，三种选择都被记录"
+      ],
+      "must_not_happen": [
+        "草案自动转为正式判断",
+        "正式判断文本、版本或状态被静默改写",
+        "研究员选择维持原判断后系统仍反复提示或自动重提"
+      ],
+      "acceptance_definition": "在无人工确认的情况下正式判断的记录与状态均未变化；三种人工选择路径均可完成且留痕。",
+      "classroom_demo": true,
+      "case_kind": "counter_example",
+      "wow": "WOW3"
+    }
+  ]
+}
