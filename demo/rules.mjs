@@ -33,6 +33,18 @@ export function compareMetrics(a, b, scopeConfirmed) {
   return { outcome: 'conflicting', reason: '同口径计划投资出现不同数值' };
 }
 
+export function comparePublicInvestment(first, second, scopeEquivalenceConfirmed = false) {
+  assert(first.subject_type === 'project' && second.subject_type === 'project' && first.subject_id === second.subject_id, '投资记录不属于同一项目');
+  assert(first.metric_name === 'planned_investment' && second.metric_name === 'planned_investment', '投资指标类型不一致');
+  const reasons = [];
+  if (first.unit !== second.unit) reasons.push('币种不同，不能直接比较；未做汇率换算');
+  // Both source excerpts say "total investment", but neither identifies whether the amount covers phase one or the whole project.
+  if (!scopeEquivalenceConfirmed) reasons.push('统计范围无法确认一致（一期或全项目未明）');
+  if (reasons.length) return { outcome: 'comparison_blocked', reason: reasons.join('；'), conclusion: '暂无公开可确认的统一投资额' };
+  const compared = compareMetrics(first, second, true);
+  return { ...compared, conclusion: compared.outcome === 'same_value' ? '同口径投资额一致' : '投资额需人工复核' };
+}
+
 export function metricDisplay(metric, evidence) {
   if (!metric) return { status: 'unknown', detail: '暂无可确认证据' };
   const items = metric.evidence_ids.map((id) => byId(evidence, 'evidence_id', id)).filter(Boolean);
@@ -82,7 +94,12 @@ export function processIntelligence(current, input) {
       }
     }
   }
-  if (affected.length) state.judgments.push(clone(input.draft_template)); // JI-005: draft stays separate.
+  if (affected.length) {
+    const draft = clone(input.draft_template);
+    const newDependency = { target_type: 'metric', target_id: newMetric.metric_id };
+    if (!draft.dependency_refs.some((ref) => ref.target_type === newDependency.target_type && ref.target_id === newDependency.target_id)) draft.dependency_refs.push(newDependency);
+    state.judgments.push(draft); // JI-005: draft stays separate, with both claims as dependencies.
+  }
   state.processed = true;
   state.review = { comparison, affected, before, after: clone(oldMetric) };
   return { state, outcome: affected.length ? 'review_required' : comparison.outcome };

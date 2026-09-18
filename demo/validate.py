@@ -6,12 +6,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 data = json.loads((ROOT / 'demo/data.json').read_text())
+real = json.loads((ROOT / 'demo/real-project.json').read_text())
 collections = {
-    'project': [data['project']],
-    'source': data['sources'] + [data['inbox']['source']],
-    'evidence': data['evidence'] + [data['inbox']['evidence']],
-    'metric': data['metrics'] + [data['inbox']['metric']],
-    'project_event': data['events'],
+    'organization': [real['organization']],
+    'project': [data['project'], real['project']],
+    'source': data['sources'] + [data['inbox']['source']] + real['sources'],
+    'evidence': data['evidence'] + [data['inbox']['evidence']] + real['evidence'],
+    'metric': data['metrics'] + [data['inbox']['metric']] + real['metrics'],
+    'project_event': data['events'] + real['events'],
     'judgment': data['judgments'] + [data['draft_template']],
 }
 
@@ -54,4 +56,9 @@ for kind, rows in collections.items():
         check(row, schema, f'{kind}[{index}]')
         if kind == 'metric' and row['metric_name'] in ('power_capacity', 'energy_capacity'):
             assert 'lifecycle_stage' in row, f'{kind}[{index}]: missing lifecycle_stage'
-print('Demo records conform to P01 schemas')
+assert real['project']['owner_organization_id'] == real['organization']['organization_id']
+assert real['research_project_id'] == 'PRJ-C03'
+assert set(real['research_source_ids'].values()) == {'SRC-C09', 'SRC-C10'}
+assert all(not row['is_mock'] and row['data_origin'] == 'real' for row in real['sources'])
+assert all(not row['is_mock'] for row in [real['project'], real['organization'], *real['evidence'], *real['metrics'], *real['events']])
+print('Demo records conform to P01 schemas; real and Mock records remain separate')

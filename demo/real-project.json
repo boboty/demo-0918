@@ -1,0 +1,276 @@
+{
+  "research_project_id": "PRJ-C03",
+  "project": {
+    "project_id": "PRJ-003",
+    "is_mock": false,
+    "canonical_name": "舟山定海共享储能电站",
+    "aliases": [
+      "龙源电力舟山定海工业园区100MW/200MWh共享储能电站",
+      "舟山定海共享储能电站一期项目"
+    ],
+    "owner_organization_id": "ORG-005",
+    "region": "浙江省舟山市定海区",
+    "project_type": "other"
+  },
+  "research_source_ids": {
+    "SRC-009": "SRC-C09",
+    "SRC-010": "SRC-C10"
+  },
+  "sources": [
+    {
+      "source_id": "SRC-009",
+      "is_mock": false,
+      "source_type": "government_news",
+      "title": "我市首个电网侧储能电站正式投运",
+      "provider": "舟山市人民政府网（市发展和改革委员会）",
+      "publish_date": "2024-10-21",
+      "locator": "https://www.zhoushan.gov.cn/art/2024/10/21/art_1229029417_59281341.html",
+      "availability": "online",
+      "data_origin": "real"
+    },
+    {
+      "source_id": "SRC-010",
+      "is_mock": false,
+      "source_type": "other",
+      "title": "龙源电力舟山定海工业园区100MW/200MWh共享储能电站（一期50MW/100MWh工程）安全验收评价",
+      "provider": "浙江泰鸽安全科技有限公司",
+      "publish_date": "2026-01-23",
+      "locator": "https://www.zjtgsafe.com/xxgkDetail.aspx?n_id=6145&nt=66",
+      "availability": "online",
+      "data_origin": "real"
+    }
+  ],
+  "evidence": [
+    {
+      "evidence_id": "EVD-020",
+      "is_mock": false,
+      "source_id": "SRC-009",
+      "evidence_text": "总建设规模为100MW/200MWh（其中一期建设规模50MW/100MWh）",
+      "evidence_grade": "B",
+      "relation": "supports",
+      "target_type": "metric",
+      "target_id": "MET-020",
+      "extraction_status": "extracted",
+      "human_review_status": "confirmed"
+    },
+    {
+      "evidence_id": "EVD-021",
+      "is_mock": false,
+      "source_id": "SRC-009",
+      "evidence_text": "总建设规模为100MW/200MWh（其中一期建设规模50MW/100MWh）",
+      "evidence_grade": "B",
+      "relation": "supports",
+      "target_type": "metric",
+      "target_id": "MET-021",
+      "extraction_status": "extracted",
+      "human_review_status": "confirmed"
+    },
+    {
+      "evidence_id": "EVD-022",
+      "is_mock": false,
+      "source_id": "SRC-009",
+      "evidence_text": "总建设规模为100MW/200MWh（其中一期建设规模50MW/100MWh）",
+      "evidence_grade": "B",
+      "relation": "supports",
+      "target_type": "metric",
+      "target_id": "MET-022",
+      "extraction_status": "extracted",
+      "human_review_status": "confirmed"
+    },
+    {
+      "evidence_id": "EVD-023",
+      "is_mock": false,
+      "source_id": "SRC-009",
+      "evidence_text": "总建设规模为100MW/200MWh（其中一期建设规模50MW/100MWh）",
+      "evidence_grade": "B",
+      "relation": "supports",
+      "target_type": "metric",
+      "target_id": "MET-023",
+      "extraction_status": "extracted",
+      "human_review_status": "confirmed"
+    },
+    {
+      "evidence_id": "EVD-024",
+      "is_mock": false,
+      "source_id": "SRC-009",
+      "evidence_text": "总投资3.2亿元",
+      "evidence_grade": "B",
+      "relation": "supports",
+      "target_type": "metric",
+      "target_id": "MET-024",
+      "extraction_status": "extracted",
+      "human_review_status": "confirmed"
+    },
+    {
+      "evidence_id": "EVD-025",
+      "is_mock": false,
+      "source_id": "SRC-010",
+      "evidence_text": "项目总投资6143.0100万美元",
+      "evidence_grade": "B",
+      "relation": "supports",
+      "target_type": "metric",
+      "target_id": "MET-025",
+      "extraction_status": "extracted",
+      "human_review_status": "confirmed"
+    },
+    {
+      "evidence_id": "EVD-026",
+      "is_mock": false,
+      "source_id": "SRC-010",
+      "evidence_text": "于2022年03月24日在定海区发展和改革局备案",
+      "evidence_grade": "B",
+      "relation": "supports",
+      "target_type": "project_event",
+      "target_id": "EVT-020",
+      "extraction_status": "extracted",
+      "human_review_status": "confirmed"
+    },
+    {
+      "evidence_id": "EVD-027",
+      "is_mock": false,
+      "source_id": "SRC-009",
+      "evidence_text": "10月15日顺利并网",
+      "evidence_grade": "B",
+      "relation": "supports",
+      "target_type": "project_event",
+      "target_id": "EVT-021",
+      "extraction_status": "extracted",
+      "human_review_status": "confirmed"
+    }
+  ],
+  "metrics": [
+    {
+      "metric_id": "MET-020",
+      "is_mock": false,
+      "subject_type": "project",
+      "subject_id": "PRJ-003",
+      "metric_name": "power_capacity",
+      "value": 100,
+      "unit": "MW",
+      "period": "2024-10",
+      "scope_definition": "总建设规模；不等于一期已并网规模",
+      "knowledge_status": "known",
+      "evidence_ids": [
+        "EVD-020"
+      ],
+      "human_review_status": "confirmed",
+      "lifecycle_stage": "planned"
+    },
+    {
+      "metric_id": "MET-021",
+      "is_mock": false,
+      "subject_type": "project",
+      "subject_id": "PRJ-003",
+      "metric_name": "energy_capacity",
+      "value": 200,
+      "unit": "MWh",
+      "period": "2024-10",
+      "scope_definition": "总建设规模；不等于一期已并网规模",
+      "knowledge_status": "known",
+      "evidence_ids": [
+        "EVD-021"
+      ],
+      "human_review_status": "confirmed",
+      "lifecycle_stage": "planned"
+    },
+    {
+      "metric_id": "MET-022",
+      "is_mock": false,
+      "subject_type": "project",
+      "subject_id": "PRJ-003",
+      "metric_name": "power_capacity",
+      "value": 50,
+      "unit": "MW",
+      "period": "2024-10",
+      "scope_definition": "一期建设规模",
+      "knowledge_status": "known",
+      "evidence_ids": [
+        "EVD-022"
+      ],
+      "human_review_status": "confirmed",
+      "lifecycle_stage": "first_grid_connection"
+    },
+    {
+      "metric_id": "MET-023",
+      "is_mock": false,
+      "subject_type": "project",
+      "subject_id": "PRJ-003",
+      "metric_name": "energy_capacity",
+      "value": 100,
+      "unit": "MWh",
+      "period": "2024-10",
+      "scope_definition": "一期建设规模",
+      "knowledge_status": "known",
+      "evidence_ids": [
+        "EVD-023"
+      ],
+      "human_review_status": "confirmed",
+      "lifecycle_stage": "first_grid_connection"
+    },
+    {
+      "metric_id": "MET-024",
+      "is_mock": false,
+      "subject_type": "project",
+      "subject_id": "PRJ-003",
+      "metric_name": "planned_investment",
+      "value": "3.2",
+      "unit": "亿元",
+      "scope_definition": "来源称总投资；未明确覆盖一期或全项目",
+      "knowledge_status": "pending_confirmation",
+      "evidence_ids": [
+        "EVD-024"
+      ],
+      "human_review_status": "review_required"
+    },
+    {
+      "metric_id": "MET-025",
+      "is_mock": false,
+      "subject_type": "project",
+      "subject_id": "PRJ-003",
+      "metric_name": "planned_investment",
+      "value": "6143.0100",
+      "unit": "万美元",
+      "scope_definition": "来源称项目总投资；未明确覆盖一期或全项目",
+      "knowledge_status": "pending_confirmation",
+      "evidence_ids": [
+        "EVD-025"
+      ],
+      "human_review_status": "review_required"
+    }
+  ],
+  "events": [
+    {
+      "event_id": "EVT-020",
+      "is_mock": false,
+      "project_id": "PRJ-003",
+      "event_type": "approved_or_filed",
+      "event_date": "2022-03-24",
+      "knowledge_status": "known",
+      "evidence_ids": [
+        "EVD-026"
+      ],
+      "human_review_status": "confirmed"
+    },
+    {
+      "event_id": "EVT-021",
+      "is_mock": false,
+      "project_id": "PRJ-003",
+      "event_type": "first_grid_connection",
+      "event_date": "2024-10-15",
+      "knowledge_status": "known",
+      "evidence_ids": [
+        "EVD-027"
+      ],
+      "human_review_status": "confirmed"
+    }
+  ],
+  "organization": {
+    "organization_id": "ORG-005",
+    "is_mock": false,
+    "canonical_name": "舟山龙源新能源有限公司",
+    "aliases": [],
+    "organization_type": "spv",
+    "parent_organization_id": null
+  },
+  "scope_equivalence_confirmed": false
+}

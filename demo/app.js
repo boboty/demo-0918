@@ -1,6 +1,7 @@
-import { initialState, processIntelligence, decide, eventDisplay, metricDisplay } from './rules.mjs';
+import { initialState, processIntelligence, decide, eventDisplay, metricDisplay, comparePublicInvestment } from './rules.mjs';
 
 let data;
+let realData;
 let state;
 const $ = (id) => document.getElementById(id);
 const esc = (value) => String(value ?? '').replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch]);
@@ -11,6 +12,23 @@ const evidenceFor = (id) => state.evidence.find((row) => row.evidence_id === id)
 const evidenceLine = (ids) => ids.map((id) => { const item = evidenceFor(id); const source = item && sourceFor(item.source_id); return `${id} · ${source?.title || '来源缺失'} · ${item?.evidence_grade || '?'} 级`; }).join('；');
 const metric = (name) => state.metrics.filter((row) => row.metric_name === name && row.subject_id === data.project.project_id);
 const judgment = (id) => state.judgments.find((row) => row.judgment_id === id);
+
+function renderReal() {
+  const real = realData;
+  const findMetric = (name, scope) => real.metrics.find((row) => row.metric_name === name && row.scope_definition.startsWith(scope));
+  const totalPower = findMetric('power_capacity', '总建设规模');
+  const totalEnergy = findMetric('energy_capacity', '总建设规模');
+  const phasePower = findMetric('power_capacity', '一期建设规模');
+  const phaseEnergy = findMetric('energy_capacity', '一期建设规模');
+  const investments = real.metrics.filter((row) => row.metric_name === 'planned_investment');
+  const conclusion = comparePublicInvestment(investments[0], investments[1], real.scope_equivalence_confirmed);
+  const sourceOf = (metricRow) => real.sources.find((row) => row.source_id === real.evidence.find((e) => e.evidence_id === metricRow.evidence_ids[0]).source_id);
+  const sourceLink = (source) => `<a href="${esc(source.locator)}" target="_blank" rel="noopener noreferrer">${esc(real.research_source_ids[source.source_id])} · ${esc(source.provider)}</a>`;
+  const filed = real.events.find((row) => row.event_type === 'approved_or_filed');
+  const grid = real.events.find((row) => row.event_type === 'first_grid_connection');
+  const investmentRows = investments.map((row) => `<div class="real-amount"><strong>${esc(row.value)} ${esc(row.unit)}</strong><small>${sourceLink(sourceOf(row))} · 原文「${esc(real.evidence.find((e) => e.evidence_id === row.evidence_ids[0]).evidence_text)}」</small></div>`).join('');
+  $('real-body').innerHTML = `<h3 class="real-project-name">${esc(real.project.canonical_name)}</h3><p class="real-intro">${esc(real.research_project_id)} · 龙源电力 · ${esc(real.project.region)} · 下列公开资料与北岸 Mock 案例互不混用</p><div class="real-grid"><div class="real-facts"><div class="real-row"><span class="real-key">总建设规模</span><div><strong>${esc(totalPower.value)} ${esc(totalPower.unit)} / ${esc(totalEnergy.value)} ${esc(totalEnergy.unit)}</strong><small>建设计划的总规模 · 依据 ${sourceLink(sourceOf(totalPower))}</small></div></div><div class="real-row"><span class="real-key">一期规模</span><div><strong>${esc(phasePower.value)} ${esc(phasePower.unit)} / ${esc(phaseEnergy.value)} ${esc(phaseEnergy.unit)}</strong><small>与总规模分开记录 · 依据 ${sourceLink(sourceOf(phasePower))}</small></div></div><div class="real-row"><span class="real-key">项目进展</span><div><strong>${esc(filed.event_date)} 备案</strong><small>依据 ${sourceLink(real.sources.find((row) => row.source_id === 'SRC-010'))}</small><strong>${esc(grid.event_date)} 一期顺利并网</strong><small>正文确认“并网”；不据标题推定全容量投运 · 依据 ${sourceLink(real.sources.find((row) => row.source_id === 'SRC-009'))}</small></div></div></div><div class="real-analysis"><div class="analysis-label">投资口径核对 · 系统判断</div><h3>无法直接比较</h3><p>两个来源都有数字，但当前证据不足以证明它们属于同一统计口径。</p><div class="real-stop"><strong>${esc(conclusion.conclusion)}</strong><p>${esc(conclusion.reason)}。系统保留两条原始记录，不自动选择金额。</p><small>${esc(conclusion.outcome)} · 依据 ${esc(real.research_source_ids['SRC-009'])} / ${esc(real.research_source_ids['SRC-010'])}</small></div><div class="real-amounts">${investmentRows}</div></div></div><div class="real-sources">${real.sources.map((source) => `<span>${sourceLink(source)} · ${esc(source.title)} · ${esc(source.publish_date)}</span>`).join('')}</div>`;
+}
 
 function renderInbox() {
   const { source, evidence, metric: incoming } = data.inbox;
@@ -57,11 +75,12 @@ function renderReview() {
   $('judgment-status').className = `pill ${original.judgment_status === 'review_required' ? 'amber' : 'green'}`;
   $('judgment-status').textContent = original.judgment_status === 'review_required' ? '需要复核' : final ? '复核已完成' : '有效判断';
   const originalState = `v${original.version} · ${original.judgment_status}`;
+  const dependencySummary = (row) => row.dependency_refs.map((ref) => ref.target_type === 'project_event' ? `备案事件 ${ref.target_id}` : `投资记录 ${ref.target_id}`).join(' / ');
   const reviewInfo = state.review ? `<div class="trigger"><strong>复核触发原因 · ${esc(state.review.comparison.outcome)}</strong><p>${esc(state.review.comparison.reason)}；${esc(state.review.before.metric_id)} 的知识状态由 ${esc(state.review.before.knowledge_status)} 变为 ${esc(state.review.after.knowledge_status)}。</p><small>${esc(data.inbox.scope_review_note)} · 直接依赖 ${esc(state.review.affected.join(', '))}</small></div>` : '<div class="quiet-note">处理新情报后，此处会显示受影响的历史判断、触发原因与独立的 AI 草案。</div>';
-  const draftHtml = draft ? `<div class="draft-block"><div class="block-top"><strong>AI 草案 <em>预置演示文本</em></strong><span>${esc(draft.judgment_status)}</span></div><p>${esc(draft.judgment_text)}</p><small>${esc(draft.judgment_id)} · v${draft.version}</small></div>` : '';
+  const draftHtml = draft ? `<div class="draft-block"><div class="block-top"><strong>AI 草案 <em>预置演示文本</em></strong><span>${esc(draft.judgment_status)}</span></div><p>${esc(draft.judgment_text)}</p><small>依据：${esc(dependencySummary(draft))} · ${esc(draft.judgment_id)} · v${draft.version}</small></div>` : '';
   const active = final ? state.judgments.find((row) => row.judgment_status === 'active') : null;
-  const finalHtml = active ? `<div class="final-callout"><strong>${final.action === 'maintain' ? '原判断已维持' : '新判断已确认'}</strong><p>${esc(active.judgment_text)}</p><small>${esc(active.judgment_id)} · v${active.version} · active</small></div>` : '';
-  $('review-body').innerHTML = `<div class="judgment-block"><div class="block-top"><strong>历史判断原文</strong><span>${originalState}</span></div><p>${esc(original.judgment_text)}</p><small>${esc(original.judgment_id)} · 原文始终保留</small></div>${reviewInfo}${draftHtml}${finalHtml}`;
+  const finalHtml = active ? `<div class="final-callout"><strong>${final.action === 'maintain' ? '原判断已维持' : '新判断已确认'}</strong><p>${esc(active.judgment_text)}</p><small>依据：${esc(dependencySummary(active))} · ${esc(active.judgment_id)} · v${active.version} · active</small></div>` : '';
+  $('review-body').innerHTML = `<div class="judgment-block"><div class="block-top"><strong>历史判断原文</strong><span>${originalState}</span></div><p>${esc(original.judgment_text)}</p><small>依据：${esc(dependencySummary(original))} · 原文始终保留</small></div>${reviewInfo}${draftHtml}${finalHtml}`;
 }
 
 function renderDecision() {
@@ -82,6 +101,6 @@ function renderProgress() {
   $('step-2').className = state.processed && !state.decision ? 'current' : state.decision ? 'complete' : '';
   $('step-3').className = state.decision ? 'current' : '';
 }
-function render() { renderProgress(); renderInbox(); renderLedger(); renderReview(); renderDecision(); renderPremises(); }
+function render() { renderReal(); renderProgress(); renderInbox(); renderLedger(); renderReview(); renderDecision(); renderPremises(); }
 $('reset').addEventListener('click', () => { state = initialState(data); render(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
-fetch('./data.json').then((response) => { if (!response.ok) throw new Error('data.json unavailable'); return response.json(); }).then((fixture) => { data = fixture; state = initialState(data); render(); }).catch((error) => { document.querySelector('.content').innerHTML = `<div class="load-error">演示数据加载失败：${esc(error.message)}。请运行 python3 -m http.server 8765 --directory demo 。</div>`; });
+Promise.all(['./data.json', './real-project.json'].map((path) => fetch(path).then((response) => { if (!response.ok) throw new Error(`${path} unavailable`); return response.json(); }))).then(([mockFixture, publicFixture]) => { data = mockFixture; realData = publicFixture; state = initialState(data); render(); }).catch((error) => { document.querySelector('.content').innerHTML = `<div class="load-error">演示数据加载失败：${esc(error.message)}。请运行 python3 -m http.server 8765 --directory demo 。</div>`; });
