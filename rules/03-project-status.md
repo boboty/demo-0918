@@ -64,20 +64,20 @@
 
 ## PS-007 冲突状态
 
-- 输入条件：同一事件出现反驳证据，或新证据与已确认事件矛盾
-- 判断逻辑：保留原事件和全部证据，禁止覆盖；标记人工复核
-- 输出结果：`review_required`
+- 输入条件：正式确认过的 ProjectEvent 后来出现针对该事件的 `Evidence.relation=contradicts`
+- 判断逻辑：保留原 `event_type`、`event_date`、原证据和已确认记录；关联新的反驳 Evidence，将 Event 的 `human_review_status` 标为 `review_required`。该标记表示原正式状态受挑战，不表示原事件已失效；不得自动撤销或降低原正式状态
+- 输出结果：`review_required`；原正式展示阶段保持，等待人工复核
 - 是否允许 AI 自动执行：是，仅按规则输出或执行允许的状态变化
 - 是否要求人工确认：是；只有人工可解决冲突
-- 示例：原“已开工”后出现明确“尚未开工” → review_required
-- 例外或边界：不能让 AI 自行选择来源并改写原 Event
+- 示例：原已确认 `full_operation`，后有证据反驳 → `human_review_status=review_required`，正式展示仍为 `full_operation` 并提示复核
+- 例外或边界：AI 不判断原事件失效；从未正式确认的新阶段仍只是候选，不适用“保留原正式状态”
 
 ## PS-008 当前展示状态推导
 
-- 输入条件：同一 Project 的 ProjectEvent 的 `event_type`、`human_review_status`、`knowledge_status`，以及关联 Evidence 的 `relation`
-- 判断逻辑：主生命周期顺序为 `planned → approved_or_filed → construction_started → first_grid_connection → full_operation`。仅从 `human_review_status=confirmed` 且 `knowledge_status=known` 的主生命周期事件中取最高阶段。出现反驳证据时按 PS-007 将受影响 Event 标为 `human_review_status=review_required`、`knowledge_status=conflicting`，保留 `Evidence.relation=contradicts`；同一阶段存在此类冲突 Event 时，屏蔽该阶段的所有记录，直到人工解除冲突。`pending_confirmation`、`review_required`、`unreviewed` 的事件不得提升正式状态；较高阶段有此类记录时单独提示“存在待确认的新阶段”或 `review_required`。冲突未解决前，正式展示维持此前最高 confirmed 且 known 的主阶段
-- 输出结果：`formal_display_status` 为最高可用 confirmed 主阶段；可附 `pending_new_stage` 或 `review_required` 提示。无可用 confirmed 主事件时，正式展示状态为 `unknown`
-- 是否允许 AI 自动执行：是，仅从已人工确认的事件推导展示结果，不创建或确认新业务事实
-- 是否要求人工确认：否；但候选事件确认和冲突解除仍由研究员完成
-- 示例：confirmed `construction_started` + pending `full_operation` → 正式展示 `construction_started`，另提示 `full_operation` 待确认
-- 例外或边界：只有可靠确认的 `full_operation` 时可直接展示该阶段，不补造备案、开工或首批并网事件；`signed` 不参与主顺序；`operation` 与 `operating_result_disclosed` 不替代或高于 `full_operation`；反驳证据须关联到被反驳 Event，冲突处理只使用上述 P01 字段，不增设冲突标记
+- 输入条件：同一 Project 的主生命周期 ProjectEvent、关联 Evidence，以及受挑战 Event 在新反驳证据进入前的人工确认记录
+- 判断逻辑：主生命周期顺序为 `planned → approved_or_filed → construction_started → first_grid_connection → full_operation`。A：`human_review_status=confirmed`、`knowledge_status=known` 且无复核争议的 Event 正常参与排序，最高阶段为 `formal_display_status`。B：若最高阶段在反驳证据进入前已正式确认，后来按 PS-007 变为 `review_required`，该阶段仍保留为 `formal_display_status`，同时输出 `status_review_required=true`；不得自动回退。C：从未正式确认的新高阶段，即使存在候选 Evidence 或 `review_required`，也不得提升正式展示状态，只提示该阶段待确认。若无法核实某个 `review_required` Event 曾经正式确认，不得把它当作 B 类正式状态
+- 输出结果：`formal_display_status` 为最高已确认阶段，或原已确认但受挑战的最高阶段；B 类另有 `status_review_required=true`，C 类另有 `pending_new_stage`。没有任何可核实的已确认主阶段时为 `unknown`
+- 是否允许 AI 自动执行：是，仅按可核实的人工确认记录推导展示结果，不创建、撤销或确认业务事实
+- 是否要求人工确认：推导本身否；受挑战状态的有效性和新候选阶段仍须研究员确认
+- 示例：原 confirmed `full_operation` 后关联 contradicts Evidence → 仍展示 `full_operation`，提示正在复核；confirmed `construction_started` + 从未确认的 `full_operation` 候选 → 仍展示 `construction_started`
+- 例外或边界：只有可靠确认的 `full_operation` 时可直接展示该阶段，不补造中间事件；`signed`、`operation`、`operating_result_disclosed` 不参与主顺序。P01 当前 Event 记录只有现时审核状态，不能单凭现时 `review_required` 推断其曾被确认；B 类必须有可核实的前次确认记录，否则按 C 类处理并交人工核对

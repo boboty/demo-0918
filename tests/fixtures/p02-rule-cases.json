@@ -640,7 +640,7 @@
       "PS-008"
     ],
     "category": "project_status",
-    "description": "已确认 full_operation 后出现反驳证据，正式展示回退",
+    "description": "已正式确认 full_operation 后出现反驳证据，保留原正式展示状态并提示复核",
     "input": {
       "project_id": "PRJ-001",
       "before_events": [
@@ -650,7 +650,8 @@
           "event_type": "construction_started",
           "human_review_status": "confirmed",
           "knowledge_status": "known",
-          "evidence_ids": []
+          "evidence_ids": [],
+          "event_date": "2025-04-01"
         },
         {
           "event_id": "EVT-101",
@@ -658,7 +659,8 @@
           "event_type": "full_operation",
           "human_review_status": "confirmed",
           "knowledge_status": "known",
-          "evidence_ids": []
+          "evidence_ids": [],
+          "event_date": "2025-06-01"
         }
       ],
       "after_events": [
@@ -668,7 +670,8 @@
           "event_type": "construction_started",
           "human_review_status": "confirmed",
           "knowledge_status": "known",
-          "evidence_ids": []
+          "evidence_ids": [],
+          "event_date": "2025-04-01"
         },
         {
           "event_id": "EVT-101",
@@ -678,7 +681,8 @@
           "knowledge_status": "conflicting",
           "evidence_ids": [
             "EVD-101"
-          ]
+          ],
+          "event_date": "2025-06-01"
         }
       ],
       "new_evidence": [
@@ -690,7 +694,7 @@
         }
       ]
     },
-    "expected_output": "formal_display_status=construction_started; review_required=full_operation"
+    "expected_output": "formal_display_status=full_operation; status_review_required=true; review_required=full_operation; no automatic rollback to construction_started"
   },
   {
     "case_id": "P02-038",
@@ -782,5 +786,45 @@
       }
     },
     "expected_output": "comparison_blocked / review_required; no automatic comparable_by_scope until scope equivalence confirmed"
+  },
+  {
+    "case_id": "P02-042",
+    "rule_ids": [
+      "PS-008"
+    ],
+    "category": "project_status",
+    "description": "已确认开工，新证据只声称从未人工确认的全容量投运",
+    "input": {
+      "project_id": "PRJ-001",
+      "events": [
+        {
+          "event_id": "EVT-102",
+          "project_id": "PRJ-001",
+          "event_type": "construction_started",
+          "human_review_status": "confirmed",
+          "knowledge_status": "known",
+          "evidence_ids": []
+        },
+        {
+          "event_id": "EVT-103",
+          "project_id": "PRJ-001",
+          "event_type": "full_operation",
+          "human_review_status": "review_required",
+          "knowledge_status": "pending_confirmation",
+          "evidence_ids": [
+            "EVD-103"
+          ]
+        }
+      ],
+      "new_evidence": [
+        {
+          "evidence_id": "EVD-103",
+          "target_type": "project_event",
+          "target_id": "EVT-103",
+          "relation": "supports"
+        }
+      ]
+    },
+    "expected_output": "formal_display_status=construction_started; pending_new_stage=full_operation; no automatic promotion"
   }
 ]
