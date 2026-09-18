@@ -1,0 +1,236 @@
+[
+  {
+    "rule_id": "ER-001",
+    "category": "entity_resolution",
+    "title": "已确认唯一标识",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "ER-002",
+    "category": "entity_resolution",
+    "title": "别名与关键属性",
+    "automation_level": "ai_proposes_human_confirms"
+  },
+  {
+    "rule_id": "ER-003",
+    "category": "entity_resolution",
+    "title": "名称相似不足",
+    "automation_level": "ai_proposes_human_confirms"
+  },
+  {
+    "rule_id": "ER-004",
+    "category": "entity_resolution",
+    "title": "关键属性冲突",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "ER-005",
+    "category": "entity_resolution",
+    "title": "信息不足",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "ER-006",
+    "category": "entity_resolution",
+    "title": "新项目候选",
+    "automation_level": "ai_proposes_human_confirms"
+  },
+  {
+    "rule_id": "EG-001",
+    "category": "evidence_grading",
+    "title": "来源级别不替代陈述",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "EG-002",
+    "category": "evidence_grading",
+    "title": "证据逐条对应主张",
+    "automation_level": "ai_proposes_human_confirms"
+  },
+  {
+    "rule_id": "EG-003",
+    "category": "evidence_grading",
+    "title": "C 级边界",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "EG-004",
+    "category": "evidence_grading",
+    "title": "D 级边界",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "EG-005",
+    "category": "evidence_grading",
+    "title": "无来源的研究员假设",
+    "automation_level": "human_only"
+  },
+  {
+    "rule_id": "PS-001",
+    "category": "project_status",
+    "title": "规划",
+    "automation_level": "ai_proposes_human_confirms"
+  },
+  {
+    "rule_id": "PS-002",
+    "category": "project_status",
+    "title": "核准或备案",
+    "automation_level": "ai_proposes_human_confirms"
+  },
+  {
+    "rule_id": "PS-003",
+    "category": "project_status",
+    "title": "开工",
+    "automation_level": "ai_proposes_human_confirms"
+  },
+  {
+    "rule_id": "PS-004",
+    "category": "project_status",
+    "title": "首批并网",
+    "automation_level": "ai_proposes_human_confirms"
+  },
+  {
+    "rule_id": "PS-005",
+    "category": "project_status",
+    "title": "全容量投运",
+    "automation_level": "ai_proposes_human_confirms"
+  },
+  {
+    "rule_id": "PS-006",
+    "category": "project_status",
+    "title": "不补造中间事件",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "PS-007",
+    "category": "project_status",
+    "title": "冲突状态",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "SC-001",
+    "category": "source_conflict",
+    "title": "不同阶段不构成值冲突",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "SC-002",
+    "category": "source_conflict",
+    "title": "不同指标不构成值冲突",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "SC-003",
+    "category": "source_conflict",
+    "title": "不同统计范围不构成值冲突",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "SC-004",
+    "category": "source_conflict",
+    "title": "同口径不同值",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "SC-005",
+    "category": "source_conflict",
+    "title": "高等级不抹除低等级",
+    "automation_level": "ai_proposes_human_confirms"
+  },
+  {
+    "rule_id": "SC-006",
+    "category": "source_conflict",
+    "title": "AI 冲突职责",
+    "automation_level": "ai_proposes_human_confirms"
+  },
+  {
+    "rule_id": "MN-001",
+    "category": "metric_normalization",
+    "title": "指标名一致",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "MN-002",
+    "category": "metric_normalization",
+    "title": "确定性单位换算",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "MN-003",
+    "category": "metric_normalization",
+    "title": "生命周期阶段一致",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "MN-004",
+    "category": "metric_normalization",
+    "title": "组织范围一致",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "MN-005",
+    "category": "metric_normalization",
+    "title": "投资口径一致",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "MN-006",
+    "category": "metric_normalization",
+    "title": "项目类型保留",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "MN-007",
+    "category": "metric_normalization",
+    "title": "未知值不聚合",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "MN-008",
+    "category": "metric_normalization",
+    "title": "冲突值不聚合",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "JI-001",
+    "category": "judgment_impact",
+    "title": "仅检查直接依赖",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "JI-002",
+    "category": "judgment_impact",
+    "title": "纯支持证据不触发",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "JI-003",
+    "category": "judgment_impact",
+    "title": "实质变化触发复核",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "JI-004",
+    "category": "judgment_impact",
+    "title": "无关事实不影响",
+    "automation_level": "automatic"
+  },
+  {
+    "rule_id": "JI-005",
+    "category": "judgment_impact",
+    "title": "AI 草案不成为正式判断",
+    "automation_level": "ai_proposes_human_confirms"
+  },
+  {
+    "rule_id": "JI-006",
+    "category": "judgment_impact",
+    "title": "人工确认版本",
+    "automation_level": "human_only"
+  },
+  {
+    "rule_id": "JI-007",
+    "category": "judgment_impact",
+    "title": "自然语言前提限制",
+    "automation_level": "automatic"
+  }
+]

@@ -1,0 +1,518 @@
+[
+  {
+    "case_id": "P02-001",
+    "rule_ids": [
+      "ER-002"
+    ],
+    "category": "entity_resolution",
+    "description": "别名、owner、region 一致",
+    "input": {
+      "name": "北岸储能一期",
+      "owner_organization_id": "ORG-003",
+      "region": "虚构省北岸片区",
+      "existing_project_id": "PRJ-001"
+    },
+    "expected_output": "candidate_match; first binding requires human confirmation"
+  },
+  {
+    "case_id": "P02-002",
+    "rule_ids": [
+      "ER-003"
+    ],
+    "category": "entity_resolution",
+    "description": "仅名称相似",
+    "input": {
+      "name": "北岸储能",
+      "known_attributes": []
+    },
+    "expected_output": "review_required; no automatic merge"
+  },
+  {
+    "case_id": "P02-003",
+    "rule_ids": [
+      "ER-004"
+    ],
+    "category": "entity_resolution",
+    "description": "同名但 owner 和地区冲突",
+    "input": {
+      "name": "北岸储能一期",
+      "owner_organization_id": "ORG-004",
+      "region": "虚构省南岭片区",
+      "existing_project_id": "PRJ-001"
+    },
+    "expected_output": "not_matched"
+  },
+  {
+    "case_id": "P02-004",
+    "rule_ids": [
+      "ER-001"
+    ],
+    "category": "entity_resolution",
+    "description": "已确认唯一编号",
+    "input": {
+      "confirmed_project_number": "MOCK-N-001",
+      "bound_project_id": "PRJ-001"
+    },
+    "expected_output": "matched"
+  },
+  {
+    "case_id": "P02-005",
+    "rule_ids": [
+      "ER-005",
+      "ER-006"
+    ],
+    "category": "entity_resolution",
+    "description": "信息不足不能新建项目",
+    "input": {
+      "name": "某储能站",
+      "owner_organization_id": null,
+      "region": null
+    },
+    "expected_output": "unresolved; no Project created"
+  },
+  {
+    "case_id": "P02-006",
+    "rule_ids": [
+      "EG-001",
+      "PS-003"
+    ],
+    "category": "evidence_grading",
+    "description": "A级来源写计划开工",
+    "input": {
+      "grade": "A",
+      "source_type": "internal_ledger",
+      "claim": "虚构南岭项目计划下月启动建设"
+    },
+    "expected_output": "pending_confirmation; construction_started not confirmed"
+  },
+  {
+    "case_id": "P02-007",
+    "rule_ids": [
+      "EG-003",
+      "PS-005"
+    ],
+    "category": "evidence_grading",
+    "description": "C级单独声称全容量投运",
+    "input": {
+      "grade": "C",
+      "source_type": "research_report",
+      "claim": "虚构北岸项目已全容量投运"
+    },
+    "expected_output": "pending_confirmation"
+  },
+  {
+    "case_id": "P02-008",
+    "rule_ids": [
+      "EG-004"
+    ],
+    "category": "evidence_grading",
+    "description": "D级访谈线索",
+    "input": {
+      "grade": "D",
+      "source_type": "interview",
+      "claim": "虚构北岸项目可能开工"
+    },
+    "expected_output": "lead_only; no status change"
+  },
+  {
+    "case_id": "P02-009",
+    "rule_ids": [
+      "EG-002"
+    ],
+    "category": "evidence_grading",
+    "description": "证据只针对摘录中的 claim",
+    "input": {
+      "grade": "A",
+      "excerpt": "虚构北岸项目规划功率为100 MW",
+      "target_claim": "项目已全容量投运"
+    },
+    "expected_output": "claim_specific_grade; excerpt cannot confirm target claim"
+  },
+  {
+    "case_id": "P02-010",
+    "rule_ids": [
+      "EG-005"
+    ],
+    "category": "evidence_grading",
+    "description": "无来源支持的路径前提",
+    "input": {
+      "premise": "虚构集团渠道能力是路径前提",
+      "direct_source": null
+    },
+    "expected_output": "researcher_hypothesis; P04 modeling requirement"
+  },
+  {
+    "case_id": "P02-011",
+    "rule_ids": [
+      "PS-003"
+    ],
+    "category": "project_status",
+    "description": "B级官方动态明确正式开工",
+    "input": {
+      "grade": "B",
+      "claim": "虚构北岸项目已正式开工"
+    },
+    "expected_output": "construction_started candidate; human confirms formal event"
+  },
+  {
+    "case_id": "P02-012",
+    "rule_ids": [
+      "PS-005"
+    ],
+    "category": "project_status",
+    "description": "B级动态明确全容量投运",
+    "input": {
+      "grade": "B",
+      "claim": "虚构北岸项目已全容量投运"
+    },
+    "expected_output": "full_operation candidate; human confirms formal event"
+  },
+  {
+    "case_id": "P02-013",
+    "rule_ids": [
+      "PS-006"
+    ],
+    "category": "project_status",
+    "description": "直接确认全容量投运但缺开工史",
+    "input": {
+      "confirmed_events": [
+        "full_operation"
+      ],
+      "construction_date": null
+    },
+    "expected_output": "confirmed_later_event_without_invented_intermediates; no invented construction Event"
+  },
+  {
+    "case_id": "P02-014",
+    "rule_ids": [
+      "PS-007"
+    ],
+    "category": "project_status",
+    "description": "已确认事件遇到反驳",
+    "input": {
+      "confirmed_claim": "虚构北岸项目已开工",
+      "new_claim": "虚构北岸项目尚未开工"
+    },
+    "expected_output": "review_required; original Event preserved"
+  },
+  {
+    "case_id": "P02-015",
+    "rule_ids": [
+      "SC-004",
+      "SC-005"
+    ],
+    "category": "source_conflict",
+    "description": "同项目同期间计划投资8亿与9亿",
+    "input": {
+      "subject": "PRJ-001",
+      "metric_name": "planned_investment",
+      "period": "2025-04",
+      "lifecycle_stage": null,
+      "scope_definition": "同一项目计划投资",
+      "unit": "亿元",
+      "values": [
+        8,
+        9
+      ],
+      "grades": [
+        "C",
+        "A"
+      ]
+    },
+    "expected_output": "conflicting; keep both Metric records and Evidence; human review"
+  },
+  {
+    "case_id": "P02-016",
+    "rule_ids": [
+      "SC-002",
+      "MN-005"
+    ],
+    "category": "source_conflict",
+    "description": "计划投资与资本开支不同",
+    "input": {
+      "subject": "PRJ-001",
+      "period": "2025-04",
+      "metrics": [
+        {
+          "name": "planned_investment",
+          "value": 8
+        },
+        {
+          "name": "disclosed_capex",
+          "value": 5
+        }
+      ]
+    },
+    "expected_output": "not_conflicting; comparison_blocked as same investment measure"
+  },
+  {
+    "case_id": "P02-017",
+    "rule_ids": [
+      "SC-001",
+      "MN-003"
+    ],
+    "category": "source_conflict",
+    "description": "规划100 MW与投运50 MW阶段不同",
+    "input": {
+      "subject": "PRJ-001",
+      "metrics": [
+        {
+          "name": "power_capacity",
+          "stage": "planned",
+          "value": 100,
+          "unit": "MW"
+        },
+        {
+          "name": "power_capacity",
+          "stage": "full_operation",
+          "value": 50,
+          "unit": "MW"
+        }
+      ]
+    },
+    "expected_output": "not_conflicting; direct same-stage comparison blocked"
+  },
+  {
+    "case_id": "P02-018",
+    "rule_ids": [
+      "SC-003",
+      "MN-004"
+    ],
+    "category": "source_conflict",
+    "description": "集团与平台统计范围不同",
+    "input": {
+      "metrics": [
+        {
+          "subject": "ORG-001",
+          "organization_type": "group",
+          "value": 2000,
+          "unit": "MW"
+        },
+        {
+          "subject": "ORG-002",
+          "organization_type": "platform",
+          "value": 1500,
+          "unit": "MW"
+        }
+      ]
+    },
+    "expected_output": "not_conflicting; comparison_blocked by scope"
+  },
+  {
+    "case_id": "P02-019",
+    "rule_ids": [
+      "MN-002"
+    ],
+    "category": "metric_normalization",
+    "description": "0.1 GW与100 MW可确定换算",
+    "input": {
+      "metric_name": "power_capacity",
+      "lifecycle_stage": "planned",
+      "scope": "same",
+      "values": [
+        {
+          "value": 0.1,
+          "unit": "GW"
+        },
+        {
+          "value": 100,
+          "unit": "MW"
+        }
+      ]
+    },
+    "expected_output": "converted_comparison; 0.1 GW = 100 MW; preserve originals"
+  },
+  {
+    "case_id": "P02-020",
+    "rule_ids": [
+      "MN-001"
+    ],
+    "category": "metric_normalization",
+    "description": "100 MW与200 MWh不可直接比",
+    "input": {
+      "left": {
+        "metric_name": "power_capacity",
+        "value": 100,
+        "unit": "MW"
+      },
+      "right": {
+        "metric_name": "energy_capacity",
+        "value": 200,
+        "unit": "MWh"
+      }
+    },
+    "expected_output": "comparison_blocked"
+  },
+  {
+    "case_id": "P02-021",
+    "rule_ids": [
+      "MN-004"
+    ],
+    "category": "metric_normalization",
+    "description": "集团与平台规模不能直接比较",
+    "input": {
+      "left": {
+        "subject": "ORG-001",
+        "scope": "group",
+        "value": 2000,
+        "unit": "MW"
+      },
+      "right": {
+        "subject": "ORG-002",
+        "scope": "platform",
+        "value": 1500,
+        "unit": "MW"
+      }
+    },
+    "expected_output": "comparison_blocked; scope difference shown"
+  },
+  {
+    "case_id": "P02-022",
+    "rule_ids": [
+      "MN-006"
+    ],
+    "category": "metric_normalization",
+    "description": "独立储能和配储并列保留类型",
+    "input": {
+      "project_types": [
+        "independent_storage",
+        "co_located_storage"
+      ]
+    },
+    "expected_output": "type_difference_disclosed"
+  },
+  {
+    "case_id": "P02-023",
+    "rule_ids": [
+      "MN-007"
+    ],
+    "category": "metric_normalization",
+    "description": "未知经营结果不参加聚合",
+    "input": {
+      "metric_id": "MET-004",
+      "knowledge_status": "unknown",
+      "value": null
+    },
+    "expected_output": "excluded_unknown; display 未知/暂无可确认数据"
+  },
+  {
+    "case_id": "P02-024",
+    "rule_ids": [
+      "MN-008"
+    ],
+    "category": "metric_normalization",
+    "description": "冲突投资值不参加唯一值聚合",
+    "input": {
+      "metric_ids": [
+        "MET-005",
+        "MET-006"
+      ],
+      "knowledge_status": "conflicting",
+      "values": [
+        8,
+        9
+      ]
+    },
+    "expected_output": "excluded_conflicting; human selects analytical baseline"
+  },
+  {
+    "case_id": "P02-025",
+    "rule_ids": [
+      "JI-001",
+      "JI-002"
+    ],
+    "category": "judgment_impact",
+    "description": "只新增支持证据而依赖对象未变",
+    "input": {
+      "judgment_id": "JDG-003",
+      "dependency_ref": "MET-001",
+      "new_evidence_relation": "supports",
+      "changed_fields": []
+    },
+    "expected_output": "no_review_trigger; evidence_version may update"
+  },
+  {
+    "case_id": "P02-026",
+    "rule_ids": [
+      "JI-001",
+      "JI-003"
+    ],
+    "category": "judgment_impact",
+    "description": "依赖 Metric 从 known 变 conflicting",
+    "input": {
+      "judgment_id": "JDG-003",
+      "dependency_ref": "MET-001",
+      "before": {
+        "knowledge_status": "known",
+        "value": 100
+      },
+      "after": {
+        "knowledge_status": "conflicting",
+        "value": 100
+      }
+    },
+    "expected_output": "review_required"
+  },
+  {
+    "case_id": "P02-027",
+    "rule_ids": [
+      "JI-004"
+    ],
+    "category": "judgment_impact",
+    "description": "新事件不在依赖列表",
+    "input": {
+      "judgment_id": "JDG-003",
+      "dependency_refs": [
+        "MET-001",
+        "MET-002"
+      ],
+      "new_event_id": "EVT-003"
+    },
+    "expected_output": "unaffected"
+  },
+  {
+    "case_id": "P02-028",
+    "rule_ids": [
+      "JI-005"
+    ],
+    "category": "judgment_impact",
+    "description": "AI 生成新判断",
+    "input": {
+      "author": "AI",
+      "proposed_text": "虚构北岸项目投资口径待进一步核实"
+    },
+    "expected_output": "draft_requires_review; never active automatically"
+  },
+  {
+    "case_id": "P02-029",
+    "rule_ids": [
+      "JI-006"
+    ],
+    "category": "judgment_impact",
+    "description": "研究员确认新判断版本",
+    "input": {
+      "human_confirmed": true,
+      "old_version": 1,
+      "new_version": 2
+    },
+    "expected_output": "active_and_superseded; v2 active and v1 superseded"
+  },
+  {
+    "case_id": "P02-030",
+    "rule_ids": [
+      "JI-007"
+    ],
+    "category": "judgment_impact",
+    "description": "自然语言前提不触发自动复核",
+    "input": {
+      "premises": [
+        "仅在演示来源范围内成立"
+      ],
+      "dependency_refs": [
+        "MET-001"
+      ],
+      "new_unlinked_fact": "FCT-006"
+    },
+    "expected_output": "premise_not_auto_evaluated; no automatic review trigger"
+  }
+]

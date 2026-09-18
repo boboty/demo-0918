@@ -11,3 +11,7 @@
 - [数据模型](docs/02-data-model.md)
 
 P01 数据模型已建立。
+- [业务规则总览](docs/03-business-rules.md)
+- [规则索引](rules/rule-catalog.json)
+
+P02 业务规则已建立。
