@@ -129,6 +129,7 @@ def main():
         fail(f'p02-rule-cases.json: expected at least 19 cases, got {len(cases)}')
     case_ids = set()
     case_categories = set()
+    covered_rule_ids = set()
     for number, case in enumerate(cases, 1):
         location = f'p02-rule-cases.json[{number}]'
         if not isinstance(case, dict):
@@ -147,6 +148,8 @@ def main():
             for rule_id in refs:
                 if rule_id not in catalog_ids:
                     fail(f'{location}: unknown Rule ID {rule_id!r}')
+                else:
+                    covered_rule_ids.add(rule_id)
         category = case.get('category')
         if category not in {value[1] for value in RULE_FILES.values()}:
             fail(f'{location}: invalid category {category!r}')
@@ -163,6 +166,8 @@ def main():
         fail(f'{category}: no test case')
     for category in {value[1] for value in RULE_FILES.values()} - catalog_categories:
         fail(f'{category}: no catalog rule')
+    for rule_id in sorted(catalog_ids - covered_rule_ids):
+        fail(f'{rule_id}: no test case references this catalog Rule ID')
     validate_frozen()
 
     if ERRORS:
@@ -171,7 +176,7 @@ def main():
             print(f'  - {error}')
         return 1
     distribution = Counter(item['automation_level'] for item in catalog)
-    print(f'PASS P02 validation: {len(catalog_ids)} rules, {len(cases)} cases, six categories, frozen P01 assets unchanged')
+    print(f'PASS P02 validation: {len(catalog_ids)} rules, {len(cases)} cases, 100% Rule ID test references, six categories, frozen P01 assets unchanged')
     print('Automation levels: ' + ', '.join(f'{name}={distribution[name]}' for name in sorted(LEVELS)))
     return 0
 

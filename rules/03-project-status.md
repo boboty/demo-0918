@@ -71,3 +71,13 @@
 - 是否要求人工确认：是；只有人工可解决冲突
 - 示例：原“已开工”后出现明确“尚未开工” → review_required
 - 例外或边界：不能让 AI 自行选择来源并改写原 Event
+
+## PS-008 当前展示状态推导
+
+- 输入条件：同一 Project 的 ProjectEvent，以及各事件的 `event_type`、`human_review_status`、`knowledge_status` 和未决冲突信息
+- 判断逻辑：主生命周期顺序为 `planned → approved_or_filed → construction_started → first_grid_connection → full_operation`。只从 `human_review_status=confirmed`、`knowledge_status=known` 且该阶段无未决冲突的主生命周期事件中取最高阶段，作为当前正式展示状态；`pending_confirmation`、`review_required`、`unreviewed` 的事件不得提升正式状态，但较高阶段有此类记录时单独提示“存在待确认的新阶段”。若较高阶段出现未决冲突，即使原事件曾确认，也将该阶段暂从正式展示推导中排除，维持此前最高无争议的 confirmed 阶段，并显示 `review_required` 提示
+- 输出结果：`formal_display_status` 为最高可用 confirmed 主阶段；可附 `pending_new_stage` 或 `review_required` 提示。无可用 confirmed 主事件时，正式展示状态为 `unknown`
+- 是否允许 AI 自动执行：是，仅从已人工确认的事件推导展示结果，不创建或确认新业务事实
+- 是否要求人工确认：否；但候选事件确认和冲突解除仍由研究员完成
+- 示例：confirmed `construction_started` + pending `full_operation` → 正式展示 `construction_started`，另提示 `full_operation` 待确认
+- 例外或边界：只有可靠确认的 `full_operation` 时可直接展示该阶段，不补造备案、开工或首批并网事件；`signed` 不参与主顺序；`operation` 与 `operating_result_disclosed` 不替代或高于 `full_operation`；更高阶段冲突未决时正式展示保持此前最高无争议 confirmed 阶段

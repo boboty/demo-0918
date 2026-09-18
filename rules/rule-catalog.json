@@ -108,6 +108,12 @@
     "automation_level": "automatic"
   },
   {
+    "rule_id": "PS-008",
+    "category": "project_status",
+    "title": "当前展示状态推导",
+    "automation_level": "automatic"
+  },
+  {
     "rule_id": "SC-001",
     "category": "source_conflict",
     "title": "不同阶段不构成值冲突",

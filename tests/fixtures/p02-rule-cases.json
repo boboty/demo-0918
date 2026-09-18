@@ -514,5 +514,186 @@
       "new_unlinked_fact": "FCT-006"
     },
     "expected_output": "premise_not_auto_evaluated; no automatic review trigger"
+  },
+  {
+    "case_id": "P02-031",
+    "rule_ids": [
+      "PS-001"
+    ],
+    "category": "project_status",
+    "description": "明确规划信息只形成 planned 候选",
+    "input": {
+      "project": "虚构南岭项目",
+      "grade": "B",
+      "claim": "已形成储能建设规划方案"
+    },
+    "expected_output": "planned candidate; human confirmation required before formal ProjectEvent"
+  },
+  {
+    "case_id": "P02-032",
+    "rule_ids": [
+      "PS-002"
+    ],
+    "category": "project_status",
+    "description": "明确已备案只形成 approved_or_filed 候选",
+    "input": {
+      "project": "虚构北岸项目",
+      "grade": "B",
+      "claim": "项目已完成备案"
+    },
+    "expected_output": "approved_or_filed candidate; human confirmation required before formal ProjectEvent"
+  },
+  {
+    "case_id": "P02-033",
+    "rule_ids": [
+      "PS-004"
+    ],
+    "category": "project_status",
+    "description": "明确首批并网只形成 first_grid_connection 候选",
+    "input": {
+      "project": "虚构北岸项目",
+      "grade": "B",
+      "claim": "首批储能设备已并网"
+    },
+    "expected_output": "first_grid_connection candidate; human confirmation required before formal ProjectEvent"
+  },
+  {
+    "case_id": "P02-034",
+    "rule_ids": [
+      "PS-008"
+    ],
+    "category": "project_status",
+    "description": "已确认开工且全容量投运待确认",
+    "input": {
+      "project_id": "PRJ-001",
+      "events": [
+        {
+          "event_type": "construction_started",
+          "human_review_status": "confirmed",
+          "knowledge_status": "known"
+        },
+        {
+          "event_type": "full_operation",
+          "human_review_status": "review_required",
+          "knowledge_status": "pending_confirmation"
+        }
+      ]
+    },
+    "expected_output": "formal_display_status=construction_started; pending_new_stage=full_operation"
+  },
+  {
+    "case_id": "P02-035",
+    "rule_ids": [
+      "PS-008"
+    ],
+    "category": "project_status",
+    "description": "仅全容量投运得到确认",
+    "input": {
+      "project_id": "PRJ-001",
+      "events": [
+        {
+          "event_type": "full_operation",
+          "human_review_status": "confirmed",
+          "knowledge_status": "known"
+        }
+      ]
+    },
+    "expected_output": "formal_display_status=full_operation; no intermediate Events invented"
+  },
+  {
+    "case_id": "P02-036",
+    "rule_ids": [
+      "PS-008"
+    ],
+    "category": "project_status",
+    "description": "signed 与投运后运营事件不参与主阶段排序",
+    "input": {
+      "project_id": "PRJ-001",
+      "events": [
+        {
+          "event_type": "signed",
+          "human_review_status": "confirmed",
+          "knowledge_status": "known"
+        },
+        {
+          "event_type": "approved_or_filed",
+          "human_review_status": "confirmed",
+          "knowledge_status": "known"
+        },
+        {
+          "event_type": "operation",
+          "human_review_status": "confirmed",
+          "knowledge_status": "known"
+        },
+        {
+          "event_type": "operating_result_disclosed",
+          "human_review_status": "confirmed",
+          "knowledge_status": "known"
+        }
+      ]
+    },
+    "expected_output": "formal_display_status=approved_or_filed; signed and operation events excluded from main order"
+  },
+  {
+    "case_id": "P02-037",
+    "rule_ids": [
+      "PS-008"
+    ],
+    "category": "project_status",
+    "description": "更高阶段冲突未决时回退到此前最高无争议确认阶段",
+    "input": {
+      "project_id": "PRJ-001",
+      "events": [
+        {
+          "event_type": "construction_started",
+          "human_review_status": "confirmed",
+          "knowledge_status": "known"
+        },
+        {
+          "event_type": "full_operation",
+          "human_review_status": "confirmed",
+          "knowledge_status": "known",
+          "unresolved_conflict": true
+        }
+      ]
+    },
+    "expected_output": "formal_display_status=construction_started; review_required=full_operation"
+  },
+  {
+    "case_id": "P02-038",
+    "rule_ids": [
+      "SC-006"
+    ],
+    "category": "source_conflict",
+    "description": "AI 发现疑似冲突只能提出候选与核查方向",
+    "input": {
+      "project_id": "PRJ-001",
+      "metric_name": "planned_investment",
+      "candidate_values": [
+        8,
+        9
+      ],
+      "ai_analysis": "核对来源所指阶段、期间、口径和原文"
+    },
+    "expected_output": "conflict_candidate with verification direction; no value selected or evidence deleted"
+  },
+  {
+    "case_id": "P02-039",
+    "rule_ids": [
+      "ER-006"
+    ],
+    "category": "entity_resolution",
+    "description": "合理排除现有项目后提出新项目候选",
+    "input": {
+      "incoming_name": "虚构西湾储能项目",
+      "incoming_region": "虚构省西湾片区",
+      "incoming_owner": "虚构西湾项目公司",
+      "existing_candidates_checked": [
+        "PRJ-001",
+        "PRJ-002"
+      ],
+      "reasonable_matches_remaining": []
+    },
+    "expected_output": "candidate_new_project; no formal Project before human confirmation"
   }
 ]
