@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/hengce/schema/judgment.schema.json",
+  "title": "judgment",
+  "description": "One business record; cross-file references are checked by tools/validate_p01.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "judgment_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^JDG-[0-9]{3}$"
+    },
+    "is_mock": {
+      "type": "boolean"
+    },
+    "judgment_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "judgment_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "active",
+        "review_required",
+        "superseded",
+        "draft"
+      ]
+    },
+    "dependency_refs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "target_type": {
+            "type": "string",
+            "minLength": 1,
+            "enum": [
+              "fact",
+              "metric",
+              "project_event"
+            ]
+          },
+          "target_id": {
+            "type": "string",
+            "minLength": 1,
+            "pattern": "^(FCT|MET|EVT)-[0-9]{3}$"
+          }
+        },
+        "required": [
+          "target_type",
+          "target_id"
+        ]
+      },
+      "uniqueItems": true
+    },
+    "human_review_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "unreviewed",
+        "confirmed",
+        "review_required"
+      ]
+    },
+    "last_reviewed_at": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "report_source_id": {
+      "type": "string",
+      "pattern": "^SRC-[0-9]{3}$"
+    },
+    "premises": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "evidence_version": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "required": [
+    "judgment_id",
+    "is_mock",
+    "judgment_text",
+    "version",
+    "judgment_status",
+    "dependency_refs",
+    "human_review_status",
+    "last_reviewed_at",
+    "report_source_id",
+    "premises",
+    "evidence_version"
+  ]
+}

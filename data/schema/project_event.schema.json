@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/hengce/schema/project_event.schema.json",
+  "title": "project_event",
+  "description": "One business record; cross-file references are checked by tools/validate_p01.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^EVT-[0-9]{3}$"
+    },
+    "is_mock": {
+      "type": "boolean"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^PRJ-[0-9]{3}$"
+    },
+    "event_type": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "signed",
+        "planned",
+        "approved_or_filed",
+        "construction_started",
+        "first_grid_connection",
+        "full_operation",
+        "operation",
+        "operating_result_disclosed"
+      ]
+    },
+    "event_date": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "knowledge_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "known",
+        "unknown",
+        "pending_confirmation",
+        "conflicting"
+      ]
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^EVD-[0-9]{3}$"
+      },
+      "uniqueItems": true
+    },
+    "human_review_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "unreviewed",
+        "confirmed",
+        "review_required"
+      ]
+    }
+  },
+  "required": [
+    "event_id",
+    "is_mock",
+    "project_id",
+    "event_type",
+    "knowledge_status",
+    "evidence_ids",
+    "human_review_status"
+  ]
+}

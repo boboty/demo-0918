@@ -1,0 +1,38 @@
+[
+  {
+    "organization_id": "ORG-001",
+    "is_mock": true,
+    "canonical_name": "澄岳虚构能源集团",
+    "aliases": [
+      "澄岳集团"
+    ],
+    "organization_type": "group",
+    "parent_organization_id": null
+  },
+  {
+    "organization_id": "ORG-002",
+    "is_mock": true,
+    "canonical_name": "澄岳虚构新能源平台",
+    "aliases": [
+      "澄岳新能源"
+    ],
+    "organization_type": "platform",
+    "parent_organization_id": "ORG-001"
+  },
+  {
+    "organization_id": "ORG-003",
+    "is_mock": true,
+    "canonical_name": "澄岳虚构北岸项目公司",
+    "aliases": [],
+    "organization_type": "spv",
+    "parent_organization_id": "ORG-002"
+  },
+  {
+    "organization_id": "ORG-004",
+    "is_mock": true,
+    "canonical_name": "澄岳虚构南岭项目公司",
+    "aliases": [],
+    "organization_type": "spv",
+    "parent_organization_id": "ORG-002"
+  }
+]

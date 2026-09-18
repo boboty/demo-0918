@@ -1,0 +1,80 @@
+[
+  {
+    "metric_id": "MET-001",
+    "is_mock": true,
+    "subject_type": "project",
+    "subject_id": "PRJ-001",
+    "metric_name": "power_capacity",
+    "value": 100,
+    "unit": "MW",
+    "period": "2025-03",
+    "scope_definition": "虚构北岸项目规划功率规模",
+    "knowledge_status": "known",
+    "evidence_ids": [
+      "EVD-001",
+      "EVD-013"
+    ],
+    "human_review_status": "confirmed"
+  },
+  {
+    "metric_id": "MET-002",
+    "is_mock": true,
+    "subject_type": "project",
+    "subject_id": "PRJ-001",
+    "metric_name": "energy_capacity",
+    "value": 200,
+    "unit": "MWh",
+    "period": "2025-03",
+    "scope_definition": "虚构北岸项目规划储能容量",
+    "knowledge_status": "known",
+    "evidence_ids": [
+      "EVD-003"
+    ],
+    "human_review_status": "confirmed"
+  },
+  {
+    "metric_id": "MET-003",
+    "is_mock": true,
+    "subject_type": "project",
+    "subject_id": "PRJ-002",
+    "metric_name": "power_capacity",
+    "value": 50,
+    "unit": "MW",
+    "period": "2025-04",
+    "scope_definition": "虚构南岭项目拟配置功率规模",
+    "knowledge_status": "known",
+    "evidence_ids": [
+      "EVD-010"
+    ],
+    "human_review_status": "confirmed"
+  },
+  {
+    "metric_id": "MET-004",
+    "is_mock": true,
+    "subject_type": "project",
+    "subject_id": "PRJ-002",
+    "metric_name": "operating_result",
+    "unit": "亿元",
+    "period": "2025-04",
+    "scope_definition": "虚构南岭项目经营结果；暂无可确认数值",
+    "knowledge_status": "unknown",
+    "evidence_ids": [],
+    "human_review_status": "unreviewed"
+  },
+  {
+    "metric_id": "MET-005",
+    "is_mock": true,
+    "subject_type": "project",
+    "subject_id": "PRJ-001",
+    "metric_name": "planned_investment",
+    "unit": "亿元",
+    "period": "2025-04",
+    "scope_definition": "虚构北岸项目计划投资，两个来源数值冲突",
+    "knowledge_status": "conflicting",
+    "evidence_ids": [
+      "EVD-014",
+      "EVD-015"
+    ],
+    "human_review_status": "review_required"
+  }
+]

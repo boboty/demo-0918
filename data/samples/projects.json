@@ -1,0 +1,25 @@
+[
+  {
+    "project_id": "PRJ-001",
+    "is_mock": true,
+    "canonical_name": "虚构北岸独立储能示范项目",
+    "aliases": [
+      "北岸储能一期",
+      "澄岳北岸调峰站"
+    ],
+    "owner_organization_id": "ORG-003",
+    "region": "虚构省北岸片区",
+    "project_type": "independent_storage"
+  },
+  {
+    "project_id": "PRJ-002",
+    "is_mock": true,
+    "canonical_name": "虚构南岭配储示范项目",
+    "aliases": [
+      "南岭配储工程"
+    ],
+    "owner_organization_id": "ORG-004",
+    "region": "虚构省南岭片区",
+    "project_type": "co_located_storage"
+  }
+]

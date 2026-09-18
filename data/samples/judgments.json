@@ -1,0 +1,130 @@
+[
+  {
+    "judgment_id": "JDG-001",
+    "is_mock": true,
+    "judgment_text": "演示历史判断：北岸项目已有规划规模与备案事件，但投资口径仍需核对。",
+    "version": 1,
+    "judgment_status": "review_required",
+    "dependency_refs": [
+      {
+        "target_type": "fact",
+        "target_id": "FCT-003"
+      },
+      {
+        "target_type": "fact",
+        "target_id": "FCT-004"
+      },
+      {
+        "target_type": "metric",
+        "target_id": "MET-001"
+      },
+      {
+        "target_type": "project_event",
+        "target_id": "EVT-001"
+      }
+    ],
+    "human_review_status": "review_required",
+    "last_reviewed_at": "2025-04-05",
+    "report_source_id": "SRC-005",
+    "premises": [
+      "仅在本资料包所列演示来源范围内成立"
+    ],
+    "evidence_version": "mock-pack-v1"
+  },
+  {
+    "judgment_id": "JDG-002",
+    "is_mock": true,
+    "judgment_text": "演示历史判断：南岭项目尚缺可确认的开工日期与经营结果。",
+    "version": 1,
+    "judgment_status": "review_required",
+    "dependency_refs": [
+      {
+        "target_type": "metric",
+        "target_id": "MET-004"
+      },
+      {
+        "target_type": "project_event",
+        "target_id": "EVT-003"
+      }
+    ],
+    "human_review_status": "review_required",
+    "last_reviewed_at": "2025-04-05",
+    "report_source_id": "SRC-005",
+    "premises": [
+      "仅在本资料包所列演示来源范围内成立"
+    ],
+    "evidence_version": "mock-pack-v1"
+  },
+  {
+    "judgment_id": "JDG-003",
+    "is_mock": true,
+    "judgment_text": "演示历史判断：北岸项目规划功率与储能容量应分别比较。",
+    "version": 1,
+    "judgment_status": "active",
+    "dependency_refs": [
+      {
+        "target_type": "metric",
+        "target_id": "MET-001"
+      },
+      {
+        "target_type": "metric",
+        "target_id": "MET-002"
+      }
+    ],
+    "human_review_status": "confirmed",
+    "last_reviewed_at": "2025-04-05",
+    "report_source_id": "SRC-005",
+    "premises": [
+      "比较对象采用相同的规划阶段口径"
+    ],
+    "evidence_version": "mock-pack-v1"
+  },
+  {
+    "judgment_id": "JDG-004",
+    "is_mock": true,
+    "judgment_text": "演示历史判断：南岭项目的配储类型与北岸项目的独立储能类型应分开分析。",
+    "version": 1,
+    "judgment_status": "active",
+    "dependency_refs": [
+      {
+        "target_type": "fact",
+        "target_id": "FCT-005"
+      },
+      {
+        "target_type": "fact",
+        "target_id": "FCT-006"
+      }
+    ],
+    "human_review_status": "confirmed",
+    "last_reviewed_at": "2025-04-05",
+    "report_source_id": "SRC-005",
+    "premises": [
+      "项目类型按资料包内的项目事实识别"
+    ],
+    "evidence_version": "mock-pack-v1"
+  },
+  {
+    "judgment_id": "JDG-005",
+    "is_mock": true,
+    "judgment_text": "演示历史判断：北岸项目已有备案事件，但开工仍需进一步核对。",
+    "version": 1,
+    "judgment_status": "review_required",
+    "dependency_refs": [
+      {
+        "target_type": "project_event",
+        "target_id": "EVT-001"
+      },
+      {
+        "target_type": "project_event",
+        "target_id": "EVT-002"
+      }
+    ],
+    "human_review_status": "review_required",
+    "last_reviewed_at": "2025-04-05",
+    "report_source_id": "SRC-005",
+    "premises": [
+      "项目状态仅依据明确记录的事件讨论"
+    ],
+    "evidence_version": "mock-pack-v1"
+  }
+]

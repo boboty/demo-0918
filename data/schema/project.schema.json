@@ -1,0 +1,57 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/hengce/schema/project.schema.json",
+  "title": "project",
+  "description": "One business record; cross-file references are checked by tools/validate_p01.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "project_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^PRJ-[0-9]{3}$"
+    },
+    "is_mock": {
+      "type": "boolean"
+    },
+    "canonical_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "owner_organization_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^ORG-[0-9]{3}$"
+    },
+    "region": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_type": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "independent_storage",
+        "co_located_storage",
+        "other"
+      ]
+    }
+  },
+  "required": [
+    "project_id",
+    "is_mock",
+    "canonical_name",
+    "aliases",
+    "owner_organization_id",
+    "region",
+    "project_type"
+  ]
+}

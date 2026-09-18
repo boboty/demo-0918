@@ -1,0 +1,89 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/hengce/schema/evidence.schema.json",
+  "title": "evidence",
+  "description": "One business record; cross-file references are checked by tools/validate_p01.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^EVD-[0-9]{3}$"
+    },
+    "is_mock": {
+      "type": "boolean"
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^SRC-[0-9]{3}$"
+    },
+    "evidence_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_grade": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "A",
+        "B",
+        "C",
+        "D"
+      ]
+    },
+    "relation": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "supports",
+        "contradicts",
+        "context"
+      ]
+    },
+    "target_type": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "fact",
+        "project_event",
+        "metric"
+      ]
+    },
+    "target_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(FCT|EVT|MET)-[0-9]{3}$"
+    },
+    "extraction_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "extracted",
+        "needs_review"
+      ]
+    },
+    "human_review_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "unreviewed",
+        "confirmed",
+        "review_required"
+      ]
+    }
+  },
+  "required": [
+    "evidence_id",
+    "is_mock",
+    "source_id",
+    "evidence_text",
+    "evidence_grade",
+    "relation",
+    "target_type",
+    "target_id",
+    "extraction_status",
+    "human_review_status"
+  ]
+}

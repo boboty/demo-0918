@@ -1,0 +1,81 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/hengce/schema/source.schema.json",
+  "title": "source",
+  "description": "One business record; cross-file references are checked by tools/validate_p01.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^SRC-[0-9]{3}$"
+    },
+    "is_mock": {
+      "type": "boolean"
+    },
+    "source_type": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "annual_report",
+        "exchange_announcement",
+        "government_filing",
+        "government_news",
+        "company_news",
+        "tender",
+        "research_report",
+        "media",
+        "interview",
+        "meeting_note",
+        "internal_ledger",
+        "internal_report",
+        "other"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provider": {
+      "type": "string",
+      "minLength": 1
+    },
+    "publish_date": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$"
+    },
+    "locator": {
+      "type": "string",
+      "minLength": 1
+    },
+    "availability": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "online",
+        "offline"
+      ]
+    },
+    "data_origin": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "real",
+        "mock"
+      ]
+    }
+  },
+  "required": [
+    "source_id",
+    "is_mock",
+    "source_type",
+    "title",
+    "provider",
+    "publish_date",
+    "locator",
+    "availability",
+    "data_origin"
+  ]
+}

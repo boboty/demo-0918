@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/hengce/schema/fact.schema.json",
+  "title": "fact",
+  "description": "One business record; cross-file references are checked by tools/validate_p01.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "fact_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^FCT-[0-9]{3}$"
+    },
+    "is_mock": {
+      "type": "boolean"
+    },
+    "subject_type": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "organization",
+        "project"
+      ]
+    },
+    "subject_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(ORG|PRJ)-[0-9]{3}$"
+    },
+    "fact_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "value": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "effective_period": {
+      "type": "string",
+      "minLength": 1
+    },
+    "knowledge_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "known",
+        "unknown",
+        "pending_confirmation",
+        "conflicting"
+      ]
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^EVD-[0-9]{3}$"
+      },
+      "uniqueItems": true
+    },
+    "human_review_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "unreviewed",
+        "confirmed",
+        "review_required"
+      ]
+    }
+  },
+  "required": [
+    "fact_id",
+    "is_mock",
+    "subject_type",
+    "subject_id",
+    "fact_type",
+    "knowledge_status",
+    "evidence_ids",
+    "human_review_status"
+  ]
+}

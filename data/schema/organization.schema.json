@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/hengce/schema/organization.schema.json",
+  "title": "organization",
+  "description": "One business record; cross-file references are checked by tools/validate_p01.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "organization_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^ORG-[0-9]{3}$"
+    },
+    "is_mock": {
+      "type": "boolean"
+    },
+    "canonical_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "organization_type": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "group",
+        "platform",
+        "spv",
+        "other"
+      ]
+    },
+    "parent_organization_id": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "pattern": "^ORG-[0-9]{3}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "organization_id",
+    "is_mock",
+    "canonical_name",
+    "aliases",
+    "organization_type",
+    "parent_organization_id"
+  ]
+}

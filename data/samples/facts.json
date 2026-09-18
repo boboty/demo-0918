@@ -1,0 +1,92 @@
+[
+  {
+    "fact_id": "FCT-001",
+    "is_mock": true,
+    "subject_type": "project",
+    "subject_id": "PRJ-002",
+    "fact_type": "project_operator",
+    "value": "ORG-004",
+    "unit": "organization_id",
+    "effective_period": "2025-04",
+    "knowledge_status": "known",
+    "evidence_ids": [
+      "EVD-006"
+    ],
+    "human_review_status": "confirmed"
+  },
+  {
+    "fact_id": "FCT-002",
+    "is_mock": true,
+    "subject_type": "project",
+    "subject_id": "PRJ-001",
+    "fact_type": "source_alias",
+    "value": "澄岳北岸调峰站",
+    "unit": "name",
+    "effective_period": "2025-03",
+    "knowledge_status": "known",
+    "evidence_ids": [
+      "EVD-007"
+    ],
+    "human_review_status": "confirmed"
+  },
+  {
+    "fact_id": "FCT-003",
+    "is_mock": true,
+    "subject_type": "project",
+    "subject_id": "PRJ-001",
+    "fact_type": "planned_investment_claim",
+    "value": 8,
+    "unit": "亿元",
+    "effective_period": "2025-04",
+    "knowledge_status": "conflicting",
+    "evidence_ids": [
+      "EVD-004"
+    ],
+    "human_review_status": "review_required"
+  },
+  {
+    "fact_id": "FCT-004",
+    "is_mock": true,
+    "subject_type": "project",
+    "subject_id": "PRJ-001",
+    "fact_type": "planned_investment_claim",
+    "value": 9,
+    "unit": "亿元",
+    "effective_period": "2025-04",
+    "knowledge_status": "conflicting",
+    "evidence_ids": [
+      "EVD-005"
+    ],
+    "human_review_status": "review_required"
+  },
+  {
+    "fact_id": "FCT-005",
+    "is_mock": true,
+    "subject_type": "project",
+    "subject_id": "PRJ-001",
+    "fact_type": "storage_configuration",
+    "value": "independent_storage",
+    "unit": "category",
+    "effective_period": "2025-03",
+    "knowledge_status": "known",
+    "evidence_ids": [
+      "EVD-011"
+    ],
+    "human_review_status": "confirmed"
+  },
+  {
+    "fact_id": "FCT-006",
+    "is_mock": true,
+    "subject_type": "project",
+    "subject_id": "PRJ-002",
+    "fact_type": "storage_configuration",
+    "value": "co_located_storage",
+    "unit": "category",
+    "effective_period": "2025-04",
+    "knowledge_status": "known",
+    "evidence_ids": [
+      "EVD-012"
+    ],
+    "human_review_status": "confirmed"
+  }
+]

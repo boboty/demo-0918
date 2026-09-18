@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/hengce/schema/metric.schema.json",
+  "title": "metric",
+  "description": "One business record; cross-file references are checked by tools/validate_p01.py.",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "metric_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^MET-[0-9]{3}$"
+    },
+    "is_mock": {
+      "type": "boolean"
+    },
+    "subject_type": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "organization",
+        "project"
+      ]
+    },
+    "subject_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^(ORG|PRJ)-[0-9]{3}$"
+    },
+    "metric_name": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "power_capacity",
+        "energy_capacity",
+        "planned_investment",
+        "agreement_amount",
+        "budget",
+        "disclosed_capex",
+        "capitalized_asset",
+        "operating_result",
+        "other"
+      ]
+    },
+    "value": {
+      "oneOf": [
+        {
+          "type": "string",
+          "minLength": 1
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    },
+    "unit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "period": {
+      "type": "string",
+      "minLength": 1
+    },
+    "scope_definition": {
+      "type": "string",
+      "minLength": 1
+    },
+    "knowledge_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "known",
+        "unknown",
+        "pending_confirmation",
+        "conflicting"
+      ]
+    },
+    "evidence_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "pattern": "^EVD-[0-9]{3}$"
+      },
+      "uniqueItems": true
+    },
+    "human_review_status": {
+      "type": "string",
+      "minLength": 1,
+      "enum": [
+        "unreviewed",
+        "confirmed",
+        "review_required"
+      ]
+    }
+  },
+  "required": [
+    "metric_id",
+    "is_mock",
+    "subject_type",
+    "subject_id",
+    "metric_name",
+    "scope_definition",
+    "knowledge_status",
+    "evidence_ids",
+    "human_review_status"
+  ]
+}
