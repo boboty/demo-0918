@@ -95,6 +95,17 @@
         "confirmed",
         "review_required"
       ]
+    },
+    "lifecycle_stage": {
+      "type": "string",
+      "enum": [
+        "planned",
+        "approved_or_filed",
+        "construction_started",
+        "first_grid_connection",
+        "full_operation",
+        "operation"
+      ]
     }
   },
   "required": [
@@ -107,5 +118,27 @@
     "knowledge_status",
     "evidence_ids",
     "human_review_status"
+  ],
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "metric_name": {
+            "enum": [
+              "power_capacity",
+              "energy_capacity"
+            ]
+          }
+        },
+        "required": [
+          "metric_name"
+        ]
+      },
+      "then": {
+        "required": [
+          "lifecycle_stage"
+        ]
+      }
+    }
   ]
 }

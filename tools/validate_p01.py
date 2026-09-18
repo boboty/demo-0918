@@ -24,6 +24,10 @@ PREFIXES = {
     'metric': 'MET-', 'judgment': 'JDG-',
 }
 KNOWLEDGE = {'known', 'unknown', 'pending_confirmation', 'conflicting'}
+LIFECYCLE_STAGES = {
+    'planned', 'approved_or_filed', 'construction_started',
+    'first_grid_connection', 'full_operation', 'operation',
+}
 errors = []
 
 
@@ -169,6 +173,8 @@ def main():
                 check_subject(row, index, identifier)
             check_evidence_refs(row, index, identifier)
             check_knowledge(row, identifier, 'event_date' if kind == 'project_event' else 'value')
+            if kind == 'fact' and 'planned_investment' in str(row.get('fact_type', '')):
+                fail(f'{identifier}: planned investment is a quantitative Metric, not a Fact')
             for evidence_id in row.get('evidence_ids', []) if isinstance(row.get('evidence_ids'), list) else []:
                 evidence = index['evidence'].get(evidence_id)
                 if evidence and (evidence.get('target_type'), evidence.get('target_id')) != (kind, identifier):
@@ -202,6 +208,10 @@ def main():
         if row.get('metric_name') in ('power_capacity', 'energy_capacity'):
             subject = (row.get('subject_type'), row.get('subject_id'))
             capacities.setdefault(subject, {}).setdefault(row.get('unit'), set()).add(mid)
+            if row.get('lifecycle_stage') not in LIFECYCLE_STAGES:
+                fail(f'{mid}.lifecycle_stage: capacity metric requires a valid lifecycle stage')
+        elif 'lifecycle_stage' in row and row['lifecycle_stage'] not in LIFECYCLE_STAGES:
+            fail(f'{mid}.lifecycle_stage: invalid lifecycle stage')
         if row.get('metric_name') == 'power_capacity' and row.get('unit') != 'MW':
             fail(f'{mid}: power_capacity must use MW')
         if row.get('metric_name') == 'energy_capacity' and row.get('unit') != 'MWh':
@@ -215,7 +225,7 @@ def main():
         for error in errors:
             print(f'  - {error}')
         return 1
-    print('PASS P01 validation: JSON parsed; IDs, Mock flags, references, knowledge status and MW/MWh checked')
+    print('PASS P01 validation: JSON parsed; IDs, Mock flags, references, knowledge status, Fact/Metric boundary, lifecycle stages and MW/MWh checked')
     print('Records: ' + ', '.join(f'{kind}={len(index[kind])}' for kind in FILES))
     return 0
 

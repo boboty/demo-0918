@@ -30,36 +30,6 @@
     "human_review_status": "confirmed"
   },
   {
-    "fact_id": "FCT-003",
-    "is_mock": true,
-    "subject_type": "project",
-    "subject_id": "PRJ-001",
-    "fact_type": "planned_investment_claim",
-    "value": 8,
-    "unit": "亿元",
-    "effective_period": "2025-04",
-    "knowledge_status": "conflicting",
-    "evidence_ids": [
-      "EVD-004"
-    ],
-    "human_review_status": "review_required"
-  },
-  {
-    "fact_id": "FCT-004",
-    "is_mock": true,
-    "subject_type": "project",
-    "subject_id": "PRJ-001",
-    "fact_type": "planned_investment_claim",
-    "value": 9,
-    "unit": "亿元",
-    "effective_period": "2025-04",
-    "knowledge_status": "conflicting",
-    "evidence_ids": [
-      "EVD-005"
-    ],
-    "human_review_status": "review_required"
-  },
-  {
     "fact_id": "FCT-005",
     "is_mock": true,
     "subject_type": "project",

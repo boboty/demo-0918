@@ -42,8 +42,8 @@
     "evidence_text": "演示文本：北岸项目计划投资约8亿元，待交叉核对。",
     "evidence_grade": "C",
     "relation": "supports",
-    "target_type": "fact",
-    "target_id": "FCT-003",
+    "target_type": "metric",
+    "target_id": "MET-005",
     "extraction_status": "extracted",
     "human_review_status": "review_required"
   },
@@ -54,8 +54,8 @@
     "evidence_text": "演示文本：北岸项目计划投资为9亿元。",
     "evidence_grade": "A",
     "relation": "supports",
-    "target_type": "fact",
-    "target_id": "FCT-004",
+    "target_type": "metric",
+    "target_id": "MET-006",
     "extraction_status": "extracted",
     "human_review_status": "review_required"
   },
@@ -154,29 +154,5 @@
     "target_id": "MET-001",
     "extraction_status": "extracted",
     "human_review_status": "confirmed"
-  },
-  {
-    "evidence_id": "EVD-014",
-    "is_mock": true,
-    "source_id": "SRC-003",
-    "evidence_text": "演示文本：北岸项目计划投资约8亿元，待交叉核对。",
-    "evidence_grade": "C",
-    "relation": "supports",
-    "target_type": "metric",
-    "target_id": "MET-005",
-    "extraction_status": "extracted",
-    "human_review_status": "review_required"
-  },
-  {
-    "evidence_id": "EVD-015",
-    "is_mock": true,
-    "source_id": "SRC-004",
-    "evidence_text": "演示文本：北岸项目计划投资为9亿元。",
-    "evidence_grade": "A",
-    "relation": "contradicts",
-    "target_type": "metric",
-    "target_id": "MET-005",
-    "extraction_status": "extracted",
-    "human_review_status": "review_required"
   }
 ]

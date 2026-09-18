@@ -14,7 +14,8 @@
       "EVD-001",
       "EVD-013"
     ],
-    "human_review_status": "confirmed"
+    "human_review_status": "confirmed",
+    "lifecycle_stage": "planned"
   },
   {
     "metric_id": "MET-002",
@@ -30,7 +31,8 @@
     "evidence_ids": [
       "EVD-003"
     ],
-    "human_review_status": "confirmed"
+    "human_review_status": "confirmed",
+    "lifecycle_stage": "approved_or_filed"
   },
   {
     "metric_id": "MET-003",
@@ -46,7 +48,8 @@
     "evidence_ids": [
       "EVD-010"
     ],
-    "human_review_status": "confirmed"
+    "human_review_status": "confirmed",
+    "lifecycle_stage": "planned"
   },
   {
     "metric_id": "MET-004",
@@ -69,11 +72,27 @@
     "metric_name": "planned_investment",
     "unit": "亿元",
     "period": "2025-04",
-    "scope_definition": "虚构北岸项目计划投资，两个来源数值冲突",
+    "scope_definition": "虚构北岸项目计划投资；研究报告声称值，待与内部台账冲突核对",
     "knowledge_status": "conflicting",
     "evidence_ids": [
-      "EVD-014",
-      "EVD-015"
+      "EVD-004"
+    ],
+    "human_review_status": "review_required",
+    "value": 8
+  },
+  {
+    "metric_id": "MET-006",
+    "is_mock": true,
+    "subject_type": "project",
+    "subject_id": "PRJ-001",
+    "metric_name": "planned_investment",
+    "value": 9,
+    "unit": "亿元",
+    "period": "2025-04",
+    "scope_definition": "虚构北岸项目计划投资；内部 Mock 台账声称值，待与研究报告冲突核对",
+    "knowledge_status": "conflicting",
+    "evidence_ids": [
+      "EVD-005"
     ],
     "human_review_status": "review_required"
   }

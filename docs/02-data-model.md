@@ -10,12 +10,14 @@
 | Project | `project_id` | 固定项目身份并容纳不同来源的名称 | 标准名、别名、项目主体 ID、区域、储能类型 |
 | Source | `source_id` | 记录材料出处和获取方式 | 来源类型、标题、提供方、发布日期、定位符、线上/线下、真实/Mock |
 | Evidence | `evidence_id` | 记录从来源抽取的具体支持、反驳或背景片段 | 来源 ID、摘录、证据级别、关系、目标引用、抽取与人工审核状态 |
-| Fact | `fact_id` | 保存可独立陈述、可并存冲突的业务事实 | 主体引用、事实类型、值、单位、有效期、知识状态、证据 ID、人工审核状态 |
+| Fact | `fact_id` | 保存非量化、非比较指标型业务事实 | 主体引用、事实类型、值、有效期、知识状态、证据 ID、人工审核状态 |
 | ProjectEvent | `event_id` | 记录项目生命周期事件，不把事件压成单一当前状态 | 项目 ID、事件类型、日期、知识状态、证据 ID、人工审核状态 |
-| Metric | `metric_id` | 统一项目或组织的比较指标及口径 | 主体引用、指标名、值、单位、期间、口径定义、知识状态、证据 ID |
+| Metric | `metric_id` | 保存可进入同口径比较的量化业务事实 | 主体引用、指标名、值、单位、期间、口径定义、可选生命周期阶段、知识状态、证据 ID |
 | Judgment | `judgment_id` | 保存历史判断和研判草案及其可追溯依赖 | 判断文本、版本、状态、结构化依赖、成立前提、证据版本、Mock 报告来源 ID、人工审核状态、最近复核日期 |
 
 所有实体均要求 `is_mock`。样例逐条设为 `true`；`Source.data_origin` 也明确为 `mock`。组织、项目、来源等身份字段不是事实确认结论。组织与项目的标准名、别名及归属关系是资料包中人工维护的实体对齐结果；来源元数据是材料登记信息。`Fact.value`、`ProjectEvent.event_date`、`Metric.value` 及其期间/口径来自来源陈述或内部 Mock 台账，必须通过证据追溯。`Evidence.evidence_text` 是原始片段摘录，`evidence_grade`、`relation`、抽取状态和审核状态是处理记录；这些字段不代表 P02 判定规则已经执行。样例中的 5 条历史判断均来自同一份 Mock 历史报告，逐条保存成立前提与证据版本。`Judgment` 是研究加工结果，`human_review_status` 与 `judgment_status` 区分是否经过人工确认。
+
+`Fact` 只记录非量化、非比较指标型的业务事实，例如项目运营主体、项目类型、来源中的项目别名和技术路线。`Metric` 记录可同口径比较的量化业务事实，例如 MW、MWh、计划投资、协议金额、预算、已披露资本开支、已转固资产和经营结果。同一量化事实不得同时保存为 Fact 和 Metric；来源有不同声称值时，分别保存为独立 Metric，并各自关联原始 Evidence。
 
 ## 关系与引用
 
@@ -46,9 +48,11 @@ erDiagram
 - `known`：有明确值或日期；不等于自动完成所有业务确认。
 - `unknown`：正式记录暂无可确认值，省略值/日期字段，保留状态字段。
 - `pending_confirmation`：已有线索，但值或事件日期仍待核对；可以保留待核对的声称值。
-- `conflicting`：针对同一主体、类型和期间存在相互冲突的声称；分别保留记录与证据，不静默覆盖。汇总指标可不写单一值。
+- `conflicting`：针对同一主体、类型和期间存在相互冲突的声称；分别保留记录、值与证据，不静默覆盖。
 
-`0` 是有意义的数值，空字符串与缺少 `knowledge_status` 均不能表示未知。只有在 `unknown`、`pending_confirmation` 或 `conflicting` 时才允许省略尚无可确认值的字段。样例中的北岸项目计划投资有 8 与 9 亿元两条冲突事实；汇总 Metric 标为 `conflicting`，不选择其中一个作为真值。MW 表示功率，MWh 表示容量，以两个不同的 Metric 记录存储。投资指标通过 `metric_name` 区分计划投资、协议金额、预算、已披露资本开支、已转固资产，并用 `scope_definition` 写清口径。
+`0` 是有意义的数值，空字符串与缺少 `knowledge_status` 均不能表示未知。只有在 `unknown`、`pending_confirmation` 或 `conflicting` 时才允许省略尚无可确认值的字段。样例中的北岸项目计划投资有 8 与 9 亿元两条冲突 Metric，分别关联各自的原始 Evidence；不创建无值的汇总冲突 Metric，也不选择其中一个作为真值。MW 表示功率，MWh 表示容量，以两个不同的 Metric 记录存储。投资指标通过 `metric_name` 区分计划投资、协议金额、预算、已披露资本开支、已转固资产，并用 `scope_definition` 写清口径。
+
+`Metric.lifecycle_stage` 是可选的结构化枚举：`planned`、`approved_or_filed`、`construction_started`、`first_grid_connection`、`full_operation`、`operation`。`power_capacity` 与 `energy_capacity` 必须填写；投资和经营类指标可以省略。容量指标的生命周期阶段不能仅写在 `scope_definition` 中。样例中 MET-001 和 MET-003 是规划/拟配置阶段，MET-002 是备案阶段。
 
 `Project` 只存身份、项目主体、区域和储能类型。当前状态、最新投资、最新规模、经营结果会随来源和时间变化，应由事件、事实、指标及证据表达。简单维护“当前项目状态”字段会遮蔽备案、开工、并网等事件间的证据差异和冲突。本轮不维护重复真值；未来若需要检索用派生状态，也应从已核对记录计算，并保留依赖与更新时间。
 

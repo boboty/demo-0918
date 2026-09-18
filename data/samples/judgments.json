@@ -7,12 +7,12 @@
     "judgment_status": "review_required",
     "dependency_refs": [
       {
-        "target_type": "fact",
-        "target_id": "FCT-003"
+        "target_type": "metric",
+        "target_id": "MET-005"
       },
       {
-        "target_type": "fact",
-        "target_id": "FCT-004"
+        "target_type": "metric",
+        "target_id": "MET-006"
       },
       {
         "target_type": "metric",
