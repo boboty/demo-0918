@@ -7,6 +7,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 data = json.loads((ROOT / 'demo/data.json').read_text())
 real = json.loads((ROOT / 'demo/real-project.json').read_text())
+monitor = json.loads((ROOT / 'demo/monitor-task.json').read_text())
 collections = {
     'organization': [real['organization']],
     'project': [data['project'], real['project']],
@@ -14,7 +15,7 @@ collections = {
     'evidence': data['evidence'] + [data['inbox']['evidence']] + real['evidence'],
     'metric': data['metrics'] + [data['inbox']['metric']] + real['metrics'],
     'project_event': data['events'] + real['events'],
-    'judgment': data['judgments'] + [data['draft_template']],
+    'judgment': data['judgments'] + [data['draft_template']] + monitor['judgments'] + [monitor['draft_template']],
 }
 
 def check(value, spec, path):
@@ -61,4 +62,8 @@ assert real['research_project_id'] == 'PRJ-C03'
 assert set(real['research_source_ids'].values()) == {'SRC-C09', 'SRC-C10'}
 assert all(not row['is_mock'] and row['data_origin'] == 'real' for row in real['sources'])
 assert all(not row['is_mock'] for row in [real['project'], real['organization'], *real['evidence'], *real['metrics'], *real['events']])
+assert monitor['schedule']['enabled'] and monitor['schedule']['cron'] == '0 8 * * *'
+assert monitor['snapshots']['previous']['source_ids'] == ['SRC-009']
+assert monitor['snapshots']['current']['source_ids'] == ['SRC-009', 'SRC-010']
+assert all(row['is_mock'] for row in monitor['judgments'] + [monitor['draft_template']])
 print('Demo records conform to P01 schemas; real and Mock records remain separate')

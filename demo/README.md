@@ -1,21 +1,18 @@
-# 衡策课堂 Demo
+# 衡策·新能源战略研究台｜课堂薄切片
 
-在仓库根目录运行：
+在仓库根目录运行 `python3 -m http.server 8765 --directory demo`，打开 <http://127.0.0.1:8765>。
 
-```bash
-python3 -m http.server 8765 --directory demo
-```
+本演示遵守 `docs/01-product-definition.md` V1.2 Final：研究专题中的定时/手动更新只是“情报进入”的入口，不是爬虫或独立监测产品。六个工作区保留在界面中；舟山 PRJ-C03 运行情报进入、事实还原、同口径核对和研判复核，路径研究与集团对照明确标为本次未展开。项目状态轴、MW/MWh、投资口径与未知状态仍在事实台账中。
 
-打开 <http://127.0.0.1:8765>。先看舟山定海的公开证据：总建设规模与一期分开列出，两条投资声称值保留原币种，业务函数因币种不同且统计范围未获确认而输出 `comparison_blocked`。然后沿页面提示进入完全独立的北岸 Mock 项目，演示新情报 → 事实冲突 → 判断复核 → AI 草案 → 人工确认。右上角可重置交互。
+点击“立即更新”，`monitor.mjs` 对比 checked-in 的 previous/current 已复核资料快照，识别 SRC-C10，关联真实公开来源与摘录，并调用 `rules.mjs` 的 `comparePublicInvestment`。币种和统计范围阻断统一投资额；基于历史 Judgment 对 MET-024 的直接依赖标记 `review_required`。预置 AI 文本为 `draft`，人工确认、修改或维持后才更新本页内存中的 active 版本。点击“重置演示”可重走分支。
 
-`real-project.json` 只含 PRJ-C03 已复核的 SRC-C09、SRC-C10 对应资料，不使用 SRC-C11。为遵守未修改的 P01 Schema，业务记录使用 `PRJ-003`、`SRC-009`、`SRC-010`，外层 `research_project_id` 与 `research_source_ids` 保留研究资料编号。真实记录均标记 `is_mock=false`；北岸 Mock 记录保存在独立的 `data.json`，两者不混用。
+`real-project.json` 中 SRC-C09/C10 是已独立复核的真实公开资料，链接可从界面打开；`monitor-task.json` 保存专题、来源目录、真实的 `0 8 * * *` 定时配置、前后快照和显式 `is_mock=true` 的课堂模拟历史研判。课堂执行不实时联网、不运行后台 scheduler，亦不声称龙源电力官网本轮有实际抓取记录。原北岸 Mock 规则用例仍保留，但不再是主页面叙事。
 
-`rules.mjs` 执行投资口径阻断、证据关联、Mock 同口径冲突、直接依赖复核与 Judgment 版本处理。新草案引用 `MET-005`、`MET-006` 和原备案 Event，人工确认后保留依赖。AI 文本预置；交互只改变浏览器内存。
-
-自动验收：
+运行全部验收：
 
 ```bash
-python3 demo/validate.py && node --test demo/rules.test.mjs
+python3 demo/validate.py
+node --test demo/*.test.mjs
+python3 tools/validate_p01.py
+python3 tools/validate_p02.py
 ```
-
-规则实现覆盖本课堂场景所需的 P02 子集，不是通用规则引擎。

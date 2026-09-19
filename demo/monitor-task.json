@@ -1,0 +1,31 @@
+{
+  "task_id": "MON-C03",
+  "name": "龙源电力储能布局跟踪",
+  "objectives": ["龙源电力储能项目", "项目规模与建设状态", "投资口径", "可能影响已有研判的新信息"],
+  "schedule": { "enabled": true, "cron": "0 8 * * *", "display_time": "每天 08:00" },
+  "sources": [
+    { "name": "龙源电力官网", "method": "公开页面 / 课堂快照目录", "last_checked": "未记录", "status": "无新快照", "source_id": null },
+    { "name": "舟山市政府网", "method": "公开页面 / 已复核资料快照", "last_checked": "未记录", "status": "已记录 SRC-C09", "source_id": "SRC-009" },
+    { "name": "项目公开资料 / 安评公示", "method": "公开页面 / 已复核资料快照", "last_checked": "未记录", "status": "待检查", "source_id": "SRC-010" }
+  ],
+  "snapshots": {
+    "previous": { "source_ids": ["SRC-009"], "reviewed_excerpt": "总投资3.2亿元；总建设规模为100MW/200MWh（其中一期建设规模50MW/100MWh）" },
+    "current": { "source_ids": ["SRC-009", "SRC-010"], "reviewed_excerpt": "项目总投资6143.0100万美元；于2022年03月24日在定海区发展和改革局备案；一期50MW/100MWh工程" }
+  },
+  "judgments": [{
+    "judgment_id": "JDG-001", "is_mock": true,
+    "judgment_text": "根据目前公开资料，舟山定海项目总投资约 3.2 亿元。",
+    "version": 1, "judgment_status": "active",
+    "dependency_refs": [{ "target_type": "metric", "target_id": "MET-024" }],
+    "human_review_status": "confirmed", "last_reviewed_at": "2026-01-01",
+    "report_source_id": "SRC-009", "premises": ["基于当时已收录的政府公开资料"], "evidence_version": "C09-classroom-v1"
+  }],
+  "draft_template": {
+    "judgment_id": "JDG-006", "is_mock": true,
+    "judgment_text": "当前公开资料存在 3.2 亿元与 6143.0100 万美元两种项目投资表述。由于两份资料均未明确投资金额对应一期还是全项目，现有证据不足以形成统一投资额结论，建议继续补证。",
+    "version": 2, "judgment_status": "draft",
+    "dependency_refs": [{ "target_type": "metric", "target_id": "MET-024" }, { "target_type": "metric", "target_id": "MET-025" }],
+    "human_review_status": "unreviewed", "last_reviewed_at": null,
+    "report_source_id": "SRC-009", "premises": ["两份公开资料投资额统计范围尚未确认一致"], "evidence_version": "C09-C10-classroom-v2"
+  }
+}

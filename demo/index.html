@@ -1,42 +1,15 @@
 <!doctype html>
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>衡策 · 课堂演示</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-  <div class="shell">
-    <aside class="sidebar">
-      <div class="brand"><span class="brand-mark">衡</span><div><strong>衡策</strong><small>新能源战略研究台</small></div></div>
-      <div class="side-label">研究路径</div>
-      <nav aria-label="页面区域">
-        <a href="#real"><span>01</span>真实项目验证</a>
-        <a href="#inbox"><span>02</span>情报收件箱</a>
-        <a href="#ledger"><span>03</span>项目事实台账</a>
-        <a href="#review"><span>04</span>研判复核</a>
-        <a href="#decision"><span>05</span>人工确认</a>
-      </nav>
-      <div class="side-bottom"><span class="mock-dot"></span> 公开证据 + Mock 场景<br><small>本地交互 · 无外部接口</small></div>
-    </aside>
-    <main class="content">
-      <header class="topbar"><div><div class="eyebrow">战略研究 / 项目追踪</div><h1>从公开证据到持续研判</h1><p>核对项目事实与投资口径；当新信息改变事实，再由研究员复核判断。</p></div><button id="reset" class="text-button" type="button">重置演示</button></header>
-      <div class="case-guide"><span>研究中的两种工作状态</span><strong>公开资料核验</strong><b>→</b><strong>新情报影响既有判断</strong><small>下方两个项目的数据严格分开</small></div>
-      <section id="real" class="card real-card" aria-labelledby="real-title"><div class="section-head"><div><div class="kicker">01 / PUBLIC EVIDENCE</div><h2 id="real-title">真实项目验证</h2></div><span class="pill real-pill">真实公开资料</span></div><div id="real-body"></div></section>
-      <div class="story-bridge"><div><span>下一步 · 持续研判</span><strong>真实项目的金额需要继续补证。若新事实进入已有研究，系统会如何提醒研究员？</strong><p>以下使用完全独立的虚构北岸项目，演示情报进入、判断复核与人工确认。</p></div><a href="#inbox">查看研判流程 ↓</a></div>
-      <div class="mock-heading"><div><span class="mock-label">Mock 内部资料 · 独立演示</span><h2>虚构北岸独立储能示范项目</h2><p>一条内部台账与已有研究报告金额不一致，观察事实与判断如何变化。</p></div><span>PRJ-001</span></div>
-      <div class="progress" aria-label="演示进度"><span id="step-1" class="current">1 · 待处理</span><i></i><span id="step-2">2 · 待复核</span><i></i><span id="step-3">3 · 已决策</span></div>
-      <div class="main-grid">
-        <section id="inbox" class="card inbox-card"><div class="section-head"><div><div class="kicker">02 / INTELLIGENCE</div><h2>情报收件箱</h2></div><span id="inbox-status" class="pill blue">1 条新情报</span></div><div id="inbox-body"></div></section>
-        <section id="ledger" class="card ledger-card"><div class="section-head"><div><div class="kicker">03 / PROJECT LEDGER</div><h2>项目事实台账</h2></div><span class="pill neutral">PRJ-001</span></div><div id="ledger-body"></div></section>
-        <section id="review" class="card review-card"><div class="section-head"><div><div class="kicker">04 / JUDGMENT REVIEW</div><h2>研判复核</h2></div><span id="judgment-status" class="pill green">有效判断</span></div><div id="review-body"></div></section>
-        <section id="decision" class="card decision-card"><div class="section-head"><div><div class="kicker">05 / HUMAN DECISION</div><h2>人工确认</h2></div><span class="human-tag">研究员操作</span></div><div id="decision-body"></div></section>
-      </div>
-      <section class="card premises-card"><div class="section-head"><div><div class="kicker">PATH PREMISES</div><h2>路径前提</h2></div><span class="subtle">仅展示当前判断，不自动计算</span></div><div id="premises-body"></div></section>
-      <footer>衡策 · 课堂演示版 <span>一例公开资料核验 · 一例独立 Mock 研判 · 本地状态</span></footer>
-    </main>
-  </div>
-  <script type="module" src="./app.js"></script>
-</body>
-</html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>衡策 · 新型储能同行研究</title><link rel="stylesheet" href="./style.css"><link rel="stylesheet" href="./sprint.css"></head>
+<body><div class="shell"><aside class="sidebar"><div class="brand"><span class="brand-mark">衡</span><div><strong>衡策</strong><small>新能源战略研究台</small></div></div><div class="side-label">产品工作区</div><nav aria-label="页面区域"><a href="#result">01 情报收件箱</a><a href="#ledger">02 项目事实台账</a><a href="#comparison">03 同业比较</a><a href="#path">04 路径研究</a><a href="#group">05 集团对照</a><a href="#impact">06 研判中心</a></nav><div class="side-bottom">一次性研究 → 持续维护<br><small>事实 · 判断 · 证据</small></div></aside>
+<main class="content"><header class="topbar"><div><div class="eyebrow">衡策·新能源战略研究台 / 新型储能同行研究</div><h1>新型储能同行研究</h1><p>把一次性的战略研究，变成持续维护的事实、判断和证据体系。</p></div><button id="reset" class="text-button" type="button">重置演示</button></header>
+<div id="stage-nav" class="stage-nav"><span>情报进入</span><span>事实还原</span><span>同口径比较</span><span class="muted">路径研究</span><span class="muted">集团对照</span><span>研判复核</span></div>
+<section id="task" class="card task-card"><div class="section-head"><div><div class="kicker">研究专题 · PRJ-C03</div><h2>龙源电力储能布局跟踪</h2></div><span class="pill green">专题已配置</span></div><div class="task-grid"><div><h3>研究对象与关注问题</h3><ul id="objectives"></ul></div><div><h3>情报来源 <small>3 个</small></h3><div id="sources"></div></div></div><div class="task-action"><div><strong id="schedule"></strong><small>最近更新：<span id="last-update">尚未执行</span> · 待复核判断：<span id="review-count">0</span><br>本轮使用已复核资料快照；非实时联网。定时计划已配置，未运行后台调度器。</small></div><button id="fetch-now" class="primary-button" type="button">立即更新 →</button></div></section>
+<section id="result" class="card flow-card" hidden aria-live="polite"><div class="section-head"><div><div class="kicker">本次获取</div><h2 id="result-title">正在检查来源</h2></div><span class="pill blue" id="acquisition">已复核资料快照</span></div><div id="fetch-progress" class="fetch-progress"></div><div id="discovery" hidden></div></section>
+<div id="story" hidden><section id="changes" class="card flow-card"><div class="section-head"><div><div class="kicker">情报收件箱 → 实体对齐 PRJ-C03</div><h2>这次资料带来了什么变化？</h2></div></div><div id="change-list" class="change-list"></div></section>
+<section id="ledger" class="card flow-card"><div class="section-head"><div><div class="kicker">项目事实台账 · WOW 1</div><h2>舟山定海共享储能电站</h2></div></div><div id="facts"></div></section>
+<section id="comparison" class="card flow-card"><div class="section-head"><div><div class="kicker">同业比较 / 同口径核对 · 本次仅核对本项目两来源</div><h2>两种投资表述，不能自动裁决</h2></div></div><div id="amounts" class="amounts"></div><div id="system-call" class="system-call"></div><details><summary>查看证据与技术详情</summary><div id="evidence-detail"></div></details></section>
+<section id="impact" class="card flow-card"><div class="section-head"><div><div class="kicker">研判中心 · 判断影响</div><h2 id="impact-title"></h2></div><span id="impact-badge" class="pill amber">需要复核</span></div><div id="historical"></div></section>
+<div class="light-grid"><section id="path" class="card"><div class="kicker">路径研究 · WOW 2</div><h2>成立前提</h2><p>本次舟山资料不足以推断同行路径及形成原因。前提保持“未知 / 需补充情报”，本次演示未展开。</p></section><section id="group" class="card"><div class="kicker">集团对照 · WOW 2</div><h2>满足 / 不满足 / 未知</h2><p>未使用集团内部资料参与本次薄切片。与集团条件的逐项对照保持“未知 / 需补充情报”，不伪装为已执行。</p></section></div>
+<section id="draft" class="card flow-card"><div class="section-head"><div><div class="kicker">AI 草案 · 预置演示文本</div><h2>待研究员确认的新研判</h2></div><span id="draft-badge" class="pill blue">draft</span></div><p id="draft-text"></p><small>草案不自动覆盖原判断；人工决定后保留版本记录。</small></section>
+<section id="decision" class="card flow-card"><div class="section-head"><div><div class="kicker">人工决定</div><h2>最终决定仍由你做</h2></div></div><div id="decision-body"></div></section></div>
+<footer>衡策 · 课堂演示版 <span>真实公开来源 · 模拟历史研判 · 本页内存状态</span></footer></main></div><script type="module" src="./app.js?v=2"></script></body></html>
